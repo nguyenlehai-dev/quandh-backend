@@ -27,7 +27,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost";
+        var tryItOutBaseUrl = "https://quandh-core.theworkpc.com";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -717,7 +717,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: February 28, 2026</li>
+        <li>Last updated: March 3, 2026</li>
     </ul>
 </div>
 
@@ -727,7 +727,7 @@
         <h1 id="introduction">Introduction</h1>
 <p>Quandh Core API - RESTful API cho quản lý xác thực (Auth), người dùng (User) và bài viết (Post). Sử dụng Laravel Sanctum để xác thực Bearer token.</p>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>https://quandh-core.theworkpc.com</code>
 </aside>
 <pre><code>Tài liệu này cung cấp thông tin chi tiết để tích hợp và sử dụng Quandh Core API.
 
@@ -755,7 +755,7 @@
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/login" \
+    "https://quandh-core.theworkpc.com/api/auth/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -767,7 +767,7 @@
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/login"
+    "https://quandh-core.theworkpc.com/api/auth/login"
 );
 
 const headers = {
@@ -789,7 +789,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/auth/login';
+$url = 'https://quandh-core.theworkpc.com/api/auth/login';
 $response = $client-&gt;post(
     $url,
     [
@@ -948,7 +948,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/forgot-password" \
+    "https://quandh-core.theworkpc.com/api/auth/forgot-password" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -959,7 +959,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/forgot-password"
+    "https://quandh-core.theworkpc.com/api/auth/forgot-password"
 );
 
 const headers = {
@@ -980,7 +980,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/auth/forgot-password';
+$url = 'https://quandh-core.theworkpc.com/api/auth/forgot-password';
 $response = $client-&gt;post(
     $url,
     [
@@ -1109,7 +1109,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/reset-password" \
+    "https://quandh-core.theworkpc.com/api/auth/reset-password" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1123,7 +1123,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/reset-password"
+    "https://quandh-core.theworkpc.com/api/auth/reset-password"
 );
 
 const headers = {
@@ -1147,7 +1147,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/auth/reset-password';
+$url = 'https://quandh-core.theworkpc.com/api/auth/reset-password';
 $response = $client-&gt;post(
     $url,
     [
@@ -1316,7 +1316,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/logout" \
+    "https://quandh-core.theworkpc.com/api/auth/logout" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1324,7 +1324,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/logout"
+    "https://quandh-core.theworkpc.com/api/auth/logout"
 );
 
 const headers = {
@@ -1342,7 +1342,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/auth/logout';
+$url = 'https://quandh-core.theworkpc.com/api/auth/logout';
 $response = $client-&gt;post(
     $url,
     [
@@ -1469,7 +1469,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/switch-organization" \
+    "https://quandh-core.theworkpc.com/api/auth/switch-organization" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -1481,7 +1481,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/switch-organization"
+    "https://quandh-core.theworkpc.com/api/auth/switch-organization"
 );
 
 const headers = {
@@ -1503,7 +1503,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/auth/switch-organization';
+$url = 'https://quandh-core.theworkpc.com/api/auth/switch-organization';
 $response = $client-&gt;post(
     $url,
     [
@@ -1657,7 +1657,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/log-activities/export?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=desc&amp;limit=10&amp;method_type=GET&amp;status_code=200" \
+    --get "https://quandh-core.theworkpc.com/api/log-activities/export?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=desc&amp;limit=10&amp;method_type=GET&amp;status_code=200" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1665,7 +1665,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/export"
+    "https://quandh-core.theworkpc.com/api/log-activities/export"
 );
 
 const params = {
@@ -1697,7 +1697,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/export';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -1950,7 +1950,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/log-activities/stats?search=127.0.0.1&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;method_type=GET&amp;status_code=200" \
+    --get "https://quandh-core.theworkpc.com/api/log-activities/stats?search=127.0.0.1&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;method_type=GET&amp;status_code=200" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1958,7 +1958,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/stats"
+    "https://quandh-core.theworkpc.com/api/log-activities/stats"
 );
 
 const params = {
@@ -1990,7 +1990,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/stats';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -2239,7 +2239,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/log-activities/delete-by-date" \
+    "https://quandh-core.theworkpc.com/api/log-activities/delete-by-date" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -2252,7 +2252,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/delete-by-date"
+    "https://quandh-core.theworkpc.com/api/log-activities/delete-by-date"
 );
 
 const headers = {
@@ -2275,7 +2275,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/delete-by-date';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/delete-by-date';
 $response = $client-&gt;post(
     $url,
     [
@@ -2431,7 +2431,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/log-activities/clear" \
+    "https://quandh-core.theworkpc.com/api/log-activities/clear" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2439,7 +2439,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/clear"
+    "https://quandh-core.theworkpc.com/api/log-activities/clear"
 );
 
 const headers = {
@@ -2457,7 +2457,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/clear';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/clear';
 $response = $client-&gt;post(
     $url,
     [
@@ -2584,7 +2584,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/log-activities/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/log-activities/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -2600,7 +2600,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/log-activities/bulk-delete"
 );
 
 const headers = {
@@ -2626,7 +2626,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -2775,7 +2775,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/log-activities?search=login&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;method_type=architecto&amp;status_code=16" \
+    --get "https://quandh-core.theworkpc.com/api/log-activities?search=login&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;method_type=architecto&amp;status_code=16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2783,7 +2783,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities"
+    "https://quandh-core.theworkpc.com/api/log-activities"
 );
 
 const params = {
@@ -2815,7 +2815,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities';
 $response = $client-&gt;get(
     $url,
     [
@@ -2851,7 +2851,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 7,
+            &quot;id&quot;: 1,
             &quot;description&quot;: &quot;Et animi quos velit et fugiat.&quot;,
             &quot;user_type&quot;: &quot;User&quot;,
             &quot;user_id&quot;: null,
@@ -2862,15 +2862,15 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;status_code&quot;: 404,
             &quot;ip_address&quot;: &quot;125.161.29.220&quot;,
             &quot;country&quot;: &quot;Pakistan&quot;,
-            &quot;user_agent&quot;: &quot;Mozilla/5.0 (Windows NT 5.0; en-US; rv:1.9.2.20) Gecko/20100114 Firefox/35.0&quot;,
+            &quot;user_agent&quot;: &quot;Mozilla/5.0 (Windows NT 5.0; en-US; rv:1.9.2.20) Gecko/20260224 Firefox/35.0&quot;,
             &quot;request_data&quot;: {
                 &quot;sample&quot;: &quot;et&quot;
             },
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 8,
+            &quot;id&quot;: 2,
             &quot;description&quot;: &quot;Aut dolores enim non facere tempora ex voluptatem.&quot;,
             &quot;user_type&quot;: &quot;User&quot;,
             &quot;user_id&quot;: null,
@@ -2885,8 +2885,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;request_data&quot;: {
                 &quot;sample&quot;: &quot;accusamus&quot;
             },
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -3136,7 +3136,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/log-activities/16" \
+    --get "https://quandh-core.theworkpc.com/api/log-activities/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3144,7 +3144,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/16"
+    "https://quandh-core.theworkpc.com/api/log-activities/16"
 );
 
 const headers = {
@@ -3162,7 +3162,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/16';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -3186,12 +3186,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 9,
+        &quot;id&quot;: 3,
         &quot;description&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;user_type&quot;: &quot;User&quot;,
-        &quot;user_id&quot;: 43,
+        &quot;user_id&quot;: 20,
         &quot;user_name&quot;: &quot;Bridget Schaden&quot;,
-        &quot;organization_id&quot;: 82,
+        &quot;organization_id&quot;: 22,
         &quot;route&quot;: &quot;https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html&quot;,
         &quot;method_type&quot;: &quot;POST&quot;,
         &quot;status_code&quot;: 401,
@@ -3201,8 +3201,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;request_data&quot;: {
             &quot;sample&quot;: &quot;veniam&quot;
         },
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -3332,7 +3332,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/log-activities/16" \
+    "https://quandh-core.theworkpc.com/api/log-activities/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3340,7 +3340,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/16"
+    "https://quandh-core.theworkpc.com/api/log-activities/16"
 );
 
 const headers = {
@@ -3358,7 +3358,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/16';
+$url = 'https://quandh-core.theworkpc.com/api/log-activities/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -3513,14 +3513,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations/public?search=cong-ty&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/organizations/public?search=cong-ty&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/public"
+    "https://quandh-core.theworkpc.com/api/organizations/public"
 );
 
 const params = {
@@ -3549,7 +3549,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/public';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -3582,7 +3582,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 62,
+            &quot;id&quot;: 2,
             &quot;name&quot;: &quot;Bailey Inc&quot;,
             &quot;slug&quot;: &quot;quos-velit-et-fugiat-sunt-nihil-accusantium-harum&quot;,
             &quot;description&quot;: null,
@@ -3592,11 +3592,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:36 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:36 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 63,
+            &quot;id&quot;: 3,
             &quot;name&quot;: &quot;DuBuque Inc&quot;,
             &quot;slug&quot;: &quot;quo-omnis-nostrum-aut-adipisci&quot;,
             &quot;description&quot;: &quot;Qui commodi incidunt iure odit.&quot;,
@@ -3606,8 +3606,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:36 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:36 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -3787,14 +3787,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations/public-options?search=cong-ty&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/organizations/public-options?search=cong-ty&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/public-options"
+    "https://quandh-core.theworkpc.com/api/organizations/public-options"
 );
 
 const params = {
@@ -3823,7 +3823,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -3856,12 +3856,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 64,
+            &quot;id&quot;: 4,
             &quot;name&quot;: &quot;Okuneva, Rempel and Gulgowski&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 65,
+            &quot;id&quot;: 5,
             &quot;name&quot;: &quot;Cormier Inc&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;
         }
@@ -4044,7 +4044,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations/export?search=architecto&amp;status=architecto&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/organizations/export?search=architecto&amp;status=architecto&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4052,7 +4052,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/export"
+    "https://quandh-core.theworkpc.com/api/organizations/export"
 );
 
 const params = {
@@ -4082,7 +4082,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/export';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -4309,16 +4309,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/organizations/import" \
+    "https://quandh-core.theworkpc.com/api/organizations/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php5ebvqqj18paf83vcHZF" </code></pre></div>
+    --form "file=@/tmp/phpPNTzNX" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/import"
+    "https://quandh-core.theworkpc.com/api/organizations/import"
 );
 
 const headers = {
@@ -4339,7 +4339,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/import';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -4351,7 +4351,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php5ebvqqj18paf83vcHZF', 'r')
+                'contents' =&gt; fopen('/tmp/phpPNTzNX', 'r')
             ],
         ],
     ]
@@ -4467,7 +4467,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, slug, description, status. Example: <code>/tmp/php5ebvqqj18paf83vcHZF</code></p>
+<p>File excel (xlsx, xls, csv). Cột: name, slug, description, status. Example: <code>/tmp/phpPNTzNX</code></p>
         </div>
         </form>
 
@@ -4485,7 +4485,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/organizations/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/organizations/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4501,7 +4501,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/organizations/bulk-delete"
 );
 
 const headers = {
@@ -4527,7 +4527,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -4676,7 +4676,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/organizations/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/organizations/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4693,7 +4693,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/bulk-status"
+    "https://quandh-core.theworkpc.com/api/organizations/bulk-status"
 );
 
 const headers = {
@@ -4720,7 +4720,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -4882,7 +4882,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations/stats?search=cong-ty&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/organizations/stats?search=cong-ty&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4890,7 +4890,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/stats"
+    "https://quandh-core.theworkpc.com/api/organizations/stats"
 );
 
 const params = {
@@ -4920,7 +4920,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/stats';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -5145,7 +5145,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations/tree?status=architecto" \
+    --get "https://quandh-core.theworkpc.com/api/organizations/tree?status=architecto" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5153,7 +5153,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/tree"
+    "https://quandh-core.theworkpc.com/api/organizations/tree"
 );
 
 const params = {
@@ -5177,7 +5177,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/tree';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/tree';
 $response = $client-&gt;get(
     $url,
     [
@@ -5329,7 +5329,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations?search=cong-ty&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=id&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/organizations?search=cong-ty&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=id&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5337,7 +5337,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations"
+    "https://quandh-core.theworkpc.com/api/organizations"
 );
 
 const params = {
@@ -5367,7 +5367,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations';
+$url = 'https://quandh-core.theworkpc.com/api/organizations';
 $response = $client-&gt;get(
     $url,
     [
@@ -5401,7 +5401,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 67,
+            &quot;id&quot;: 7,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;slug&quot;: &quot;velit-et-fugiat-sunt-nihil-accusantium&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
@@ -5411,11 +5411,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 68,
+            &quot;id&quot;: 8,
             &quot;name&quot;: &quot;Marquardt Inc&quot;,
             &quot;slug&quot;: &quot;nostrum-qui-commodi-incidunt-iure&quot;,
             &quot;description&quot;: null,
@@ -5425,8 +5425,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -5652,7 +5652,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/organizations/1" \
+    --get "https://quandh-core.theworkpc.com/api/organizations/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5660,7 +5660,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/1"
+    "https://quandh-core.theworkpc.com/api/organizations/1"
 );
 
 const headers = {
@@ -5678,7 +5678,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/1';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -5702,20 +5702,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 70,
+        &quot;id&quot;: 10,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;slug&quot;: &quot;qui-commodi-incidunt-iure-odit&quot;,
         &quot;description&quot;: &quot;Modi ipsum nostrum omnis autem et.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 69,
+        &quot;parent_id&quot;: 9,
         &quot;sort_order&quot;: 84,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;,
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 69,
+            &quot;id&quot;: 9,
             &quot;name&quot;: &quot;Stokes and Sons&quot;,
             &quot;slug&quot;: &quot;tempora-ex-voluptatem-laboriosam-praesentium-quis&quot;,
             &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
@@ -5725,23 +5725,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 71,
+                &quot;id&quot;: 11,
                 &quot;name&quot;: &quot;Kutch and Sons&quot;,
                 &quot;slug&quot;: &quot;nemo-odit-quia-officia-est-dignissimos&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 70,
+                &quot;parent_id&quot;: 10,
                 &quot;sort_order&quot;: 6,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-                &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+                &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
             }
         ]
     },
@@ -5873,7 +5873,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/organizations" \
+    "https://quandh-core.theworkpc.com/api/organizations" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -5890,7 +5890,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations"
+    "https://quandh-core.theworkpc.com/api/organizations"
 );
 
 const headers = {
@@ -5917,7 +5917,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations';
+$url = 'https://quandh-core.theworkpc.com/api/organizations';
 $response = $client-&gt;post(
     $url,
     [
@@ -5949,7 +5949,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 72,
+        &quot;id&quot;: 12,
         &quot;name&quot;: &quot;Dach-Gaylord&quot;,
         &quot;slug&quot;: &quot;mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo&quot;,
         &quot;description&quot;: null,
@@ -5959,8 +5959,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;depth&quot;: 0,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Organization đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -6139,7 +6139,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/organizations/1" \
+    "https://quandh-core.theworkpc.com/api/organizations/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6156,7 +6156,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/1"
+    "https://quandh-core.theworkpc.com/api/organizations/1"
 );
 
 const headers = {
@@ -6183,7 +6183,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/1';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/1';
 $response = $client-&gt;put(
     $url,
     [
@@ -6215,20 +6215,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 74,
+        &quot;id&quot;: 14,
         &quot;name&quot;: &quot;Tillman-Runte&quot;,
         &quot;slug&quot;: &quot;aut-ab-provident-perspiciatis-quo-omnis-nostrum-aut&quot;,
         &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 73,
+        &quot;parent_id&quot;: 13,
         &quot;sort_order&quot;: 45,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;,
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 73,
+            &quot;id&quot;: 13,
             &quot;name&quot;: &quot;Bauch, Fritsch and O&#039;Keefe&quot;,
             &quot;slug&quot;: &quot;autem-et-consequatur-aut-dolores-enim-non-facere-tempora&quot;,
             &quot;description&quot;: &quot;Laboriosam praesentium quis adipisci molestias fugit deleniti distinctio.&quot;,
@@ -6238,23 +6238,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 75,
+                &quot;id&quot;: 15,
                 &quot;name&quot;: &quot;Ankunding PLC&quot;,
                 &quot;slug&quot;: &quot;veniam-corporis-dolorem-mollitia&quot;,
                 &quot;description&quot;: &quot;Odit quia officia est dignissimos neque blanditiis odio.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 74,
+                &quot;parent_id&quot;: 14,
                 &quot;sort_order&quot;: 16,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-                &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+                &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
             }
         ]
     },
@@ -6460,7 +6460,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/organizations/1" \
+    "https://quandh-core.theworkpc.com/api/organizations/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6477,7 +6477,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/1"
+    "https://quandh-core.theworkpc.com/api/organizations/1"
 );
 
 const headers = {
@@ -6504,7 +6504,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/1';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/1';
 $response = $client-&gt;patch(
     $url,
     [
@@ -6536,20 +6536,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 77,
+        &quot;id&quot;: 17,
         &quot;name&quot;: &quot;Schuster Inc&quot;,
         &quot;slug&quot;: &quot;perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui&quot;,
         &quot;description&quot;: &quot;Iure odit et et modi ipsum nostrum omnis.&quot;,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;parent_id&quot;: 76,
+        &quot;parent_id&quot;: 16,
         &quot;sort_order&quot;: 54,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;,
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 76,
+            &quot;id&quot;: 16,
             &quot;name&quot;: &quot;Tromp-Leffler&quot;,
             &quot;slug&quot;: &quot;non-facere-tempora-ex-voluptatem-laboriosam-praesentium&quot;,
             &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
@@ -6559,23 +6559,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 78,
+                &quot;id&quot;: 18,
                 &quot;name&quot;: &quot;Batz Inc&quot;,
                 &quot;slug&quot;: &quot;mollitia-deleniti-nemo-odit-quia-officia&quot;,
                 &quot;description&quot;: &quot;Neque blanditiis odio veritatis excepturi doloribus delectus.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 77,
+                &quot;parent_id&quot;: 17,
                 &quot;sort_order&quot;: 22,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-                &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+                &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
             }
         ]
     },
@@ -6781,7 +6781,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/organizations/1" \
+    "https://quandh-core.theworkpc.com/api/organizations/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6789,7 +6789,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/1"
+    "https://quandh-core.theworkpc.com/api/organizations/1"
 );
 
 const headers = {
@@ -6807,7 +6807,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/1';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -6959,7 +6959,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/organizations/1/status" \
+    "https://quandh-core.theworkpc.com/api/organizations/1/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6971,7 +6971,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/organizations/1/status"
+    "https://quandh-core.theworkpc.com/api/organizations/1/status"
 );
 
 const headers = {
@@ -6993,7 +6993,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/organizations/1/status';
+$url = 'https://quandh-core.theworkpc.com/api/organizations/1/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -7020,20 +7020,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 80,
+        &quot;id&quot;: 20,
         &quot;name&quot;: &quot;Baumbach Ltd&quot;,
         &quot;slug&quot;: &quot;et-modi-ipsum-nostrum-omnis-autem-et-consequatur&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 79,
+        &quot;parent_id&quot;: 19,
         &quot;sort_order&quot;: 62,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;,
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 79,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;VonRueden-Leuschke&quot;,
             &quot;slug&quot;: &quot;voluptatem-laboriosam-praesentium-quis-adipisci&quot;,
             &quot;description&quot;: null,
@@ -7043,23 +7043,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 81,
+                &quot;id&quot;: 21,
                 &quot;name&quot;: &quot;Gaylord, Hettinger and Nitzsche&quot;,
                 &quot;slug&quot;: &quot;libero-aliquam-veniam-corporis-dolorem-mollitia-deleniti&quot;,
                 &quot;description&quot;: &quot;Quia officia est dignissimos neque.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 80,
+                &quot;parent_id&quot;: 20,
                 &quot;sort_order&quot;: 6,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-                &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+                &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
             }
         ]
     },
@@ -7209,7 +7209,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permissions/export?search=architecto&amp;status=active&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/permissions/export?search=architecto&amp;status=active&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -7217,7 +7217,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/export"
+    "https://quandh-core.theworkpc.com/api/permissions/export"
 );
 
 const params = {
@@ -7247,7 +7247,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/export';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -7474,16 +7474,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/permissions/import" \
+    "https://quandh-core.theworkpc.com/api/permissions/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpejpegu9b36p420KfgXk" </code></pre></div>
+    --form "file=@/tmp/phpwjanzz" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/import"
+    "https://quandh-core.theworkpc.com/api/permissions/import"
 );
 
 const headers = {
@@ -7504,7 +7504,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/import';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -7516,7 +7516,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpejpegu9b36p420KfgXk', 'r')
+                'contents' =&gt; fopen('/tmp/phpwjanzz', 'r')
             ],
         ],
     ]
@@ -7632,7 +7632,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, guard_name, description, sort_order, parent_id. Example: <code>/tmp/phpejpegu9b36p420KfgXk</code></p>
+<p>File excel (xlsx, xls, csv). Cột: name, guard_name, description, sort_order, parent_id. Example: <code>/tmp/phpwjanzz</code></p>
         </div>
         </form>
 
@@ -7650,7 +7650,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/permissions/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/permissions/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -7666,7 +7666,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/permissions/bulk-delete"
 );
 
 const headers = {
@@ -7692,7 +7692,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -7841,7 +7841,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permissions/stats?search=posts&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/permissions/stats?search=posts&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -7849,7 +7849,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/stats"
+    "https://quandh-core.theworkpc.com/api/permissions/stats"
 );
 
 const params = {
@@ -7879,7 +7879,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/stats';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -8102,7 +8102,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permissions/tree?parent_id=" \
+    --get "https://quandh-core.theworkpc.com/api/permissions/tree?parent_id=" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -8110,7 +8110,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/tree"
+    "https://quandh-core.theworkpc.com/api/permissions/tree"
 );
 
 const params = {
@@ -8134,7 +8134,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/tree';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/tree';
 $response = $client-&gt;get(
     $url,
     [
@@ -8287,7 +8287,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permissions?search=posts&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=sort_order&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/permissions?search=posts&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=sort_order&amp;sort_order=asc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -8295,7 +8295,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions"
+    "https://quandh-core.theworkpc.com/api/permissions"
 );
 
 const params = {
@@ -8325,7 +8325,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions';
+$url = 'https://quandh-core.theworkpc.com/api/permissions';
 $response = $client-&gt;get(
     $url,
     [
@@ -8359,24 +8359,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 178,
+            &quot;id&quot;: 158,
             &quot;name&quot;: &quot;users.update.4027&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;description&quot;: null,
             &quot;sort_order&quot;: 95,
             &quot;parent_id&quot;: null,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 179,
+            &quot;id&quot;: 159,
             &quot;name&quot;: &quot;documents.index.6955&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;description&quot;: null,
             &quot;sort_order&quot;: 39,
             &quot;parent_id&quot;: null,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -8602,7 +8602,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permissions/1" \
+    --get "https://quandh-core.theworkpc.com/api/permissions/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -8610,7 +8610,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/1"
+    "https://quandh-core.theworkpc.com/api/permissions/1"
 );
 
 const headers = {
@@ -8628,7 +8628,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/1';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -8652,30 +8652,30 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 181,
+        &quot;id&quot;: 161,
         &quot;name&quot;: &quot;users.index.4524&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;sort_order&quot;: 45,
-        &quot;parent_id&quot;: 180,
+        &quot;parent_id&quot;: 160,
         &quot;parent&quot;: {
-            &quot;id&quot;: 180,
+            &quot;id&quot;: 160,
             &quot;name&quot;: &quot;documents.show.967&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 182,
+                &quot;id&quot;: 162,
                 &quot;name&quot;: &quot;roles.destroy.1904&quot;,
                 &quot;guard_name&quot;: &quot;web&quot;,
                 &quot;description&quot;: null,
                 &quot;sort_order&quot;: 93,
-                &quot;parent_id&quot;: 181,
-                &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-                &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+                &quot;parent_id&quot;: 161,
+                &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -8805,7 +8805,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/permissions" \
+    "https://quandh-core.theworkpc.com/api/permissions" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -8821,7 +8821,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions"
+    "https://quandh-core.theworkpc.com/api/permissions"
 );
 
 const headers = {
@@ -8847,7 +8847,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions';
+$url = 'https://quandh-core.theworkpc.com/api/permissions';
 $response = $client-&gt;post(
     $url,
     [
@@ -8878,14 +8878,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 183,
+        &quot;id&quot;: 163,
         &quot;name&quot;: &quot;roles.index.660&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;sort_order&quot;: 91,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -9052,7 +9052,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/permissions/1" \
+    "https://quandh-core.theworkpc.com/api/permissions/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -9068,7 +9068,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/1"
+    "https://quandh-core.theworkpc.com/api/permissions/1"
 );
 
 const headers = {
@@ -9094,7 +9094,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/1';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/1';
 $response = $client-&gt;put(
     $url,
     [
@@ -9125,14 +9125,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 184,
+        &quot;id&quot;: 164,
         &quot;name&quot;: &quot;roles.index.4338&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: null,
         &quot;sort_order&quot;: 7,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được cập nhật!&quot;
@@ -9324,7 +9324,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/permissions/1" \
+    "https://quandh-core.theworkpc.com/api/permissions/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -9340,7 +9340,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/1"
+    "https://quandh-core.theworkpc.com/api/permissions/1"
 );
 
 const headers = {
@@ -9366,7 +9366,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/1';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/1';
 $response = $client-&gt;patch(
     $url,
     [
@@ -9397,14 +9397,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 185,
+        &quot;id&quot;: 165,
         &quot;name&quot;: &quot;roles.index.3491&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Sunt nihil accusantium harum mollitia.&quot;,
         &quot;sort_order&quot;: 86,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được cập nhật!&quot;
@@ -9596,7 +9596,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/permissions/1" \
+    "https://quandh-core.theworkpc.com/api/permissions/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -9604,7 +9604,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permissions/1"
+    "https://quandh-core.theworkpc.com/api/permissions/1"
 );
 
 const headers = {
@@ -9622,7 +9622,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/permissions/1';
+$url = 'https://quandh-core.theworkpc.com/api/permissions/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -9778,7 +9778,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/roles/export?search=architecto&amp;status=active&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/roles/export?search=architecto&amp;status=active&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -9786,7 +9786,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/export"
+    "https://quandh-core.theworkpc.com/api/roles/export"
 );
 
 const params = {
@@ -9816,7 +9816,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/export';
+$url = 'https://quandh-core.theworkpc.com/api/roles/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -10043,16 +10043,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/roles/import" \
+    "https://quandh-core.theworkpc.com/api/roles/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpt8pqn2mooia3fbVnGr1" </code></pre></div>
+    --form "file=@/tmp/phpbDs8iZ" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/import"
+    "https://quandh-core.theworkpc.com/api/roles/import"
 );
 
 const headers = {
@@ -10073,7 +10073,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/import';
+$url = 'https://quandh-core.theworkpc.com/api/roles/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -10085,7 +10085,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpt8pqn2mooia3fbVnGr1', 'r')
+                'contents' =&gt; fopen('/tmp/phpbDs8iZ', 'r')
             ],
         ],
     ]
@@ -10201,7 +10201,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, guard_name, organization_id. Example: <code>/tmp/phpt8pqn2mooia3fbVnGr1</code></p>
+<p>File excel (xlsx, xls, csv). Cột: name, guard_name, organization_id. Example: <code>/tmp/phpbDs8iZ</code></p>
         </div>
         </form>
 
@@ -10219,7 +10219,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/roles/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/roles/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -10235,7 +10235,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/roles/bulk-delete"
 );
 
 const headers = {
@@ -10261,7 +10261,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/roles/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -10410,7 +10410,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/roles/stats?search=admin&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/roles/stats?search=admin&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -10418,7 +10418,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/stats"
+    "https://quandh-core.theworkpc.com/api/roles/stats"
 );
 
 const params = {
@@ -10448,7 +10448,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/stats';
+$url = 'https://quandh-core.theworkpc.com/api/roles/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -10671,7 +10671,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/roles?search=admin&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=id&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/roles?search=admin&amp;status=active&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=id&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -10679,7 +10679,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles"
+    "https://quandh-core.theworkpc.com/api/roles"
 );
 
 const params = {
@@ -10709,7 +10709,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles';
+$url = 'https://quandh-core.theworkpc.com/api/roles';
 $response = $client-&gt;get(
     $url,
     [
@@ -10743,20 +10743,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 11,
+            &quot;id&quot;: 5,
             &quot;name&quot;: &quot;role_ng775&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;organization_id&quot;: null,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 12,
+            &quot;id&quot;: 6,
             &quot;name&quot;: &quot;role_mi365&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;organization_id&quot;: null,
-            &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -10982,7 +10982,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/roles/1" \
+    --get "https://quandh-core.theworkpc.com/api/roles/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -10990,7 +10990,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/1"
+    "https://quandh-core.theworkpc.com/api/roles/1"
 );
 
 const headers = {
@@ -11008,7 +11008,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/1';
+$url = 'https://quandh-core.theworkpc.com/api/roles/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -11032,19 +11032,19 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 13,
+        &quot;id&quot;: 7,
         &quot;name&quot;: &quot;role_wp680&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
-        &quot;organization_id&quot;: 66,
+        &quot;organization_id&quot;: 6,
         &quot;organization&quot;: {
-            &quot;id&quot;: 66,
+            &quot;id&quot;: 6,
             &quot;name&quot;: &quot;Dare Group&quot;
         },
         &quot;permissions&quot;: [
             &quot;organizations.index.7602&quot;
         ],
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:29 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:29 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -11174,7 +11174,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/roles" \
+    "https://quandh-core.theworkpc.com/api/roles" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -11192,7 +11192,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles"
+    "https://quandh-core.theworkpc.com/api/roles"
 );
 
 const headers = {
@@ -11220,7 +11220,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles';
+$url = 'https://quandh-core.theworkpc.com/api/roles';
 $response = $client-&gt;post(
     $url,
     [
@@ -11253,15 +11253,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 14,
+        &quot;id&quot;: 8,
         &quot;name&quot;: &quot;role_zm806&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;documents.index.5606&quot;
         ],
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -11406,7 +11406,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/roles/1" \
+    "https://quandh-core.theworkpc.com/api/roles/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -11423,7 +11423,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/1"
+    "https://quandh-core.theworkpc.com/api/roles/1"
 );
 
 const headers = {
@@ -11450,7 +11450,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/1';
+$url = 'https://quandh-core.theworkpc.com/api/roles/1';
 $response = $client-&gt;put(
     $url,
     [
@@ -11482,15 +11482,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 15,
+        &quot;id&quot;: 9,
         &quot;name&quot;: &quot;role_yv564&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;users.update.3433&quot;
         ],
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được cập nhật!&quot;
@@ -11660,7 +11660,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/roles/1" \
+    "https://quandh-core.theworkpc.com/api/roles/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -11677,7 +11677,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/1"
+    "https://quandh-core.theworkpc.com/api/roles/1"
 );
 
 const headers = {
@@ -11704,7 +11704,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/1';
+$url = 'https://quandh-core.theworkpc.com/api/roles/1';
 $response = $client-&gt;patch(
     $url,
     [
@@ -11736,15 +11736,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 16,
+        &quot;id&quot;: 10,
         &quot;name&quot;: &quot;role_lj575&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;roles.destroy.6854&quot;
         ],
-        &quot;created_at&quot;: &quot;11:37:37 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:37 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:30 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:30 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được cập nhật!&quot;
@@ -11914,7 +11914,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/roles/1" \
+    "https://quandh-core.theworkpc.com/api/roles/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -11922,7 +11922,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/roles/1"
+    "https://quandh-core.theworkpc.com/api/roles/1"
 );
 
 const headers = {
@@ -11940,7 +11940,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/roles/1';
+$url = 'https://quandh-core.theworkpc.com/api/roles/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -12095,14 +12095,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/settings/public" \
+    --get "https://quandh-core.theworkpc.com/api/settings/public" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/settings/public"
+    "https://quandh-core.theworkpc.com/api/settings/public"
 );
 
 const headers = {
@@ -12119,7 +12119,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/settings/public';
+$url = 'https://quandh-core.theworkpc.com/api/settings/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -12230,7 +12230,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/settings" \
+    --get "https://quandh-core.theworkpc.com/api/settings" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -12238,7 +12238,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/settings"
+    "https://quandh-core.theworkpc.com/api/settings"
 );
 
 const headers = {
@@ -12256,7 +12256,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/settings';
+$url = 'https://quandh-core.theworkpc.com/api/settings';
 $response = $client-&gt;get(
     $url,
     [
@@ -12380,7 +12380,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/settings/copyright" \
+    --get "https://quandh-core.theworkpc.com/api/settings/copyright" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -12388,7 +12388,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/settings/copyright"
+    "https://quandh-core.theworkpc.com/api/settings/copyright"
 );
 
 const headers = {
@@ -12406,7 +12406,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/settings/copyright';
+$url = 'https://quandh-core.theworkpc.com/api/settings/copyright';
 $response = $client-&gt;get(
     $url,
     [
@@ -12550,7 +12550,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/settings" \
+    "https://quandh-core.theworkpc.com/api/settings" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -12564,7 +12564,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/settings"
+    "https://quandh-core.theworkpc.com/api/settings"
 );
 
 const headers = {
@@ -12588,7 +12588,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/settings';
+$url = 'https://quandh-core.theworkpc.com/api/settings';
 $response = $client-&gt;put(
     $url,
     [
@@ -12762,7 +12762,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=16" \
+    --get "https://quandh-core.theworkpc.com/api/users/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -12770,7 +12770,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/export"
+    "https://quandh-core.theworkpc.com/api/users/export"
 );
 
 const params = {
@@ -12800,7 +12800,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/export';
+$url = 'https://quandh-core.theworkpc.com/api/users/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -13027,16 +13027,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/users/import" \
+    "https://quandh-core.theworkpc.com/api/users/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpamh1mfq9kua86Z0JTQ4" </code></pre></div>
+    --form "file=@/tmp/phpTh1hIO" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/import"
+    "https://quandh-core.theworkpc.com/api/users/import"
 );
 
 const headers = {
@@ -13057,7 +13057,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/import';
+$url = 'https://quandh-core.theworkpc.com/api/users/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -13069,7 +13069,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpamh1mfq9kua86Z0JTQ4', 'r')
+                'contents' =&gt; fopen('/tmp/phpTh1hIO', 'r')
             ],
         ],
     ]
@@ -13185,7 +13185,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, email, password, status. Example: <code>/tmp/phpamh1mfq9kua86Z0JTQ4</code></p>
+<p>File excel (xlsx, xls, csv). Cột: name, email, password, status. Example: <code>/tmp/phpTh1hIO</code></p>
         </div>
         </form>
 
@@ -13203,7 +13203,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/users/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/users/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -13219,7 +13219,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/users/bulk-delete"
 );
 
 const headers = {
@@ -13245,7 +13245,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/users/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -13394,7 +13394,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/users/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/users/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -13411,7 +13411,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/bulk-status"
+    "https://quandh-core.theworkpc.com/api/users/bulk-status"
 );
 
 const headers = {
@@ -13438,7 +13438,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/users/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -13600,7 +13600,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/stats?search=john&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/users/stats?search=john&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -13608,7 +13608,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/stats"
+    "https://quandh-core.theworkpc.com/api/users/stats"
 );
 
 const params = {
@@ -13638,7 +13638,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/stats';
+$url = 'https://quandh-core.theworkpc.com/api/users/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -13863,7 +13863,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users?search=john&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/users?search=john&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -13871,7 +13871,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users"
+    "https://quandh-core.theworkpc.com/api/users"
 );
 
 const params = {
@@ -13901,7 +13901,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users';
+$url = 'https://quandh-core.theworkpc.com/api/users';
 $response = $client-&gt;get(
     $url,
     [
@@ -13935,7 +13935,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 36,
+            &quot;id&quot;: 13,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
             &quot;user_name&quot;: &quot;idickens&quot;,
@@ -13943,11 +13943,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
             &quot;assignments&quot;: [],
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
         },
         {
-            &quot;id&quot;: 37,
+            &quot;id&quot;: 14,
             &quot;name&quot;: &quot;Mya DuBuque&quot;,
             &quot;email&quot;: &quot;breitenberg.gilbert@example.com&quot;,
             &quot;user_name&quot;: &quot;price.amber&quot;,
@@ -13955,8 +13955,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
             &quot;assignments&quot;: [],
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
         }
     ],
     &quot;links&quot;: {
@@ -14182,7 +14182,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/1" \
+    --get "https://quandh-core.theworkpc.com/api/users/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14190,7 +14190,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "https://quandh-core.theworkpc.com/api/users/1"
 );
 
 const headers = {
@@ -14208,7 +14208,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/1';
+$url = 'https://quandh-core.theworkpc.com/api/users/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -14232,7 +14232,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 38,
+        &quot;id&quot;: 15,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
         &quot;user_name&quot;: &quot;imclaughlin&quot;,
@@ -14240,8 +14240,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -14371,7 +14371,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/users" \
+    "https://quandh-core.theworkpc.com/api/users" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -14391,7 +14391,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users"
+    "https://quandh-core.theworkpc.com/api/users"
 );
 
 const headers = {
@@ -14421,7 +14421,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users';
+$url = 'https://quandh-core.theworkpc.com/api/users';
 $response = $client-&gt;post(
     $url,
     [
@@ -14456,7 +14456,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 39,
+        &quot;id&quot;: 16,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;idickens@example.org&quot;,
         &quot;user_name&quot;: &quot;aschuster&quot;,
@@ -14464,8 +14464,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -14682,7 +14682,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/users/1" \
+    "https://quandh-core.theworkpc.com/api/users/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -14702,7 +14702,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "https://quandh-core.theworkpc.com/api/users/1"
 );
 
 const headers = {
@@ -14732,7 +14732,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/1';
+$url = 'https://quandh-core.theworkpc.com/api/users/1';
 $response = $client-&gt;put(
     $url,
     [
@@ -14767,7 +14767,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 40,
+        &quot;id&quot;: 17,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;aschuster@example.com&quot;,
         &quot;user_name&quot;: &quot;gilbert32&quot;,
@@ -14775,8 +14775,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được cập nhật!&quot;
@@ -15018,7 +15018,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/users/1" \
+    "https://quandh-core.theworkpc.com/api/users/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -15038,7 +15038,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "https://quandh-core.theworkpc.com/api/users/1"
 );
 
 const headers = {
@@ -15068,7 +15068,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/1';
+$url = 'https://quandh-core.theworkpc.com/api/users/1';
 $response = $client-&gt;patch(
     $url,
     [
@@ -15103,7 +15103,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 41,
+        &quot;id&quot;: 18,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;gilbert32@example.com&quot;,
         &quot;user_name&quot;: &quot;hirthe.theo&quot;,
@@ -15111,8 +15111,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được cập nhật!&quot;
@@ -15354,7 +15354,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/users/1" \
+    "https://quandh-core.theworkpc.com/api/users/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -15362,7 +15362,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1"
+    "https://quandh-core.theworkpc.com/api/users/1"
 );
 
 const headers = {
@@ -15380,7 +15380,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/1';
+$url = 'https://quandh-core.theworkpc.com/api/users/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -15532,7 +15532,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/users/1/status" \
+    "https://quandh-core.theworkpc.com/api/users/1/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -15544,7 +15544,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/1/status"
+    "https://quandh-core.theworkpc.com/api/users/1/status"
 );
 
 const headers = {
@@ -15566,7 +15566,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/users/1/status';
+$url = 'https://quandh-core.theworkpc.com/api/users/1/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -15593,7 +15593,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 42,
+        &quot;id&quot;: 19,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;imclaughlin@example.org&quot;,
         &quot;user_name&quot;: &quot;okeefe.isidro&quot;,
@@ -15601,8 +15601,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:27&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:27&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -15749,14 +15749,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-agencies/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-agencies/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/public"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/public"
 );
 
 const params = {
@@ -15785,7 +15785,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/public';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -15818,24 +15818,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 49,
+            &quot;id&quot;: 1,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 2,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -16013,14 +16013,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-agencies/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-agencies/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/public-options"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/public-options"
 );
 
 const params = {
@@ -16049,7 +16049,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -16082,12 +16082,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 51,
+            &quot;id&quot;: 3,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;
         },
         {
-            &quot;id&quot;: 52,
+            &quot;id&quot;: 4,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;
         }
@@ -16268,7 +16268,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-agencies/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-agencies/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -16276,7 +16276,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/export"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/export"
 );
 
 const params = {
@@ -16306,7 +16306,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/export';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -16535,16 +16535,16 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/issuing-agencies/import" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phppgvimkdm7aio5D6UK7n" </code></pre></div>
+    --form "file=@/tmp/phpedVK4e" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/import"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/import"
 );
 
 const headers = {
@@ -16565,7 +16565,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/import';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -16577,7 +16577,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phppgvimkdm7aio5D6UK7n', 'r')
+                'contents' =&gt; fopen('/tmp/phpedVK4e', 'r')
             ],
         ],
     ]
@@ -16693,7 +16693,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phppgvimkdm7aio5D6UK7n</code></p>
+<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpedVK4e</code></p>
         </div>
         </form>
 
@@ -16711,7 +16711,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/issuing-agencies/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -16727,7 +16727,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/bulk-delete"
 );
 
 const headers = {
@@ -16753,7 +16753,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -16902,7 +16902,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/issuing-agencies/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -16919,7 +16919,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/bulk-status"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/bulk-status"
 );
 
 const headers = {
@@ -16946,7 +16946,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -17108,7 +17108,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-agencies/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-agencies/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -17116,7 +17116,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/stats"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/stats"
 );
 
 const params = {
@@ -17146,7 +17146,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/stats';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -17371,7 +17371,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-agencies?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-agencies?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -17379,7 +17379,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies"
 );
 
 const params = {
@@ -17409,7 +17409,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies';
 $response = $client-&gt;get(
     $url,
     [
@@ -17443,24 +17443,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 10,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 59,
+            &quot;id&quot;: 11,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -17686,7 +17686,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-agencies/16" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-agencies/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -17694,7 +17694,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/16"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16"
 );
 
 const headers = {
@@ -17712,7 +17712,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -17736,14 +17736,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 12,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -17873,7 +17873,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/issuing-agencies" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -17887,7 +17887,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies"
 );
 
 const headers = {
@@ -17911,7 +17911,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies';
 $response = $client-&gt;post(
     $url,
     [
@@ -17940,14 +17940,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 13,
         &quot;name&quot;: &quot;Ernser Group&quot;,
         &quot;description&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -18090,7 +18090,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/issuing-agencies/16" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -18104,7 +18104,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/16"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16"
 );
 
 const headers = {
@@ -18128,7 +18128,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/16';
 $response = $client-&gt;put(
     $url,
     [
@@ -18157,14 +18157,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
+        &quot;id&quot;: 14,
         &quot;name&quot;: &quot;Bailey Ltd&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -18332,7 +18332,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/issuing-agencies/16" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -18346,7 +18346,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/16"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16"
 );
 
 const headers = {
@@ -18370,7 +18370,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/16';
 $response = $client-&gt;patch(
     $url,
     [
@@ -18399,14 +18399,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 63,
+        &quot;id&quot;: 15,
         &quot;name&quot;: &quot;Bailey Ltd&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -18574,7 +18574,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/issuing-agencies/16" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -18582,7 +18582,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/16"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16"
 );
 
 const headers = {
@@ -18600,7 +18600,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -18752,7 +18752,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/issuing-agencies/16/status" \
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -18764,7 +18764,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-agencies/16/status"
+    "https://quandh-core.theworkpc.com/api/issuing-agencies/16/status"
 );
 
 const headers = {
@@ -18786,7 +18786,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-agencies/16/status';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-agencies/16/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -18813,14 +18813,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 64,
+        &quot;id&quot;: 16,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -18967,14 +18967,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-levels/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-levels/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/public"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/public"
 );
 
 const params = {
@@ -19003,7 +19003,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/public';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -19036,24 +19036,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 49,
+            &quot;id&quot;: 1,
             &quot;name&quot;: &quot;modi deserunt&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 2,
             &quot;name&quot;: &quot;qui commodi&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -19231,14 +19231,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-levels/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-levels/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/public-options"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/public-options"
 );
 
 const params = {
@@ -19267,7 +19267,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -19300,12 +19300,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 51,
+            &quot;id&quot;: 3,
             &quot;name&quot;: &quot;provident perspiciatis&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 52,
+            &quot;id&quot;: 4,
             &quot;name&quot;: &quot;nostrum aut&quot;,
             &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;
         }
@@ -19486,7 +19486,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-levels/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-levels/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -19494,7 +19494,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/export"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/export"
 );
 
 const params = {
@@ -19524,7 +19524,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/export';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -19753,16 +19753,16 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/issuing-levels/import" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpq9rpip5c8j3udR2RhC1" </code></pre></div>
+    --form "file=@/tmp/phpStmdDD" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/import"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/import"
 );
 
 const headers = {
@@ -19783,7 +19783,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/import';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -19795,7 +19795,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpq9rpip5c8j3udR2RhC1', 'r')
+                'contents' =&gt; fopen('/tmp/phpStmdDD', 'r')
             ],
         ],
     ]
@@ -19911,7 +19911,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpq9rpip5c8j3udR2RhC1</code></p>
+<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpStmdDD</code></p>
         </div>
         </form>
 
@@ -19929,7 +19929,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/issuing-levels/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -19945,7 +19945,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/bulk-delete"
 );
 
 const headers = {
@@ -19971,7 +19971,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -20120,7 +20120,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/issuing-levels/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -20137,7 +20137,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/bulk-status"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/bulk-status"
 );
 
 const headers = {
@@ -20164,7 +20164,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -20326,7 +20326,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-levels/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-levels/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -20334,7 +20334,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/stats"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/stats"
 );
 
 const params = {
@@ -20364,7 +20364,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/stats';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -20589,7 +20589,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-levels?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-levels?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -20597,7 +20597,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels"
+    "https://quandh-core.theworkpc.com/api/issuing-levels"
 );
 
 const params = {
@@ -20627,7 +20627,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels';
 $response = $client-&gt;get(
     $url,
     [
@@ -20661,24 +20661,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 10,
             &quot;name&quot;: &quot;doloremque id&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 59,
+            &quot;id&quot;: 11,
             &quot;name&quot;: &quot;aliquam veniam&quot;,
             &quot;description&quot;: &quot;Mollitia deleniti nemo odit quia officia.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -20904,7 +20904,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/issuing-levels/16" \
+    --get "https://quandh-core.theworkpc.com/api/issuing-levels/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -20912,7 +20912,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/16"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16"
 );
 
 const headers = {
@@ -20930,7 +20930,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -20954,14 +20954,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 12,
         &quot;name&quot;: &quot;et modi&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -21091,7 +21091,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/issuing-levels" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -21105,7 +21105,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels"
+    "https://quandh-core.theworkpc.com/api/issuing-levels"
 );
 
 const headers = {
@@ -21129,7 +21129,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels';
 $response = $client-&gt;post(
     $url,
     [
@@ -21158,14 +21158,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 13,
         &quot;name&quot;: &quot;aut libero&quot;,
         &quot;description&quot;: &quot;Corporis dolorem mollitia deleniti nemo odit quia officia.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -21308,7 +21308,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/issuing-levels/16" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -21322,7 +21322,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/16"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16"
 );
 
 const headers = {
@@ -21346,7 +21346,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/16';
 $response = $client-&gt;put(
     $url,
     [
@@ -21375,14 +21375,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
+        &quot;id&quot;: 14,
         &quot;name&quot;: &quot;corporis dolorem&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -21550,7 +21550,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/issuing-levels/16" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -21564,7 +21564,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/16"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16"
 );
 
 const headers = {
@@ -21588,7 +21588,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/16';
 $response = $client-&gt;patch(
     $url,
     [
@@ -21617,14 +21617,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 63,
+        &quot;id&quot;: 15,
         &quot;name&quot;: &quot;mollitia deleniti&quot;,
         &quot;description&quot;: &quot;Quia officia est dignissimos neque.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -21792,7 +21792,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/issuing-levels/16" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -21800,7 +21800,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/16"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16"
 );
 
 const headers = {
@@ -21818,7 +21818,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/16';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -21970,7 +21970,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/issuing-levels/16/status" \
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -21982,7 +21982,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/issuing-levels/16/status"
+    "https://quandh-core.theworkpc.com/api/issuing-levels/16/status"
 );
 
 const headers = {
@@ -22004,7 +22004,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/issuing-levels/16/status';
+$url = 'https://quandh-core.theworkpc.com/api/issuing-levels/16/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -22031,14 +22031,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 64,
+        &quot;id&quot;: 16,
         &quot;name&quot;: &quot;ipsum nostrum&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -22185,14 +22185,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-types/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-types/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/public"
+    "https://quandh-core.theworkpc.com/api/document-types/public"
 );
 
 const params = {
@@ -22221,7 +22221,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/public';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -22254,24 +22254,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 49,
+            &quot;id&quot;: 1,
             &quot;name&quot;: &quot;nihil accusantium&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 2,
             &quot;name&quot;: &quot;omnis nostrum&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -22449,14 +22449,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-types/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-types/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/public-options"
+    "https://quandh-core.theworkpc.com/api/document-types/public-options"
 );
 
 const params = {
@@ -22485,7 +22485,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -22518,12 +22518,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 51,
+            &quot;id&quot;: 3,
             &quot;name&quot;: &quot;harum mollitia&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 52,
+            &quot;id&quot;: 4,
             &quot;name&quot;: &quot;aut ab&quot;,
             &quot;description&quot;: &quot;Quo omnis nostrum aut adipisci.&quot;
         }
@@ -22704,7 +22704,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-types/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-types/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -22712,7 +22712,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/export"
+    "https://quandh-core.theworkpc.com/api/document-types/export"
 );
 
 const params = {
@@ -22742,7 +22742,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/export';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -22971,16 +22971,16 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-types/import" \
+    "https://quandh-core.theworkpc.com/api/document-types/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php83ceodj20gs933WtHL3" </code></pre></div>
+    --form "file=@/tmp/phpGFskha" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/import"
+    "https://quandh-core.theworkpc.com/api/document-types/import"
 );
 
 const headers = {
@@ -23001,7 +23001,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/import';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -23013,7 +23013,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php83ceodj20gs933WtHL3', 'r')
+                'contents' =&gt; fopen('/tmp/phpGFskha', 'r')
             ],
         ],
     ]
@@ -23129,7 +23129,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/php83ceodj20gs933WtHL3</code></p>
+<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpGFskha</code></p>
         </div>
         </form>
 
@@ -23147,7 +23147,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-types/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/document-types/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -23163,7 +23163,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/document-types/bulk-delete"
 );
 
 const headers = {
@@ -23189,7 +23189,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -23338,7 +23338,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-types/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/document-types/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -23355,7 +23355,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/bulk-status"
+    "https://quandh-core.theworkpc.com/api/document-types/bulk-status"
 );
 
 const headers = {
@@ -23382,7 +23382,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -23544,7 +23544,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-types/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-types/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -23552,7 +23552,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/stats"
+    "https://quandh-core.theworkpc.com/api/document-types/stats"
 );
 
 const params = {
@@ -23582,7 +23582,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/stats';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -23807,7 +23807,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-types?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-types?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -23815,7 +23815,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types"
+    "https://quandh-core.theworkpc.com/api/document-types"
 );
 
 const params = {
@@ -23845,7 +23845,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types';
+$url = 'https://quandh-core.theworkpc.com/api/document-types';
 $response = $client-&gt;get(
     $url,
     [
@@ -23879,24 +23879,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 10,
             &quot;name&quot;: &quot;autem et&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 59,
+            &quot;id&quot;: 11,
             &quot;name&quot;: &quot;tempora ex&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -24122,7 +24122,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-types/16" \
+    --get "https://quandh-core.theworkpc.com/api/document-types/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -24130,7 +24130,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/16"
+    "https://quandh-core.theworkpc.com/api/document-types/16"
 );
 
 const headers = {
@@ -24148,7 +24148,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -24172,14 +24172,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 12,
         &quot;name&quot;: &quot;incidunt iure&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -24309,7 +24309,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-types" \
+    "https://quandh-core.theworkpc.com/api/document-types" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -24323,7 +24323,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types"
+    "https://quandh-core.theworkpc.com/api/document-types"
 );
 
 const headers = {
@@ -24347,7 +24347,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types';
+$url = 'https://quandh-core.theworkpc.com/api/document-types';
 $response = $client-&gt;post(
     $url,
     [
@@ -24376,14 +24376,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 13,
         &quot;name&quot;: &quot;consequatur aut&quot;,
         &quot;description&quot;: &quot;Non facere tempora ex voluptatem laboriosam praesentium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -24526,7 +24526,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/document-types/16" \
+    "https://quandh-core.theworkpc.com/api/document-types/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -24540,7 +24540,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/16"
+    "https://quandh-core.theworkpc.com/api/document-types/16"
 );
 
 const headers = {
@@ -24564,7 +24564,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/16';
 $response = $client-&gt;put(
     $url,
     [
@@ -24593,14 +24593,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
+        &quot;id&quot;: 14,
         &quot;name&quot;: &quot;voluptatem laboriosam&quot;,
         &quot;description&quot;: &quot;Adipisci molestias fugit deleniti distinctio eum doloremque id.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -24768,7 +24768,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-types/16" \
+    "https://quandh-core.theworkpc.com/api/document-types/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -24782,7 +24782,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/16"
+    "https://quandh-core.theworkpc.com/api/document-types/16"
 );
 
 const headers = {
@@ -24806,7 +24806,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/16';
 $response = $client-&gt;patch(
     $url,
     [
@@ -24835,14 +24835,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 63,
+        &quot;id&quot;: 15,
         &quot;name&quot;: &quot;praesentium quis&quot;,
         &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -25010,7 +25010,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/document-types/16" \
+    "https://quandh-core.theworkpc.com/api/document-types/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -25018,7 +25018,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/16"
+    "https://quandh-core.theworkpc.com/api/document-types/16"
 );
 
 const headers = {
@@ -25036,7 +25036,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -25188,7 +25188,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-types/16/status" \
+    "https://quandh-core.theworkpc.com/api/document-types/16/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -25200,7 +25200,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-types/16/status"
+    "https://quandh-core.theworkpc.com/api/document-types/16/status"
 );
 
 const headers = {
@@ -25222,7 +25222,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-types/16/status';
+$url = 'https://quandh-core.theworkpc.com/api/document-types/16/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -25249,14 +25249,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 64,
+        &quot;id&quot;: 16,
         &quot;name&quot;: &quot;odit et&quot;,
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:32 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:32 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -25403,14 +25403,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-fields/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-fields/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/public"
+    "https://quandh-core.theworkpc.com/api/document-fields/public"
 );
 
 const params = {
@@ -25439,7 +25439,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/public';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -25472,24 +25472,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 49,
+            &quot;id&quot;: 1,
             &quot;name&quot;: &quot;eius et&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 2,
             &quot;name&quot;: &quot;velit et&quot;,
             &quot;description&quot;: &quot;Nihil accusantium harum mollitia modi deserunt.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -25667,14 +25667,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-fields/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-fields/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/public-options"
+    "https://quandh-core.theworkpc.com/api/document-fields/public-options"
 );
 
 const params = {
@@ -25703,7 +25703,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -25736,12 +25736,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 51,
+            &quot;id&quot;: 3,
             &quot;name&quot;: &quot;animi quos&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 52,
+            &quot;id&quot;: 4,
             &quot;name&quot;: &quot;fugiat sunt&quot;,
             &quot;description&quot;: &quot;Harum mollitia modi deserunt aut ab provident perspiciatis quo.&quot;
         }
@@ -25922,7 +25922,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-fields/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-fields/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -25930,7 +25930,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/export"
+    "https://quandh-core.theworkpc.com/api/document-fields/export"
 );
 
 const params = {
@@ -25960,7 +25960,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/export';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -26189,16 +26189,16 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-fields/import" \
+    "https://quandh-core.theworkpc.com/api/document-fields/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpqbgfdo9k7en70mFqB7Z" </code></pre></div>
+    --form "file=@/tmp/phpDKcIPD" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/import"
+    "https://quandh-core.theworkpc.com/api/document-fields/import"
 );
 
 const headers = {
@@ -26219,7 +26219,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/import';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -26231,7 +26231,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpqbgfdo9k7en70mFqB7Z', 'r')
+                'contents' =&gt; fopen('/tmp/phpDKcIPD', 'r')
             ],
         ],
     ]
@@ -26347,7 +26347,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpqbgfdo9k7en70mFqB7Z</code></p>
+<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpDKcIPD</code></p>
         </div>
         </form>
 
@@ -26365,7 +26365,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-fields/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/document-fields/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -26381,7 +26381,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/document-fields/bulk-delete"
 );
 
 const headers = {
@@ -26407,7 +26407,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -26556,7 +26556,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-fields/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/document-fields/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -26573,7 +26573,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/bulk-status"
+    "https://quandh-core.theworkpc.com/api/document-fields/bulk-status"
 );
 
 const headers = {
@@ -26600,7 +26600,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -26762,7 +26762,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-fields/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-fields/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -26770,7 +26770,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/stats"
+    "https://quandh-core.theworkpc.com/api/document-fields/stats"
 );
 
 const params = {
@@ -26800,7 +26800,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/stats';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -27025,7 +27025,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-fields?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-fields?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -27033,7 +27033,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields"
+    "https://quandh-core.theworkpc.com/api/document-fields"
 );
 
 const params = {
@@ -27063,7 +27063,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields';
 $response = $client-&gt;get(
     $url,
     [
@@ -27097,24 +27097,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 10,
             &quot;name&quot;: &quot;nemo odit&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 59,
-            &quot;name&quot;: &quot;ut magnam&quot;,
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;est dignissimos&quot;,
             &quot;description&quot;: null,
-            &quot;status&quot;: &quot;active&quot;,
+            &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -27340,7 +27340,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-fields/16" \
+    --get "https://quandh-core.theworkpc.com/api/document-fields/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -27348,7 +27348,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/16"
+    "https://quandh-core.theworkpc.com/api/document-fields/16"
 );
 
 const headers = {
@@ -27366,7 +27366,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -27390,14 +27390,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 12,
         &quot;name&quot;: &quot;omnis autem&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -27527,7 +27527,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-fields" \
+    "https://quandh-core.theworkpc.com/api/document-fields" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -27541,7 +27541,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields"
+    "https://quandh-core.theworkpc.com/api/document-fields"
 );
 
 const headers = {
@@ -27565,7 +27565,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields';
 $response = $client-&gt;post(
     $url,
     [
@@ -27594,14 +27594,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 13,
         &quot;name&quot;: &quot;quia officia&quot;,
         &quot;description&quot;: &quot;Neque blanditiis odio veritatis excepturi doloribus delectus.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -27744,7 +27744,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/document-fields/16" \
+    "https://quandh-core.theworkpc.com/api/document-fields/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -27758,7 +27758,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/16"
+    "https://quandh-core.theworkpc.com/api/document-fields/16"
 );
 
 const headers = {
@@ -27782,7 +27782,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/16';
 $response = $client-&gt;put(
     $url,
     [
@@ -27811,14 +27811,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
-        &quot;name&quot;: &quot;est dignissimos&quot;,
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;neque blanditiis&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:34 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:34 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -27986,7 +27986,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-fields/16" \
+    "https://quandh-core.theworkpc.com/api/document-fields/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -28000,7 +28000,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/16"
+    "https://quandh-core.theworkpc.com/api/document-fields/16"
 );
 
 const headers = {
@@ -28024,7 +28024,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/16';
 $response = $client-&gt;patch(
     $url,
     [
@@ -28053,14 +28053,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 63,
-        &quot;name&quot;: &quot;neque blanditiis&quot;,
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;odio veritatis&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:34 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:34 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -28228,7 +28228,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/document-fields/16" \
+    "https://quandh-core.theworkpc.com/api/document-fields/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -28236,7 +28236,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/16"
+    "https://quandh-core.theworkpc.com/api/document-fields/16"
 );
 
 const headers = {
@@ -28254,7 +28254,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -28406,7 +28406,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-fields/16/status" \
+    "https://quandh-core.theworkpc.com/api/document-fields/16/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -28418,7 +28418,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-fields/16/status"
+    "https://quandh-core.theworkpc.com/api/document-fields/16/status"
 );
 
 const headers = {
@@ -28440,7 +28440,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-fields/16/status';
+$url = 'https://quandh-core.theworkpc.com/api/document-fields/16/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -28467,14 +28467,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 64,
+        &quot;id&quot;: 16,
         &quot;name&quot;: &quot;aut dolores&quot;,
         &quot;description&quot;: &quot;Facere tempora ex voluptatem laboriosam.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:34 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:34 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -28621,14 +28621,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-signers/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-signers/public?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/public"
+    "https://quandh-core.theworkpc.com/api/document-signers/public"
 );
 
 const params = {
@@ -28657,7 +28657,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/public';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -28690,24 +28690,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 49,
+            &quot;id&quot;: 1,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 2,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:35 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:35 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:26 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:26 03/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -28885,14 +28885,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-signers/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-signers/public-options?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=name&amp;sort_order=asc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/public-options"
+    "https://quandh-core.theworkpc.com/api/document-signers/public-options"
 );
 
 const params = {
@@ -28921,7 +28921,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -28954,12 +28954,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 51,
+            &quot;id&quot;: 3,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 52,
+            &quot;id&quot;: 4,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;
         }
@@ -29140,7 +29140,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-signers/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-signers/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -29148,7 +29148,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/export"
+    "https://quandh-core.theworkpc.com/api/document-signers/export"
 );
 
 const params = {
@@ -29178,7 +29178,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/export';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -29407,16 +29407,16 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-signers/import" \
+    "https://quandh-core.theworkpc.com/api/document-signers/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php2f5b4bl79l3v5iAFY0q" </code></pre></div>
+    --form "file=@/tmp/phplU9Trd" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/import"
+    "https://quandh-core.theworkpc.com/api/document-signers/import"
 );
 
 const headers = {
@@ -29437,7 +29437,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/import';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -29449,7 +29449,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php2f5b4bl79l3v5iAFY0q', 'r')
+                'contents' =&gt; fopen('/tmp/phplU9Trd', 'r')
             ],
         ],
     ]
@@ -29565,7 +29565,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/php2f5b4bl79l3v5iAFY0q</code></p>
+<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phplU9Trd</code></p>
         </div>
         </form>
 
@@ -29583,7 +29583,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-signers/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/document-signers/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -29599,7 +29599,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/document-signers/bulk-delete"
 );
 
 const headers = {
@@ -29625,7 +29625,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -29774,7 +29774,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-signers/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/document-signers/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -29791,7 +29791,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/bulk-status"
+    "https://quandh-core.theworkpc.com/api/document-signers/bulk-status"
 );
 
 const headers = {
@@ -29818,7 +29818,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -29980,7 +29980,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-signers/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-signers/stats?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -29988,7 +29988,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/stats"
+    "https://quandh-core.theworkpc.com/api/document-signers/stats"
 );
 
 const params = {
@@ -30018,7 +30018,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/stats';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -30243,7 +30243,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-signers?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/document-signers?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -30251,7 +30251,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers"
+    "https://quandh-core.theworkpc.com/api/document-signers"
 );
 
 const params = {
@@ -30281,7 +30281,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers';
 $response = $client-&gt;get(
     $url,
     [
@@ -30315,24 +30315,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 10,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 59,
+            &quot;id&quot;: 11,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -30558,7 +30558,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/document-signers/16" \
+    --get "https://quandh-core.theworkpc.com/api/document-signers/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -30566,7 +30566,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/16"
+    "https://quandh-core.theworkpc.com/api/document-signers/16"
 );
 
 const headers = {
@@ -30584,7 +30584,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -30608,14 +30608,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 12,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -30745,7 +30745,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/document-signers" \
+    "https://quandh-core.theworkpc.com/api/document-signers" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -30759,7 +30759,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers"
+    "https://quandh-core.theworkpc.com/api/document-signers"
 );
 
 const headers = {
@@ -30783,7 +30783,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers';
 $response = $client-&gt;post(
     $url,
     [
@@ -30812,14 +30812,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 13,
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -30962,7 +30962,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/document-signers/16" \
+    "https://quandh-core.theworkpc.com/api/document-signers/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -30976,7 +30976,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/16"
+    "https://quandh-core.theworkpc.com/api/document-signers/16"
 );
 
 const headers = {
@@ -31000,7 +31000,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/16';
 $response = $client-&gt;put(
     $url,
     [
@@ -31029,14 +31029,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
+        &quot;id&quot;: 14,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -31204,7 +31204,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-signers/16" \
+    "https://quandh-core.theworkpc.com/api/document-signers/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -31218,7 +31218,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/16"
+    "https://quandh-core.theworkpc.com/api/document-signers/16"
 );
 
 const headers = {
@@ -31242,7 +31242,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/16';
 $response = $client-&gt;patch(
     $url,
     [
@@ -31271,14 +31271,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 63,
+        &quot;id&quot;: 15,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -31446,7 +31446,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/document-signers/16" \
+    "https://quandh-core.theworkpc.com/api/document-signers/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -31454,7 +31454,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/16"
+    "https://quandh-core.theworkpc.com/api/document-signers/16"
 );
 
 const headers = {
@@ -31472,7 +31472,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/16';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -31624,7 +31624,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/document-signers/16/status" \
+    "https://quandh-core.theworkpc.com/api/document-signers/16/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -31636,7 +31636,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/document-signers/16/status"
+    "https://quandh-core.theworkpc.com/api/document-signers/16/status"
 );
 
 const headers = {
@@ -31658,7 +31658,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/document-signers/16/status';
+$url = 'https://quandh-core.theworkpc.com/api/document-signers/16/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -31685,14 +31685,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 64,
+        &quot;id&quot;: 16,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:39 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:39 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:33 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:33 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -31840,7 +31840,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/documents/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;document_type_id=16&amp;document_field_id=16&amp;issuing_agency_id=16&amp;issuing_level_id=16&amp;signer_id=16" \
+    --get "https://quandh-core.theworkpc.com/api/documents/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;document_type_id=16&amp;document_field_id=16&amp;issuing_agency_id=16&amp;issuing_level_id=16&amp;signer_id=16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -31848,7 +31848,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/export"
+    "https://quandh-core.theworkpc.com/api/documents/export"
 );
 
 const params = {
@@ -31883,7 +31883,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/export';
+$url = 'https://quandh-core.theworkpc.com/api/documents/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -32177,16 +32177,16 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/documents/import" \
+    "https://quandh-core.theworkpc.com/api/documents/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php56kpuv24d6hoc9uQVlC" </code></pre></div>
+    --form "file=@/tmp/phpN8Nlm6" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/import"
+    "https://quandh-core.theworkpc.com/api/documents/import"
 );
 
 const headers = {
@@ -32207,7 +32207,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/import';
+$url = 'https://quandh-core.theworkpc.com/api/documents/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -32219,7 +32219,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php56kpuv24d6hoc9uQVlC', 'r')
+                'contents' =&gt; fopen('/tmp/phpN8Nlm6', 'r')
             ],
         ],
     ]
@@ -32335,7 +32335,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/php56kpuv24d6hoc9uQVlC</code></p>
+<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpN8Nlm6</code></p>
         </div>
         </form>
 
@@ -32353,7 +32353,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/documents/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/documents/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -32369,7 +32369,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/documents/bulk-delete"
 );
 
 const headers = {
@@ -32395,7 +32395,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/documents/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -32544,7 +32544,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/documents/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/documents/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -32561,7 +32561,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/bulk-status"
+    "https://quandh-core.theworkpc.com/api/documents/bulk-status"
 );
 
 const headers = {
@@ -32588,7 +32588,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/documents/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -32750,7 +32750,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/documents/stats?search=VB-01&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;document_type_id=1&amp;document_field_id=2&amp;issuing_agency_id=1&amp;issuing_level_id=1&amp;signer_id=1" \
+    --get "https://quandh-core.theworkpc.com/api/documents/stats?search=VB-01&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;document_type_id=1&amp;document_field_id=2&amp;issuing_agency_id=1&amp;issuing_level_id=1&amp;signer_id=1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -32758,7 +32758,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/stats"
+    "https://quandh-core.theworkpc.com/api/documents/stats"
 );
 
 const params = {
@@ -32793,7 +32793,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/stats';
+$url = 'https://quandh-core.theworkpc.com/api/documents/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -33085,7 +33085,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/documents?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=16&amp;document_type_id=16&amp;document_field_id=16&amp;issuing_agency_id=16&amp;issuing_level_id=16&amp;signer_id=16" \
+    --get "https://quandh-core.theworkpc.com/api/documents?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=16&amp;document_type_id=16&amp;document_field_id=16&amp;issuing_agency_id=16&amp;issuing_level_id=16&amp;signer_id=16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -33093,7 +33093,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents"
+    "https://quandh-core.theworkpc.com/api/documents"
 );
 
 const params = {
@@ -33128,7 +33128,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents';
+$url = 'https://quandh-core.theworkpc.com/api/documents';
 $response = $client-&gt;get(
     $url,
     [
@@ -33167,7 +33167,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 22,
+            &quot;id&quot;: 1,
             &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
             &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
             &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -33178,11 +33178,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;ngay_het_hieu_luc&quot;: null,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
         },
         {
-            &quot;id&quot;: 23,
+            &quot;id&quot;: 2,
             &quot;so_ky_hieu&quot;: &quot;VB-1084/VI&quot;,
             &quot;ten_van_ban&quot;: &quot;Qui repudiandae laboriosam est.&quot;,
             &quot;noi_dung&quot;: null,
@@ -33190,11 +33190,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;ngay_ban_hanh&quot;: null,
             &quot;ngay_xuat_ban&quot;: null,
             &quot;ngay_hieu_luc&quot;: null,
-            &quot;ngay_het_hieu_luc&quot;: &quot;04/06/1986&quot;,
+            &quot;ngay_het_hieu_luc&quot;: &quot;01/06/1986&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-            &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+            &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -33480,7 +33480,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/documents/16" \
+    --get "https://quandh-core.theworkpc.com/api/documents/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -33488,7 +33488,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/16"
+    "https://quandh-core.theworkpc.com/api/documents/16"
 );
 
 const headers = {
@@ -33506,7 +33506,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/16';
+$url = 'https://quandh-core.theworkpc.com/api/documents/16';
 $response = $client-&gt;get(
     $url,
     [
@@ -33530,43 +33530,43 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 24,
+        &quot;id&quot;: 3,
         &quot;so_ky_hieu&quot;: &quot;VB-7680/WP&quot;,
         &quot;ten_van_ban&quot;: &quot;Qui commodi incidunt iure.&quot;,
         &quot;noi_dung&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;ngay_ban_hanh&quot;: &quot;23/04/1982&quot;,
+        &quot;ngay_ban_hanh&quot;: &quot;20/04/1982&quot;,
         &quot;ngay_xuat_ban&quot;: &quot;16/11/1971&quot;,
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 53,
+            &quot;id&quot;: 5,
             &quot;name&quot;: &quot;Smitham-Tromp&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 53,
+            &quot;id&quot;: 5,
             &quot;name&quot;: &quot;adipisci molestias&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 53,
+            &quot;id&quot;: 5,
             &quot;name&quot;: &quot;Cynthia Fahey&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 53,
+                &quot;id&quot;: 5,
                 &quot;name&quot;: &quot;delectus fugit&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 53,
+                &quot;id&quot;: 5,
                 &quot;name&quot;: &quot;voluptate accusamus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -33696,7 +33696,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/documents" \
+    "https://quandh-core.theworkpc.com/api/documents" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -33713,13 +33713,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_hieu_luc=architecto"\
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
-    --form "attachments[]=@/tmp/phpvf7pjj9r547n6FNzoRj" \
-    --form "attachments[]=@/tmp/phpvt5tsrbj2gcvb0RGSyF" </code></pre></div>
+    --form "attachments[]=@/tmp/phpHmCgl9" \
+    --form "attachments[]=@/tmp/phpVCgGwK" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents"
+    "https://quandh-core.theworkpc.com/api/documents"
 );
 
 const headers = {
@@ -33754,7 +33754,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents';
+$url = 'https://quandh-core.theworkpc.com/api/documents';
 $response = $client-&gt;post(
     $url,
     [
@@ -33818,11 +33818,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpvf7pjj9r547n6FNzoRj', 'r')
+                'contents' =&gt; fopen('/tmp/phpHmCgl9', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpvt5tsrbj2gcvb0RGSyF', 'r')
+                'contents' =&gt; fopen('/tmp/phpVCgGwK', 'r')
             ],
         ],
     ]
@@ -33840,43 +33840,43 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 25,
+        &quot;id&quot;: 4,
         &quot;so_ky_hieu&quot;: &quot;VB-9775/NG&quot;,
         &quot;ten_van_ban&quot;: &quot;Quos velit et fugiat sunt nihil.&quot;,
         &quot;noi_dung&quot;: &quot;Modi deserunt aut ab provident perspiciatis. Omnis nostrum aut adipisci quidem nostrum qui commodi. Iure odit et et modi ipsum nostrum omnis. Et consequatur aut dolores enim.\n\nTempora ex voluptatem laboriosam praesentium quis. Molestias fugit deleniti distinctio eum doloremque id. Libero aliquam veniam corporis dolorem mollitia deleniti.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;ngay_ban_hanh&quot;: &quot;09/09/2009&quot;,
+        &quot;ngay_ban_hanh&quot;: &quot;06/09/2009&quot;,
         &quot;ngay_xuat_ban&quot;: null,
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: &quot;12/10/1999&quot;,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 54,
+            &quot;id&quot;: 6,
             &quot;name&quot;: &quot;O&#039;Connell, Beier and Bradtke&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 54,
+            &quot;id&quot;: 6,
             &quot;name&quot;: &quot;ratione nemo&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 54,
+            &quot;id&quot;: 6,
             &quot;name&quot;: &quot;Michelle Cassin&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 54,
+                &quot;id&quot;: 6,
                 &quot;name&quot;: &quot;ducimus corrupti&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 54,
+                &quot;id&quot;: 6,
                 &quot;name&quot;: &quot;quia maiores&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -34151,7 +34151,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm. Example: <code>/tmp/phpvt5tsrbj2gcvb0RGSyF</code></p>
+<p>Nhiều file đính kèm. Example: <code>/tmp/phpVCgGwK</code></p>
         </div>
         </form>
 
@@ -34169,7 +34169,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/documents/16" \
+    "https://quandh-core.theworkpc.com/api/documents/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -34187,13 +34187,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "attachments[]=@/tmp/php3n5hshkjjsra5pxfch0" \
-    --form "attachments[]=@/tmp/phpjdm9a8smu8th0dsLfNg" </code></pre></div>
+    --form "attachments[]=@/tmp/phpCyepSl" \
+    --form "attachments[]=@/tmp/phpVhkMG8" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/16"
+    "https://quandh-core.theworkpc.com/api/documents/16"
 );
 
 const headers = {
@@ -34229,7 +34229,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/16';
+$url = 'https://quandh-core.theworkpc.com/api/documents/16';
 $response = $client-&gt;put(
     $url,
     [
@@ -34297,11 +34297,11 @@ $response = $client-&gt;put(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/php3n5hshkjjsra5pxfch0', 'r')
+                'contents' =&gt; fopen('/tmp/phpCyepSl', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpjdm9a8smu8th0dsLfNg', 'r')
+                'contents' =&gt; fopen('/tmp/phpVhkMG8', 'r')
             ],
         ],
     ]
@@ -34319,7 +34319,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 26,
+        &quot;id&quot;: 5,
         &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
         &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
         &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -34329,33 +34329,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 55,
+            &quot;id&quot;: 7,
             &quot;name&quot;: &quot;Pagac-Emmerich&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 55,
+            &quot;id&quot;: 7,
             &quot;name&quot;: &quot;ut et&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 55,
+            &quot;id&quot;: 7,
             &quot;name&quot;: &quot;Graham Crist V&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 55,
+                &quot;id&quot;: 7,
                 &quot;name&quot;: &quot;dolores quia&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 55,
+                &quot;id&quot;: 7,
                 &quot;name&quot;: &quot;odit doloribus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -34669,7 +34669,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpjdm9a8smu8th0dsLfNg</code></p>
+<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpVhkMG8</code></p>
         </div>
         </form>
 
@@ -34687,7 +34687,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/documents/16" \
+    "https://quandh-core.theworkpc.com/api/documents/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -34705,13 +34705,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "attachments[]=@/tmp/phpubgnnsht396oeRmqM0T" \
-    --form "attachments[]=@/tmp/phpvspdbq2fdinceaXnkJu" </code></pre></div>
+    --form "attachments[]=@/tmp/phpQvpZSL" \
+    --form "attachments[]=@/tmp/phpiNvBqh" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/16"
+    "https://quandh-core.theworkpc.com/api/documents/16"
 );
 
 const headers = {
@@ -34747,7 +34747,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/16';
+$url = 'https://quandh-core.theworkpc.com/api/documents/16';
 $response = $client-&gt;patch(
     $url,
     [
@@ -34815,11 +34815,11 @@ $response = $client-&gt;patch(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpubgnnsht396oeRmqM0T', 'r')
+                'contents' =&gt; fopen('/tmp/phpQvpZSL', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpvspdbq2fdinceaXnkJu', 'r')
+                'contents' =&gt; fopen('/tmp/phpiNvBqh', 'r')
             ],
         ],
     ]
@@ -34837,7 +34837,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 27,
+        &quot;id&quot;: 6,
         &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
         &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
         &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -34847,33 +34847,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 56,
+            &quot;id&quot;: 8,
             &quot;name&quot;: &quot;Pagac-Emmerich&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 56,
+            &quot;id&quot;: 8,
             &quot;name&quot;: &quot;recusandae modi&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 56,
+            &quot;id&quot;: 8,
             &quot;name&quot;: &quot;Mona Lemke&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 56,
+                &quot;id&quot;: 8,
                 &quot;name&quot;: &quot;maiores assumenda&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 56,
+                &quot;id&quot;: 8,
                 &quot;name&quot;: &quot;iure impedit&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -35187,7 +35187,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpvspdbq2fdinceaXnkJu</code></p>
+<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpiNvBqh</code></p>
         </div>
         </form>
 
@@ -35205,7 +35205,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/documents/16" \
+    "https://quandh-core.theworkpc.com/api/documents/16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -35213,7 +35213,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/16"
+    "https://quandh-core.theworkpc.com/api/documents/16"
 );
 
 const headers = {
@@ -35231,7 +35231,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/16';
+$url = 'https://quandh-core.theworkpc.com/api/documents/16';
 $response = $client-&gt;delete(
     $url,
     [
@@ -35383,7 +35383,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/documents/16/status" \
+    "https://quandh-core.theworkpc.com/api/documents/16/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -35395,7 +35395,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/documents/16/status"
+    "https://quandh-core.theworkpc.com/api/documents/16/status"
 );
 
 const headers = {
@@ -35417,7 +35417,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/documents/16/status';
+$url = 'https://quandh-core.theworkpc.com/api/documents/16/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -35444,43 +35444,43 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 28,
+        &quot;id&quot;: 7,
         &quot;so_ky_hieu&quot;: &quot;VB-7680/WP&quot;,
         &quot;ten_van_ban&quot;: &quot;Qui commodi incidunt iure.&quot;,
         &quot;noi_dung&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;ngay_ban_hanh&quot;: &quot;23/04/1982&quot;,
+        &quot;ngay_ban_hanh&quot;: &quot;20/04/1982&quot;,
         &quot;ngay_xuat_ban&quot;: &quot;16/11/1971&quot;,
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 57,
+            &quot;id&quot;: 9,
             &quot;name&quot;: &quot;Smitham-Tromp&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 57,
+            &quot;id&quot;: 9,
             &quot;name&quot;: &quot;distinctio eum&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 57,
+            &quot;id&quot;: 9,
             &quot;name&quot;: &quot;Mathew Klocko&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 57,
+                &quot;id&quot;: 9,
                 &quot;name&quot;: &quot;dolorem mollitia&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 57,
+                &quot;id&quot;: 9,
                 &quot;name&quot;: &quot;excepturi doloribus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;11:37:38 28/02/2026&quot;,
-        &quot;updated_at&quot;: &quot;11:37:38 28/02/2026&quot;
+        &quot;created_at&quot;: &quot;22:44:31 03/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;22:44:31 03/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -35628,7 +35628,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/user" \
+    --get "https://quandh-core.theworkpc.com/api/user" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -35636,7 +35636,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/user"
+    "https://quandh-core.theworkpc.com/api/user"
 );
 
 const headers = {
@@ -35654,7 +35654,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/user';
+$url = 'https://quandh-core.theworkpc.com/api/user';
 $response = $client-&gt;get(
     $url,
     [
@@ -35790,14 +35790,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories/public?search=tin-tuc&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories/public?search=tin-tuc&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/public"
+    "https://quandh-core.theworkpc.com/api/post-categories/public"
 );
 
 const params = {
@@ -35826,7 +35826,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/public';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/public';
 $response = $client-&gt;get(
     $url,
     [
@@ -35859,7 +35859,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 90,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;Architecto Eius&quot;,
             &quot;slug&quot;: &quot;architecto-eius&quot;,
             &quot;description&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
@@ -35869,11 +35869,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:26&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:26&quot;
         },
         {
-            &quot;id&quot;: 91,
+            &quot;id&quot;: 20,
             &quot;name&quot;: &quot;Deserunt Aut&quot;,
             &quot;slug&quot;: &quot;deserunt-aut&quot;,
             &quot;description&quot;: null,
@@ -35883,8 +35883,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:26&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:26&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -36064,14 +36064,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories/public-options?search=tin-tuc&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories/public-options?search=tin-tuc&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/public-options"
+    "https://quandh-core.theworkpc.com/api/post-categories/public-options"
 );
 
 const params = {
@@ -36100,7 +36100,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/public-options';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/public-options';
 $response = $client-&gt;get(
     $url,
     [
@@ -36133,12 +36133,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 92,
+            &quot;id&quot;: 21,
             &quot;name&quot;: &quot;Et Animi&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;
         },
         {
-            &quot;id&quot;: 93,
+            &quot;id&quot;: 22,
             &quot;name&quot;: &quot;Quo Omnis&quot;,
             &quot;description&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;
         }
@@ -36321,7 +36321,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories/export?search=architecto&amp;status=architecto&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories/export?search=architecto&amp;status=architecto&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -36329,7 +36329,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/export"
+    "https://quandh-core.theworkpc.com/api/post-categories/export"
 );
 
 const params = {
@@ -36359,7 +36359,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/export';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -36586,16 +36586,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/post-categories/import" \
+    "https://quandh-core.theworkpc.com/api/post-categories/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpj5bde8sc92lj0tH5mXx" </code></pre></div>
+    --form "file=@/tmp/phpsLy2eG" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/import"
+    "https://quandh-core.theworkpc.com/api/post-categories/import"
 );
 
 const headers = {
@@ -36616,7 +36616,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/import';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -36628,7 +36628,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpj5bde8sc92lj0tH5mXx', 'r')
+                'contents' =&gt; fopen('/tmp/phpsLy2eG', 'r')
             ],
         ],
     ]
@@ -36744,7 +36744,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột: name, slug, description, status, sort_order, parent_slug. Example: <code>/tmp/phpj5bde8sc92lj0tH5mXx</code></p>
+<p>File Excel (xlsx, xls, csv). Cột: name, slug, description, status, sort_order, parent_slug. Example: <code>/tmp/phpsLy2eG</code></p>
         </div>
         </form>
 
@@ -36762,7 +36762,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/post-categories/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/post-categories/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -36778,7 +36778,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/post-categories/bulk-delete"
 );
 
 const headers = {
@@ -36804,7 +36804,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -36953,7 +36953,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/post-categories/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/post-categories/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -36970,7 +36970,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/bulk-status"
+    "https://quandh-core.theworkpc.com/api/post-categories/bulk-status"
 );
 
 const headers = {
@@ -36997,7 +36997,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -37159,7 +37159,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories/stats?search=tin-tuc&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=sort_order&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories/stats?search=tin-tuc&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=sort_order&amp;sort_order=asc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -37167,7 +37167,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/stats"
+    "https://quandh-core.theworkpc.com/api/post-categories/stats"
 );
 
 const params = {
@@ -37197,7 +37197,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/stats';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -37422,7 +37422,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories/tree?status=architecto" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories/tree?status=architecto" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -37430,7 +37430,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/tree"
+    "https://quandh-core.theworkpc.com/api/post-categories/tree"
 );
 
 const params = {
@@ -37454,7 +37454,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/tree';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/tree';
 $response = $client-&gt;get(
     $url,
     [
@@ -37608,7 +37608,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories?search=tin-tuc&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=sort_order&amp;sort_order=asc&amp;limit=10" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories?search=tin-tuc&amp;status=architecto&amp;from_date=2026-02-01&amp;to_date=2026-02-17&amp;sort_by=sort_order&amp;sort_order=asc&amp;limit=10" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -37616,7 +37616,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories"
+    "https://quandh-core.theworkpc.com/api/post-categories"
 );
 
 const params = {
@@ -37646,7 +37646,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories';
 $response = $client-&gt;get(
     $url,
     [
@@ -37680,7 +37680,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 99,
+            &quot;id&quot;: 28,
             &quot;name&quot;: &quot;Adipisci Quidem&quot;,
             &quot;slug&quot;: &quot;adipisci-quidem&quot;,
             &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
@@ -37690,11 +37690,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         },
         {
-            &quot;id&quot;: 100,
+            &quot;id&quot;: 29,
             &quot;name&quot;: &quot;Modi Ipsum&quot;,
             &quot;slug&quot;: &quot;modi-ipsum&quot;,
             &quot;description&quot;: &quot;Autem et consequatur aut dolores enim non facere tempora.&quot;,
@@ -37704,8 +37704,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         }
     ],
     &quot;links&quot;: {
@@ -37931,7 +37931,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/post-categories/1" \
+    --get "https://quandh-core.theworkpc.com/api/post-categories/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -37939,7 +37939,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/1"
+    "https://quandh-core.theworkpc.com/api/post-categories/1"
 );
 
 const headers = {
@@ -37957,7 +37957,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/1';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -37981,20 +37981,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 102,
+        &quot;id&quot;: 31,
         &quot;name&quot;: &quot;Aut Adipisci&quot;,
         &quot;slug&quot;: &quot;aut-adipisci&quot;,
         &quot;description&quot;: &quot;Qui commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;sort_order&quot;: 20,
-        &quot;parent_id&quot;: 101,
+        &quot;parent_id&quot;: 30,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;,
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 101,
+            &quot;id&quot;: 30,
             &quot;name&quot;: &quot;Nostrum Omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;,
             &quot;description&quot;: &quot;Consequatur aut dolores enim non facere tempora.&quot;,
@@ -38004,23 +38004,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 103,
+                &quot;id&quot;: 32,
                 &quot;name&quot;: &quot;Laboriosam Praesentium&quot;,
                 &quot;slug&quot;: &quot;laboriosam-praesentium&quot;,
                 &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
                 &quot;status&quot;: &quot;active&quot;,
                 &quot;sort_order&quot;: 61,
-                &quot;parent_id&quot;: 102,
+                &quot;parent_id&quot;: 31,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ]
     },
@@ -38152,7 +38152,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/post-categories" \
+    "https://quandh-core.theworkpc.com/api/post-categories" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -38169,7 +38169,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories"
+    "https://quandh-core.theworkpc.com/api/post-categories"
 );
 
 const headers = {
@@ -38196,7 +38196,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories';
 $response = $client-&gt;post(
     $url,
     [
@@ -38228,7 +38228,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 104,
+        &quot;id&quot;: 33,
         &quot;name&quot;: &quot;Nostrum Qui&quot;,
         &quot;slug&quot;: &quot;nostrum-qui&quot;,
         &quot;description&quot;: &quot;Iure odit et et modi ipsum nostrum omnis.&quot;,
@@ -38238,8 +38238,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;depth&quot;: 0,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Danh mục đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -38418,7 +38418,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/post-categories/1" \
+    "https://quandh-core.theworkpc.com/api/post-categories/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -38435,7 +38435,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/1"
+    "https://quandh-core.theworkpc.com/api/post-categories/1"
 );
 
 const headers = {
@@ -38462,7 +38462,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/1';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/1';
 $response = $client-&gt;put(
     $url,
     [
@@ -38494,20 +38494,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 106,
+        &quot;id&quot;: 35,
         &quot;name&quot;: &quot;Commodi Incidunt&quot;,
         &quot;slug&quot;: &quot;commodi-incidunt&quot;,
         &quot;description&quot;: &quot;Et et modi ipsum nostrum.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;sort_order&quot;: 41,
-        &quot;parent_id&quot;: 105,
+        &quot;parent_id&quot;: 34,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;,
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 105,
+            &quot;id&quot;: 34,
             &quot;name&quot;: &quot;Et Consequatur&quot;,
             &quot;slug&quot;: &quot;et-consequatur&quot;,
             &quot;description&quot;: &quot;Enim non facere tempora ex voluptatem laboriosam praesentium.&quot;,
@@ -38517,23 +38517,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 107,
+                &quot;id&quot;: 36,
                 &quot;name&quot;: &quot;Molestias Fugit&quot;,
                 &quot;slug&quot;: &quot;molestias-fugit&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;inactive&quot;,
                 &quot;sort_order&quot;: 7,
-                &quot;parent_id&quot;: 106,
+                &quot;parent_id&quot;: 35,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ]
     },
@@ -38739,7 +38739,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/post-categories/1" \
+    "https://quandh-core.theworkpc.com/api/post-categories/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -38756,7 +38756,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/1"
+    "https://quandh-core.theworkpc.com/api/post-categories/1"
 );
 
 const headers = {
@@ -38783,7 +38783,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/1';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/1';
 $response = $client-&gt;patch(
     $url,
     [
@@ -38815,20 +38815,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 109,
+        &quot;id&quot;: 38,
         &quot;name&quot;: &quot;Iure Odit&quot;,
         &quot;slug&quot;: &quot;iure-odit&quot;,
         &quot;description&quot;: &quot;Modi ipsum nostrum omnis autem et.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;sort_order&quot;: 84,
-        &quot;parent_id&quot;: 108,
+        &quot;parent_id&quot;: 37,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;,
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 108,
+            &quot;id&quot;: 37,
             &quot;name&quot;: &quot;Dolores Enim&quot;,
             &quot;slug&quot;: &quot;dolores-enim&quot;,
             &quot;description&quot;: &quot;Tempora ex voluptatem laboriosam praesentium quis.&quot;,
@@ -38838,23 +38838,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 110,
+                &quot;id&quot;: 39,
                 &quot;name&quot;: &quot;Fugit Deleniti&quot;,
                 &quot;slug&quot;: &quot;fugit-deleniti&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;active&quot;,
                 &quot;sort_order&quot;: 35,
-                &quot;parent_id&quot;: 109,
+                &quot;parent_id&quot;: 38,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ]
     },
@@ -39060,7 +39060,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/post-categories/1" \
+    "https://quandh-core.theworkpc.com/api/post-categories/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -39068,7 +39068,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/1"
+    "https://quandh-core.theworkpc.com/api/post-categories/1"
 );
 
 const headers = {
@@ -39086,7 +39086,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/1';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -39238,7 +39238,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/post-categories/1/status" \
+    "https://quandh-core.theworkpc.com/api/post-categories/1/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -39250,7 +39250,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/post-categories/1/status"
+    "https://quandh-core.theworkpc.com/api/post-categories/1/status"
 );
 
 const headers = {
@@ -39272,7 +39272,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/post-categories/1/status';
+$url = 'https://quandh-core.theworkpc.com/api/post-categories/1/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -39299,20 +39299,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 112,
+        &quot;id&quot;: 41,
         &quot;name&quot;: &quot;Quidem Nostrum&quot;,
         &quot;slug&quot;: &quot;quidem-nostrum&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;sort_order&quot;: 0,
-        &quot;parent_id&quot;: 111,
+        &quot;parent_id&quot;: 40,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;,
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:29&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:29&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 111,
+            &quot;id&quot;: 40,
             &quot;name&quot;: &quot;Et Et&quot;,
             &quot;slug&quot;: &quot;et-et&quot;,
             &quot;description&quot;: &quot;Nostrum omnis autem et consequatur aut.&quot;,
@@ -39322,23 +39322,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:29&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:29&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 113,
+                &quot;id&quot;: 42,
                 &quot;name&quot;: &quot;Non Facere&quot;,
                 &quot;slug&quot;: &quot;non-facere&quot;,
                 &quot;description&quot;: &quot;Voluptatem laboriosam praesentium quis adipisci.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
                 &quot;sort_order&quot;: 10,
-                &quot;parent_id&quot;: 112,
+                &quot;parent_id&quot;: 41,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:29&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:29&quot;
             }
         ]
     },
@@ -39488,7 +39488,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/posts/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10&amp;category_id=16" \
+    --get "https://quandh-core.theworkpc.com/api/posts/export?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=architecto&amp;limit=10&amp;category_id=16" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -39496,7 +39496,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/export"
+    "https://quandh-core.theworkpc.com/api/posts/export"
 );
 
 const params = {
@@ -39527,7 +39527,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/export';
+$url = 'https://quandh-core.theworkpc.com/api/posts/export';
 $response = $client-&gt;get(
     $url,
     [
@@ -39767,16 +39767,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/posts/import" \
+    "https://quandh-core.theworkpc.com/api/posts/import" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php6ogg2p4tq7f13xvCiSw" </code></pre></div>
+    --form "file=@/tmp/phpwZqPVL" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/import"
+    "https://quandh-core.theworkpc.com/api/posts/import"
 );
 
 const headers = {
@@ -39797,7 +39797,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/import';
+$url = 'https://quandh-core.theworkpc.com/api/posts/import';
 $response = $client-&gt;post(
     $url,
     [
@@ -39809,7 +39809,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php6ogg2p4tq7f13xvCiSw', 'r')
+                'contents' =&gt; fopen('/tmp/phpwZqPVL', 'r')
             ],
         ],
     ]
@@ -39925,7 +39925,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/php6ogg2p4tq7f13xvCiSw</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpwZqPVL</code></p>
         </div>
         </form>
 
@@ -39943,7 +39943,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/posts/bulk-delete" \
+    "https://quandh-core.theworkpc.com/api/posts/bulk-delete" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -39959,7 +39959,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/bulk-delete"
+    "https://quandh-core.theworkpc.com/api/posts/bulk-delete"
 );
 
 const headers = {
@@ -39985,7 +39985,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/bulk-delete';
+$url = 'https://quandh-core.theworkpc.com/api/posts/bulk-delete';
 $response = $client-&gt;post(
     $url,
     [
@@ -40134,7 +40134,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/posts/bulk-status" \
+    "https://quandh-core.theworkpc.com/api/posts/bulk-status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -40151,7 +40151,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/bulk-status"
+    "https://quandh-core.theworkpc.com/api/posts/bulk-status"
 );
 
 const headers = {
@@ -40178,7 +40178,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/bulk-status';
+$url = 'https://quandh-core.theworkpc.com/api/posts/bulk-status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -40340,7 +40340,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/posts/stats?search=hello&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;category_id=1" \
+    --get "https://quandh-core.theworkpc.com/api/posts/stats?search=hello&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;category_id=1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -40348,7 +40348,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/stats"
+    "https://quandh-core.theworkpc.com/api/posts/stats"
 );
 
 const params = {
@@ -40379,7 +40379,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/stats';
+$url = 'https://quandh-core.theworkpc.com/api/posts/stats';
 $response = $client-&gt;get(
     $url,
     [
@@ -40617,7 +40617,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/posts?search=hello&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;category_id=1" \
+    --get "https://quandh-core.theworkpc.com/api/posts?search=hello&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10&amp;category_id=1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -40625,7 +40625,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts"
+    "https://quandh-core.theworkpc.com/api/posts"
 );
 
 const params = {
@@ -40656,7 +40656,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts';
+$url = 'https://quandh-core.theworkpc.com/api/posts';
 $response = $client-&gt;get(
     $url,
     [
@@ -40691,7 +40691,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 42,
+            &quot;id&quot;: 21,
             &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
             &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
             &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -40699,11 +40699,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;view_count&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         },
         {
-            &quot;id&quot;: 43,
+            &quot;id&quot;: 22,
             &quot;title&quot;: &quot;Alias tenetur ratione nemo voluptate accusamus ut et.&quot;,
             &quot;slug&quot;: &quot;alias-tenetur-ratione-nemo-voluptate-accusamus-ut-et&quot;,
             &quot;content&quot;: &quot;Rerum ex repellendus assumenda et. Ab reiciendis quia perspiciatis deserunt ducimus corrupti. Dolores quia maiores assumenda odit doloribus repellat officiis. Nesciunt ut ratione iure impedit molestiae ut rem.\n\nSint aut molestiae sunt suscipit. Fugiat ut aut deserunt et error neque recusandae. Ipsam dolorem et ut dicta vitae assumenda consequatur. Et sunt quisquam sit repellendus ut.\n\nRatione dolores sed rem ea ut. Deserunt sint quis in quod. Aspernatur consectetur id a consectetur assumenda eaque neque.&quot;,
@@ -40711,8 +40711,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;view_count&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-            &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+            &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+            &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
         }
     ],
     &quot;links&quot;: {
@@ -40950,7 +40950,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/posts/1" \
+    --get "https://quandh-core.theworkpc.com/api/posts/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -40958,7 +40958,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/1"
+    "https://quandh-core.theworkpc.com/api/posts/1"
 );
 
 const headers = {
@@ -40976,7 +40976,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/1';
+$url = 'https://quandh-core.theworkpc.com/api/posts/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -41000,7 +41000,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 44,
+        &quot;id&quot;: 23,
         &quot;title&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
         &quot;content&quot;: &quot;Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.\n\nAlias tenetur ratione nemo voluptate accusamus ut et. Modi rerum ex repellendus assumenda et tenetur.&quot;,
@@ -41008,7 +41008,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 94,
+                &quot;id&quot;: 23,
                 &quot;name&quot;: &quot;Reiciendis Quia&quot;,
                 &quot;slug&quot;: &quot;reiciendis-quia&quot;,
                 &quot;description&quot;: &quot;Ducimus corrupti et dolores quia maiores assumenda.&quot;,
@@ -41018,14 +41018,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -41155,7 +41155,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/posts/1/view" \
+    "https://quandh-core.theworkpc.com/api/posts/1/view" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -41163,7 +41163,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/1/view"
+    "https://quandh-core.theworkpc.com/api/posts/1/view"
 );
 
 const headers = {
@@ -41181,7 +41181,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/1/view';
+$url = 'https://quandh-core.theworkpc.com/api/posts/1/view';
 $response = $client-&gt;post(
     $url,
     [
@@ -41336,7 +41336,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/posts" \
+    "https://quandh-core.theworkpc.com/api/posts" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -41344,13 +41344,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "content=Nội dung bài viết..."\
     --form "status=draft"\
     --form "category_ids[]=1"\
-    --form "images[]=@/tmp/phplrqgbdoj675t6Z5lORx" \
-    --form "images[]=@/tmp/phppgcpsu9070454yOVeA9" </code></pre></div>
+    --form "images[]=@/tmp/phpGZNaZQ" \
+    --form "images[]=@/tmp/php7Q22TN" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts"
+    "https://quandh-core.theworkpc.com/api/posts"
 );
 
 const headers = {
@@ -41376,7 +41376,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts';
+$url = 'https://quandh-core.theworkpc.com/api/posts';
 $response = $client-&gt;post(
     $url,
     [
@@ -41404,11 +41404,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phplrqgbdoj675t6Z5lORx', 'r')
+                'contents' =&gt; fopen('/tmp/phpGZNaZQ', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phppgcpsu9070454yOVeA9', 'r')
+                'contents' =&gt; fopen('/tmp/php7Q22TN', 'r')
             ],
         ],
     ]
@@ -41426,7 +41426,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 45,
+        &quot;id&quot;: 24,
         &quot;title&quot;: &quot;Eius et animi quos velit et.&quot;,
         &quot;slug&quot;: &quot;eius-et-animi-quos-velit-et&quot;,
         &quot;content&quot;: &quot;Nihil accusantium harum mollitia modi deserunt. Ab provident perspiciatis quo omnis nostrum aut adipisci. Nostrum qui commodi incidunt iure.\n\nEt modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -41434,7 +41434,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 95,
+                &quot;id&quot;: 24,
                 &quot;name&quot;: &quot;Est Alias&quot;,
                 &quot;slug&quot;: &quot;est-alias&quot;,
                 &quot;description&quot;: &quot;Nemo voluptate accusamus ut et.&quot;,
@@ -41444,14 +41444,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -41616,7 +41616,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB). Example: <code>/tmp/phppgcpsu9070454yOVeA9</code></p>
+<p>Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB). Example: <code>/tmp/php7Q22TN</code></p>
         </div>
         </form>
 
@@ -41634,7 +41634,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/posts/1" \
+    "https://quandh-core.theworkpc.com/api/posts/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -41643,13 +41643,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "status=architecto"\
     --form "category_ids[]=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "images[]=@/tmp/phpduv5lrlviq345ks540O" \
-    --form "images[]=@/tmp/phpjvdcrm8sfjfs7SC4HMz" </code></pre></div>
+    --form "images[]=@/tmp/phpalfz4S" \
+    --form "images[]=@/tmp/phpvck2MU" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/1"
+    "https://quandh-core.theworkpc.com/api/posts/1"
 );
 
 const headers = {
@@ -41676,7 +41676,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/1';
+$url = 'https://quandh-core.theworkpc.com/api/posts/1';
 $response = $client-&gt;put(
     $url,
     [
@@ -41708,11 +41708,11 @@ $response = $client-&gt;put(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpduv5lrlviq345ks540O', 'r')
+                'contents' =&gt; fopen('/tmp/phpalfz4S', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpjvdcrm8sfjfs7SC4HMz', 'r')
+                'contents' =&gt; fopen('/tmp/phpvck2MU', 'r')
             ],
         ],
     ]
@@ -41730,7 +41730,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 46,
+        &quot;id&quot;: 25,
         &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
         &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
         &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -41738,7 +41738,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 96,
+                &quot;id&quot;: 25,
                 &quot;name&quot;: &quot;Tenetur Ratione&quot;,
                 &quot;slug&quot;: &quot;tenetur-ratione&quot;,
                 &quot;description&quot;: null,
@@ -41748,14 +41748,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:36&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:36&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được cập nhật!&quot;
@@ -41959,7 +41959,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh mới (append). Example: <code>/tmp/phpjvdcrm8sfjfs7SC4HMz</code></p>
+<p>Ảnh mới (append). Example: <code>/tmp/phpvck2MU</code></p>
         </div>
         </form>
 
@@ -41977,7 +41977,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/posts/1" \
+    "https://quandh-core.theworkpc.com/api/posts/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -41986,13 +41986,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "status=architecto"\
     --form "category_ids[]=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "images[]=@/tmp/phpgmut1kitp14cboM1gyS" \
-    --form "images[]=@/tmp/phphhvos0p2cb2sfJA35Pv" </code></pre></div>
+    --form "images[]=@/tmp/phphW4ZrD" \
+    --form "images[]=@/tmp/phpbO6ydU" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/1"
+    "https://quandh-core.theworkpc.com/api/posts/1"
 );
 
 const headers = {
@@ -42019,7 +42019,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/1';
+$url = 'https://quandh-core.theworkpc.com/api/posts/1';
 $response = $client-&gt;patch(
     $url,
     [
@@ -42051,11 +42051,11 @@ $response = $client-&gt;patch(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpgmut1kitp14cboM1gyS', 'r')
+                'contents' =&gt; fopen('/tmp/phphW4ZrD', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phphhvos0p2cb2sfJA35Pv', 'r')
+                'contents' =&gt; fopen('/tmp/phpbO6ydU', 'r')
             ],
         ],
     ]
@@ -42073,7 +42073,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 47,
+        &quot;id&quot;: 26,
         &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
         &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
         &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -42081,7 +42081,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 97,
+                &quot;id&quot;: 26,
                 &quot;name&quot;: &quot;Nemo Voluptate&quot;,
                 &quot;slug&quot;: &quot;nemo-voluptate&quot;,
                 &quot;description&quot;: &quot;Et recusandae modi rerum ex repellendus assumenda et.&quot;,
@@ -42091,14 +42091,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được cập nhật!&quot;
@@ -42302,7 +42302,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh mới (append). Example: <code>/tmp/phphhvos0p2cb2sfJA35Pv</code></p>
+<p>Ảnh mới (append). Example: <code>/tmp/phpbO6ydU</code></p>
         </div>
         </form>
 
@@ -42320,7 +42320,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/posts/1" \
+    "https://quandh-core.theworkpc.com/api/posts/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -42328,7 +42328,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/1"
+    "https://quandh-core.theworkpc.com/api/posts/1"
 );
 
 const headers = {
@@ -42346,7 +42346,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/1';
+$url = 'https://quandh-core.theworkpc.com/api/posts/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -42498,7 +42498,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/posts/1/status" \
+    "https://quandh-core.theworkpc.com/api/posts/1/status" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -42510,7 +42510,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/posts/1/status"
+    "https://quandh-core.theworkpc.com/api/posts/1/status"
 );
 
 const headers = {
@@ -42532,7 +42532,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/posts/1/status';
+$url = 'https://quandh-core.theworkpc.com/api/posts/1/status';
 $response = $client-&gt;patch(
     $url,
     [
@@ -42559,7 +42559,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 48,
+        &quot;id&quot;: 27,
         &quot;title&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
         &quot;content&quot;: &quot;Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.\n\nAlias tenetur ratione nemo voluptate accusamus ut et. Modi rerum ex repellendus assumenda et tenetur.&quot;,
@@ -42567,7 +42567,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 98,
+                &quot;id&quot;: 27,
                 &quot;name&quot;: &quot;Perspiciatis Deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;,
                 &quot;description&quot;: &quot;Et dolores quia maiores.&quot;,
@@ -42577,14 +42577,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-                &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+                &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+                &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;28/02/2026 11:37:37&quot;,
-        &quot;updated_at&quot;: &quot;28/02/2026 11:37:37&quot;
+        &quot;created_at&quot;: &quot;03/03/2026 22:44:28&quot;,
+        &quot;updated_at&quot;: &quot;03/03/2026 22:44:28&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
