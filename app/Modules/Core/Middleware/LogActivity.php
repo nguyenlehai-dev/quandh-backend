@@ -127,6 +127,14 @@ class LogActivity
             'tree' => 'Xem cây',
             'delete-by-date' => 'Xóa theo khoảng thời gian',
             'clear' => 'Xóa toàn bộ',
+            'checkin' => 'Điểm danh',
+            'reorder' => 'Sắp xếp lại',
+            'approve' => 'Duyệt',
+            'reject' => 'Từ chối',
+            'open' => 'Mở biểu quyết',
+            'close' => 'Đóng biểu quyết',
+            'vote' => 'Bỏ phiếu',
+            'results' => 'Xem kết quả biểu quyết',
         ];
         if ($sub && isset($pathActions[$sub])) {
             return $pathActions[$sub].' '.$this->resourceLabel(str_replace('-', '_', $resource));
@@ -171,6 +179,14 @@ class LogActivity
             'destroyByDate' => 'Xóa theo khoảng thời gian',
             'destroyAll' => 'Xóa toàn bộ',
             'public' => 'Xem dữ liệu công khai',
+            'checkin' => 'Điểm danh',
+            'reorder' => 'Sắp xếp lại',
+            'approve' => 'Duyệt',
+            'reject' => 'Từ chối',
+            'open' => 'Mở biểu quyết',
+            'close' => 'Đóng biểu quyết',
+            'vote' => 'Bỏ phiếu',
+            'results' => 'Xem kết quả biểu quyết',
         ];
 
         $actionLabel = $actionLabels[$action] ?? $action;
@@ -189,6 +205,13 @@ class LogActivity
             ?? $params['issuingLevel']
             ?? $params['documentSigner']
             ?? $params['documentField']
+            ?? $params['meeting']
+            ?? $params['participant']
+            ?? $params['agenda']
+            ?? $params['conclusion']
+            ?? $params['note']
+            ?? $params['speechRequest']
+            ?? $params['voting']
             ?? $params['id']
             ?? null;
         $suffix = $id ? ' #'.(is_object($id) ? $id->getKey() : $id) : '';
@@ -215,6 +238,14 @@ class LogActivity
             'document-signers' => 'người ký',
             'document-fields' => 'lĩnh vực',
             'settings' => 'cấu hình hệ thống',
+            'meetings' => 'cuộc họp',
+            'meeting-participants' => 'thành viên cuộc họp',
+            'meeting-agendas' => 'chương trình nghị sự',
+            'meeting-documents' => 'tài liệu cuộc họp',
+            'meeting-conclusions' => 'kết luận cuộc họp',
+            'meeting-personal-notes' => 'ghi chú cá nhân',
+            'meeting-speech-requests' => 'đăng ký phát biểu',
+            'meeting-votings' => 'biểu quyết',
         ];
 
         return $labels[$resource] ?? str_replace('-', ' ', $resource);

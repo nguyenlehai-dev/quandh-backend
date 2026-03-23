@@ -68,6 +68,11 @@ Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->gro
     Route::prefix('document-fields')->group(function () {
         require base_path('app/Modules/Document/Routes/document_field.php');
     });
+    // Meeting - Cuộc họp không giấy
+    Route::prefix('meetings')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/meeting.php');
+    });
+
     Route::prefix('settings')->group(function () {
         require base_path('app/Modules/Core/Routes/setting.php');
     });
