@@ -1,0 +1,756 @@
+{
+	"info": {
+		"name": "Meeting Module",
+		"description": "API for Meeting Module (Paperless Meeting) - Danatec.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+	},
+	"item": [
+		{
+			"name": "Meeting - Meeting",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "Stats",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/stats", "host": ["{{base_url}}"], "path": ["api", "meetings", "stats"] }
+					}
+				},
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": {
+							"raw": "{{base_url}}/api/meetings?limit=10&sort_by=created_at&sort_order=desc",
+							"host": ["{{base_url}}"], "path": ["api", "meetings"],
+							"query": [
+								{ "key": "limit", "value": "10" },
+								{ "key": "sort_by", "value": "created_at" },
+								{ "key": "sort_order", "value": "desc" },
+								{ "key": "search", "value": "", "disabled": true },
+								{ "key": "status", "value": "", "disabled": true }
+							]
+						}
+					}
+				},
+				{
+					"name": "Show Detail",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Board Meeting Q1/2026\",\n  \"description\": \"Q1 Summary Meeting\",\n  \"location\": \"Meeting Room A - Floor 3\",\n  \"start_at\": \"2026-04-01 08:00:00\",\n  \"end_at\": \"2026-04-01 11:00:00\",\n  \"status\": \"draft\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings", "host": ["{{base_url}}"], "path": ["api", "meetings"] }
+					},
+					"event": [{
+						"listen": "test",
+						"script": {
+							"exec": ["var j=pm.response.json(); if(j.data&&j.data.id) pm.collectionVariables.set('meeting_id',j.data.id);"],
+							"type": "text/javascript"
+						}
+					}]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Board Meeting Q1/2026 (Updated)\",\n  \"location\": \"Meeting Room B - Floor 5\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}"] }
+					}
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"active\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/status", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "status"] }
+					}
+				},
+				{
+					"name": "Bulk Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [1, 2]\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/bulk-delete", "host": ["{{base_url}}"], "path": ["api", "meetings", "bulk-delete"] }
+					}
+				},
+				{
+					"name": "Bulk Update Status",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [1, 2],\n  \"status\": \"active\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/bulk-status", "host": ["{{base_url}}"], "path": ["api", "meetings", "bulk-status"] }
+					}
+				},
+				{
+					"name": "Export",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/export", "host": ["{{base_url}}"], "path": ["api", "meetings", "export"] }
+					}
+				},
+				{
+					"name": "Import",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [{ "key": "file", "type": "file", "src": "" }]
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/import", "host": ["{{base_url}}"], "path": ["api", "meetings", "import"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - Participant",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/participants", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "participants"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 2,\n  \"position\": \"Director\",\n  \"meeting_role\": \"chair\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/participants", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "participants"] }
+					}
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"position\": \"Vice Director\",\n  \"meeting_role\": \"delegate\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/participants/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "participants", "1"] }
+					}
+				},
+				{
+					"name": "Check In",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendance_status\": \"present\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/participants/1/checkin", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "participants", "1", "checkin"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/participants/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "participants", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - Agenda",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/agendas", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "agendas"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Financial Report Q1\",\n  \"description\": \"Present Q1 financial results\",\n  \"duration\": 30\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/agendas", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "agendas"] }
+					}
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Financial Report Q1 (Updated)\",\n  \"duration\": 45\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/agendas/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "agendas", "1"] }
+					}
+				},
+				{
+					"name": "Reorder",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [3, 1, 2]\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/agendas/reorder", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "agendas", "reorder"] }
+					}
+				},
+				{
+					"name": "Set Active (Real-time)",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/agendas/1/set-active", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "agendas", "1", "set-active"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/agendas/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "agendas", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - Document",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/documents", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "documents"] }
+					}
+				},
+				{
+					"name": "Store (Upload)",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "title", "value": "Financial Report Q1/2026", "type": "text" },
+								{ "key": "description", "value": "Detailed report file", "type": "text" },
+								{ "key": "files[]", "type": "file", "src": "" }
+							]
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/documents", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "documents"] }
+					}
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "title", "value": "Report (Updated)", "type": "text" },
+								{ "key": "files[]", "type": "file", "src": "" }
+							]
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/documents/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "documents", "1"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/documents/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "documents", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - Conclusion",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/conclusions", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "conclusions"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Approve Q2 Budget\",\n  \"content\": \"Board approved 500M budget for Q2/2026.\",\n  \"meeting_agenda_id\": 1\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/conclusions", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "conclusions"] }
+					}
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Conclusion content updated.\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/conclusions/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "conclusions", "1"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/conclusions/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "conclusions", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - PersonalNote",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All (My Notes)",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/personal-notes", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "personal-notes"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Need to ask about Q2 budget.\",\n  \"meeting_document_id\": null\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/personal-notes", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "personal-notes"] }
+					}
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Note updated.\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/personal-notes/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "personal-notes", "1"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/personal-notes/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "personal-notes", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - SpeechRequest",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/speech-requests", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "speech-requests"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"meeting_agenda_id\": 1,\n  \"content\": \"I want to speak about the budget.\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/speech-requests", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "speech-requests"] }
+					}
+				},
+				{
+					"name": "Approve",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/speech-requests/1/approve", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "speech-requests", "1", "approve"] }
+					}
+				},
+				{
+					"name": "Reject",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/speech-requests/1/reject", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "speech-requests", "1", "reject"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/speech-requests/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "speech-requests", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Meeting - Voting",
+			"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+			"item": [
+				{
+					"name": "List All",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings"] }
+					}
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Approve Q2/2026 Budget\",\n  \"description\": \"Vote to approve 500M budget\",\n  \"meeting_agenda_id\": 1,\n  \"type\": \"public\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings"] }
+					}
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PUT",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Approve Budget (Updated)\",\n  \"type\": \"anonymous\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings", "1"] }
+					}
+				},
+				{
+					"name": "Open Voting",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings/1/open", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings", "1", "open"] }
+					}
+				},
+				{
+					"name": "Cast Vote",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "POST",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"choice\": \"agree\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings/1/vote", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings", "1", "vote"] }
+					}
+				},
+				{
+					"name": "Close Voting",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "PATCH",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings/1/close", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings", "1", "close"] }
+					}
+				},
+				{
+					"name": "View Results",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "GET",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings/1/results", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings", "1", "results"] }
+					}
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+						"method": "DELETE",
+						"header": [
+							{ "key": "X-Organization-Id", "value": "{{organization_id}}" },
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": { "raw": "{{base_url}}/api/meetings/{{meeting_id}}/votings/1", "host": ["{{base_url}}"], "path": ["api", "meetings", "{{meeting_id}}", "votings", "1"] }
+					}
+				}
+			]
+		}
+	]
+}
