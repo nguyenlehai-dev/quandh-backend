@@ -8,6 +8,7 @@ use App\Modules\Meeting\Models\MeetingPersonalNote;
 use App\Modules\Meeting\Resources\MeetingPersonalNoteResource;
 use App\Modules\Meeting\Services\MeetingPersonalNoteService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * @group Meeting - Ghi chú cá nhân
@@ -70,10 +71,8 @@ class MeetingPersonalNoteController extends Controller
      */
     public function update(Request $request, Meeting $meeting, MeetingPersonalNote $note)
     {
-        // Kiểm tra quyền sở hữu
-        if ($note->user_id !== auth()->id()) {
-            return $this->forbidden('Bạn không có quyền cập nhật ghi chú này.');
-        }
+        // Kiểm tra quyền sở hữu qua Policy
+        Gate::authorize('update', $note);
 
         $validated = $request->validate([
             'content' => 'sometimes|string',
@@ -95,10 +94,8 @@ class MeetingPersonalNoteController extends Controller
      */
     public function destroy(Meeting $meeting, MeetingPersonalNote $note)
     {
-        // Kiểm tra quyền sở hữu
-        if ($note->user_id !== auth()->id()) {
-            return $this->forbidden('Bạn không có quyền xóa ghi chú này.');
-        }
+        // Kiểm tra quyền sở hữu qua Policy
+        Gate::authorize('delete', $note);
 
         $this->service->destroy($note);
 

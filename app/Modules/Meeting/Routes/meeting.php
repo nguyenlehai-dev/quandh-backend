@@ -45,6 +45,7 @@ Route::post('/{meeting}/agendas', [MeetingAgendaController::class, 'store'])->mi
 Route::put('/{meeting}/agendas/{agenda}', [MeetingAgendaController::class, 'update'])->middleware('permission:meeting-agendas.update,web');
 Route::delete('/{meeting}/agendas/{agenda}', [MeetingAgendaController::class, 'destroy'])->middleware('permission:meeting-agendas.destroy,web');
 Route::patch('/{meeting}/agendas/reorder', [MeetingAgendaController::class, 'reorder'])->middleware('permission:meeting-agendas.reorder,web');
+Route::patch('/{meeting}/agendas/{agenda}/set-active', [MeetingAgendaController::class, 'setActive'])->middleware('permission:meeting-agendas.setActive,web');
 
 // === Documents (Tài liệu) ===
 Route::get('/{meeting}/documents', [MeetingDocumentController::class, 'index'])->middleware('permission:meeting-documents.index,web');

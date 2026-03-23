@@ -2,6 +2,7 @@
 
 namespace App\Modules\Meeting\Services;
 
+use App\Modules\Meeting\Events\MeetingVotingStatusChanged;
 use App\Modules\Meeting\Models\Meeting;
 use App\Modules\Meeting\Models\MeetingVoteResult;
 use App\Modules\Meeting\Models\MeetingVoting;
@@ -34,18 +35,22 @@ class MeetingVotingService
         $voting->delete();
     }
 
-    /** Mở phiên bỏ phiếu. */
+    /** Mở phiên bỏ phiếu + broadcast. */
     public function open(MeetingVoting $voting): MeetingVoting
     {
         $voting->update(['status' => 'open']);
 
+        event(new MeetingVotingStatusChanged($voting->meeting, $voting, 'open'));
+
         return $voting->load(['agenda', 'results']);
     }
 
-    /** Đóng phiên bỏ phiếu. */
+    /** Đóng phiên bỏ phiếu + broadcast. */
     public function close(MeetingVoting $voting): MeetingVoting
     {
         $voting->update(['status' => 'closed']);
+
+        event(new MeetingVotingStatusChanged($voting->meeting, $voting, 'closed'));
 
         return $voting->load(['agenda', 'results']);
     }

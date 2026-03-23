@@ -4,8 +4,10 @@ namespace App\Modules\Meeting\Services;
 
 use App\Modules\Core\Services\MediaService;
 use App\Modules\Meeting\Enums\MeetingStatusEnum;
+use App\Modules\Meeting\Events\MeetingStatusChanged;
 use App\Modules\Meeting\Exports\MeetingsExport;
 use App\Modules\Meeting\Imports\MeetingsImport;
+use App\Modules\Meeting\Jobs\SendMeetingNotificationsJob;
 use App\Modules\Meeting\Models\Meeting;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -83,10 +85,24 @@ class MeetingService
         Meeting::whereIn('id', $ids)->update(['status' => $status]);
     }
 
-    /** Đổi trạng thái cuộc họp. */
+    /** Đổi trạng thái cuộc họp + phát sự kiện + gửi thông báo. */
     public function changeStatus(Meeting $meeting, string $status): Meeting
     {
+        $oldStatus = $meeting->status;
         $meeting->update(['status' => $status]);
+
+        // Phát sự kiện broadcast (real-time)
+        event(new MeetingStatusChanged($meeting, $oldStatus, $status));
+
+        // Gửi thông báo hàng loạt khi kích hoạt cuộc họp
+        if ($status === MeetingStatusEnum::Active->value) {
+            SendMeetingNotificationsJob::dispatch($meeting, 'activated');
+        }
+
+        // Gửi thông báo tổng hợp khi kết thúc cuộc họp
+        if ($status === MeetingStatusEnum::Completed->value) {
+            SendMeetingNotificationsJob::dispatch($meeting, 'completed');
+        }
 
         return $meeting->load(['creator', 'editor']);
     }

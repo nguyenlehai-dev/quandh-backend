@@ -147,6 +147,7 @@ Quản lý cuộc họp không giấy: thống kê, danh sách, chi tiết, CRUD
 | PUT | `.../agendas/{aid}` | Cập nhật |
 | DELETE | `.../agendas/{aid}` | Xóa |
 | PATCH | `.../agendas/reorder` | Sắp xếp lại (`ids[]`) |
+| PATCH | `.../agendas/{aid}/set-active` | Đặt mục làm active hiện tại (Real-time Broadcast) |
 
 ### Tài liệu (`/api/meetings/{id}/documents`)
 

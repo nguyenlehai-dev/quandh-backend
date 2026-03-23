@@ -2,6 +2,7 @@
 
 namespace App\Modules\Meeting\Services;
 
+use App\Modules\Meeting\Events\MeetingAgendaChanged;
 use App\Modules\Meeting\Models\Meeting;
 use App\Modules\Meeting\Models\MeetingAgenda;
 
@@ -45,4 +46,13 @@ class MeetingAgendaService
             $meeting->agendas()->where('id', $id)->update(['order_index' => $index]);
         }
     }
+
+    /** Chuyển mục Agenda hiện tại (broadcast real-time). */
+    public function setActive(Meeting $meeting, MeetingAgenda $agenda): MeetingAgenda
+    {
+        event(new MeetingAgendaChanged($meeting, $agenda));
+
+        return $agenda;
+    }
 }
+

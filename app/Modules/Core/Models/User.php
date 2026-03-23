@@ -59,6 +59,12 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    /** FCM Tokens cho push notification (1 user → nhiều thiết bị). */
+    public function fcmTokens()
+    {
+        return $this->hasMany(UserFcmToken::class);
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
