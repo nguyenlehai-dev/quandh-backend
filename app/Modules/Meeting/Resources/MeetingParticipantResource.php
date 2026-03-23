@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Modules\Meeting\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class MeetingParticipantResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'user_name' => $this->whenLoaded('user', fn () => $this->user->name),
+            'user_email' => $this->whenLoaded('user', fn () => $this->user->email),
+            'position' => $this->position,
+            'meeting_role' => $this->meeting_role,
+            'attendance_status' => $this->attendance_status,
+            'checkin_at' => $this->checkin_at?->format('H:i:s d/m/Y'),
+            'absence_reason' => $this->absence_reason,
+            'created_at' => $this->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $this->updated_at?->format('H:i:s d/m/Y'),
+        ];
+    }
+}
