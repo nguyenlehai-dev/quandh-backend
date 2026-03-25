@@ -18,7 +18,7 @@ use Illuminate\Database\Seeder;
 class PermissionSeeder extends Seeder
 {
     /** Guard thống nhất cho Spatie (web + API Sanctum), tránh nhân đôi permission trong DB. */
-    protected const GUARD = 'web';
+    protected const GUARD = 'api';
 
     /**
      * Danh sách đầy đủ permission theo module và resource.
@@ -133,7 +133,7 @@ class PermissionSeeder extends Seeder
 
     public function run(): void
     {
-        $this->migrateGuardApiToWeb();
+        $this->migrateGuardWebToApi();
         $this->seedOrganizations();
         $this->seedPermissions();
         $this->seedRoles();
@@ -141,11 +141,11 @@ class PermissionSeeder extends Seeder
         $this->seedFixedUsersAndAssignRoles();
     }
 
-    /** Chuyển permission/role từ guard api sang web (một lần khi đổi chiến lược guard). */
-    protected function migrateGuardApiToWeb(): void
+    /** Chuyển permission/role từ guard web sang api (một lần khi đổi chiến lược guard). */
+    protected function migrateGuardWebToApi(): void
     {
-        Permission::where('guard_name', 'api')->update(['guard_name' => 'web']);
-        Role::where('guard_name', 'api')->update(['guard_name' => 'web']);
+        Permission::where('guard_name', 'web')->update(['guard_name' => 'api']);
+        Role::where('guard_name', 'web')->update(['guard_name' => 'api']);
         app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
     }
 

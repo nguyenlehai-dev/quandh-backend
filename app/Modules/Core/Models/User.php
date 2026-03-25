@@ -12,8 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
-    /** Spatie luôn dùng guard 'web' cho quyền (dùng chung cho cả web và API Sanctum). */
-    protected $guard_name = 'web';
+    protected $guard_name = 'api';
 
     protected static function newFactory()
     {

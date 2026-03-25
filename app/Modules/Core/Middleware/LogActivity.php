@@ -26,27 +26,47 @@ class LogActivity
         'api_firebase_token', 'api_google_maps_token',
     ];
 
-    /** Đường dẫn không ghi log (vd: health check). */
-    protected static array $excludedPaths = ['/up'];
+    /** GET actions không cần ghi log (giảm ~80% DB writes). */
+    protected static array $skipGetActions = [
+        'index', 'show', 'stats', 'tree', 'public', 'publicOptions',
+    ];
 
     public function handle(Request $request, Closure $next): Response
     {
-        $response = $next($request);
+        return $next($request);
+    }
 
+    /**
+     * Terminable middleware — chạy SAU khi response đã gửi cho client.
+     * Client nhận response ngay, log ghi bất đồng bộ.
+     */
+    public function terminate(Request $request, Response $response): void
+    {
         if (! $this->shouldLog($request)) {
-            return $response;
+            return;
         }
 
         $this->log($request, $response->getStatusCode());
-
-        return $response;
     }
 
     protected function shouldLog(Request $request): bool
     {
-        foreach (self::$excludedPaths as $path) {
+        // Skip excluded paths
+        $excludedPaths = ['/up'];
+        foreach ($excludedPaths as $path) {
             if (str_starts_with($request->path(), ltrim($path, '/'))) {
                 return false;
+            }
+        }
+
+        // Skip GET read-only requests (index, show, stats, tree, public)
+        if ($request->isMethod('GET')) {
+            $routeName = $request->route()?->getName();
+            if ($routeName) {
+                $action = last(explode('.', $routeName));
+                if (in_array($action, self::$skipGetActions, true)) {
+                    return false;
+                }
             }
         }
 

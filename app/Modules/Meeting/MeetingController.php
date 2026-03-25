@@ -12,8 +12,10 @@ use App\Modules\Meeting\Requests\ImportMeetingRequest;
 use App\Modules\Meeting\Requests\StoreMeetingRequest;
 use App\Modules\Meeting\Requests\UpdateMeetingRequest;
 use App\Modules\Meeting\Resources\MeetingCollection;
+use App\Modules\Meeting\Resources\MeetingParticipantResource;
 use App\Modules\Meeting\Resources\MeetingResource;
 use App\Modules\Meeting\Services\MeetingService;
+use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Cuộc họp
@@ -200,5 +202,63 @@ class MeetingController extends Controller
         $this->meetingService->import($request->file('file'));
 
         return $this->success(null, 'Import cuộc họp thành công.');
+    }
+
+    /**
+     * Lấy QR token của cuộc họp
+     *
+     * Admin dùng để hiển thị mã QR cho đại biểu quét điểm danh.
+     * QR token sẽ tự động sinh nếu chưa có.
+     *
+     * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @response 200 {"success": true, "data": {"qr_token": "A1B2C3D4E5F6", "meeting_id": 1, "meeting_title": "Họp ban giám đốc"}}
+     */
+    public function qrToken(Meeting $meeting)
+    {
+        $token = $this->meetingService->qrToken($meeting);
+
+        return $this->success([
+            'qr_token' => $token,
+            'meeting_id' => $meeting->id,
+            'meeting_title' => $meeting->title,
+        ]);
+    }
+
+    /**
+     * Điểm danh bằng QR code
+     *
+     * Đại biểu gửi mã QR token để xác nhận tham dự cuộc họp.
+     *
+     * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @bodyParam qr_token string required Mã QR token (12 ký tự). Example: A1B2C3D4E5F6
+     *
+     * @response 200 {"success": true, "message": "Điểm danh thành công!", "data": {"id": 1, "attendance_status": "present"}}
+     * @response 422 {"success": false, "message": "Mã QR không hợp lệ hoặc đã hết hạn."}
+     */
+    public function qrCheckin(Request $request, Meeting $meeting)
+    {
+        $validated = $request->validate([
+            'qr_token' => 'required|string|size:12',
+        ], [
+            'qr_token.required' => 'Vui lòng nhập mã QR.',
+            'qr_token.size' => 'Mã QR phải có đúng 12 ký tự.',
+        ]);
+
+        try {
+            $participant = $this->meetingService->qrCheckin(
+                $meeting,
+                $validated['qr_token'],
+                auth()->id()
+            );
+
+            return $this->successResource(
+                new MeetingParticipantResource($participant),
+                'Điểm danh thành công!'
+            );
+        } catch (\InvalidArgumentException $e) {
+            return $this->error($e->getMessage(), 422);
+        }
     }
 }

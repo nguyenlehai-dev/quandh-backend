@@ -21,6 +21,7 @@ class RoleService
     public function index(array $filters, int $limit)
     {
         return Role::with(['organization', 'permissions'])
+            ->withCount('users')
             ->filter($filters)
             ->paginate($limit);
     }

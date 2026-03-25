@@ -72,6 +72,10 @@ Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->gro
     Route::prefix('meetings')->group(function () {
         require base_path('app/Modules/Meeting/Routes/meeting.php');
     });
+    // My Meetings - Phân hệ Đại biểu (lịch họp của tôi)
+    Route::prefix('my-meetings')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/my_meeting.php');
+    });
 
     Route::prefix('settings')->group(function () {
         require base_path('app/Modules/Core/Routes/setting.php');

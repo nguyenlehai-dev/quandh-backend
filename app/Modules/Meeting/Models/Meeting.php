@@ -2,6 +2,8 @@
 
 namespace App\Modules\Meeting\Models;
 
+use Illuminate\Support\Str;
+
 use App\Modules\Core\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +25,7 @@ class Meeting extends Model implements HasMedia
         'start_at',
         'end_at',
         'status',
+        'qr_token',
         'created_by',
         'updated_by',
     ];
@@ -35,7 +38,26 @@ class Meeting extends Model implements HasMedia
     protected static function booted()
     {
         static::creating(fn ($meeting) => $meeting->created_by = $meeting->updated_by = auth()->id());
-        static::updating(fn ($meeting) => $meeting->updated_by = auth()->id());
+        static::updating(function ($meeting) {
+            $meeting->updated_by = auth()->id();
+
+            // Tự động sinh QR token khi chuyển sang active/in_progress (nếu chưa có)
+            if ($meeting->isDirty('status')
+                && in_array($meeting->status, ['active', 'in_progress'])
+                && ! $meeting->qr_token) {
+                $meeting->qr_token = $meeting->generateQrToken();
+            }
+        });
+    }
+
+    /** Sinh mã QR token duy nhất (12 ký tự hex). */
+    public function generateQrToken(): string
+    {
+        do {
+            $token = strtoupper(Str::random(12));
+        } while (static::where('qr_token', $token)->exists());
+
+        return $token;
     }
 
     /** Người tạo cuộc họp. */

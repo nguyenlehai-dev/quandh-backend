@@ -31,6 +31,8 @@ Route::put('/{meeting}', [MeetingController::class, 'update'])->middleware('perm
 Route::patch('/{meeting}', [MeetingController::class, 'update'])->middleware('permission:meetings.update,web');
 Route::delete('/{meeting}', [MeetingController::class, 'destroy'])->middleware('permission:meetings.destroy,web');
 Route::patch('/{meeting}/status', [MeetingController::class, 'changeStatus'])->middleware('permission:meetings.changeStatus,web');
+Route::get('/{meeting}/qr-token', [MeetingController::class, 'qrToken'])->middleware('permission:meetings.show,web');
+Route::post('/{meeting}/qr-checkin', [MeetingController::class, 'qrCheckin'])->middleware('permission:meetings.show,web');
 
 // === Participants (Thành viên) ===
 Route::get('/{meeting}/participants', [MeetingParticipantController::class, 'index'])->middleware('permission:meeting-participants.index,web');

@@ -17,12 +17,15 @@ class UserService
 {
     public function stats(array $filters): array
     {
-        $base = User::filter($filters);
+        $result = User::filter($filters)
+            ->selectRaw('COUNT(*) as total')
+            ->selectRaw("SUM(CASE WHEN status = ? THEN 1 ELSE 0 END) as active", [UserStatusEnum::Active->value])
+            ->first();
 
         return [
-            'total' => (clone $base)->count(),
-            'active' => (clone $base)->where('status', UserStatusEnum::Active->value)->count(),
-            'inactive' => (clone $base)->where('status', '!=', UserStatusEnum::Active->value)->count(),
+            'total' => (int) $result->total,
+            'active' => (int) $result->active,
+            'inactive' => (int) $result->total - (int) $result->active,
         ];
     }
 

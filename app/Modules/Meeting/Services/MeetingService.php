@@ -4,11 +4,13 @@ namespace App\Modules\Meeting\Services;
 
 use App\Modules\Core\Services\MediaService;
 use App\Modules\Meeting\Enums\MeetingStatusEnum;
+use App\Modules\Meeting\Events\MeetingAttendanceChecked;
 use App\Modules\Meeting\Events\MeetingStatusChanged;
 use App\Modules\Meeting\Exports\MeetingsExport;
 use App\Modules\Meeting\Imports\MeetingsImport;
 use App\Modules\Meeting\Jobs\SendMeetingNotificationsJob;
 use App\Modules\Meeting\Models\Meeting;
+use App\Modules\Meeting\Models\MeetingParticipant;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -117,5 +119,54 @@ class MeetingService
     public function import($file): void
     {
         Excel::import(new MeetingsImport, $file);
+    }
+
+    /** Lấy hoặc sinh QR token cho cuộc họp. */
+    public function qrToken(Meeting $meeting): string
+    {
+        if (! $meeting->qr_token) {
+            $meeting->qr_token = $meeting->generateQrToken();
+            $meeting->saveQuietly(); // Không trigger events
+        }
+
+        return $meeting->qr_token;
+    }
+
+    /** Đại biểu điểm danh bằng QR token. */
+    public function qrCheckin(Meeting $meeting, string $qrToken, int $userId): MeetingParticipant
+    {
+        // Verify QR token
+        if ($meeting->qr_token !== $qrToken) {
+            throw new \InvalidArgumentException('Mã QR không hợp lệ hoặc đã hết hạn.');
+        }
+
+        // Kiểm tra cuộc họp đang active/in_progress
+        if (! in_array($meeting->status, [MeetingStatusEnum::Active->value, MeetingStatusEnum::InProgress->value])) {
+            throw new \InvalidArgumentException('Cuộc họp chưa bắt đầu hoặc đã kết thúc.');
+        }
+
+        // Tìm participant
+        $participant = MeetingParticipant::where('meeting_id', $meeting->id)
+            ->where('user_id', $userId)
+            ->first();
+
+        if (! $participant) {
+            throw new \InvalidArgumentException('Bạn không có trong danh sách đại biểu của cuộc họp này.');
+        }
+
+        if ($participant->attendance_status === 'present') {
+            throw new \InvalidArgumentException('Bạn đã điểm danh rồi.');
+        }
+
+        // Điểm danh
+        $participant->update([
+            'attendance_status' => 'present',
+            'checkin_at' => now(),
+        ]);
+
+        // Broadcast real-time cho admin
+        event(new MeetingAttendanceChecked($participant->load('user')));
+
+        return $participant;
     }
 }
