@@ -8,6 +8,8 @@ use App\Modules\Meeting\MeetingParticipantController;
 use App\Modules\Meeting\MeetingPersonalNoteController;
 use App\Modules\Meeting\MeetingSpeechRequestController;
 use App\Modules\Meeting\MeetingVotingController;
+use App\Modules\Meeting\AttendeeGroupController;
+use App\Modules\Meeting\MeetingTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,17 @@ use Illuminate\Support\Facades\Route;
 | Các route cho module Cuộc họp không giấy.
 | Prefix: /api/meetings
 */
+
+// === Categories (Danh mục) ===
+Route::get('/attendee-groups', [AttendeeGroupController::class, 'index']);
+Route::post('/attendee-groups', [AttendeeGroupController::class, 'store']);
+Route::put('/attendee-groups/{attendee_group}', [AttendeeGroupController::class, 'update']);
+Route::delete('/attendee-groups/{attendee_group}', [AttendeeGroupController::class, 'destroy']);
+
+Route::get('/meeting-types', [MeetingTypeController::class, 'index']);
+Route::post('/meeting-types', [MeetingTypeController::class, 'store']);
+Route::put('/meeting-types/{meeting_type}', [MeetingTypeController::class, 'update']);
+Route::delete('/meeting-types/{meeting_type}', [MeetingTypeController::class, 'destroy']);
 
 // === Meeting chính (11 hàm bắt buộc) ===
 Route::get('/export', [MeetingController::class, 'export'])->middleware('permission:meetings.export,web');
