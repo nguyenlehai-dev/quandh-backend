@@ -58,6 +58,12 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    /** Preference cá nhân (tổ chức đang chọn, …). */
+    public function userPreference()
+    {
+        return $this->hasOne(UserPreference::class);
+    }
+
     /** FCM Tokens cho push notification (1 user → nhiều thiết bị). */
     public function fcmTokens()
     {

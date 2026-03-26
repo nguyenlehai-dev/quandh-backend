@@ -42,15 +42,22 @@ class MeetingDocumentController extends Controller
      */
     public function store(Request $request, Meeting $meeting)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'files' => 'nullable|array',
-            'files.*' => 'file|max:20480',
-        ], [
-            'title.required' => 'Tên tài liệu không được để trống.',
-            'files.*.max' => 'Kích thước mỗi file tối đa 20MB.',
-        ]);
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'files' => 'nullable|array',
+                'files.*' => 'file|max:20480',
+            ], [
+                'title.required' => 'Tên tài liệu không được để trống.',
+                'files.*.max' => 'Kích thước mỗi file tối đa 20MB.',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation Failed in Document Store: ', $e->errors());
+            \Log::error('Request files: ', $request->allFiles());
+            \Log::error('Request data: ', $request->all());
+            throw $e;
+        }
 
         $files = $request->file('files', []);
         $document = $this->service->store($meeting, $validated, $files);

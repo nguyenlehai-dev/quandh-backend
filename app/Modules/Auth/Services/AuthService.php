@@ -36,8 +36,7 @@ class AuthService
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $organizations = $this->getAccessibleOrganizations($user);
-        $currentOrganization = $organizations[0] ?? null;
-        $currentOrganizationId = $currentOrganization['id'] ?? null;
+        $currentOrganizationId = $this->resolveCurrentOrganization($user, $organizations);
         $rolesAndPermissions = $this->getRolesAndPermissionsForOrganization($user, $currentOrganizationId);
 
         return [
@@ -101,6 +100,7 @@ class AuthService
         }
 
         $rolesAndPermissions = $this->getRolesAndPermissionsForOrganization($user, (int) $organization->id);
+        $this->saveOrganizationPreference($user, (int) $organization->id);
 
         return [
             'ok' => true,
@@ -192,5 +192,47 @@ class AuthService
             'permissions' => $permissions,
             'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
         ];
+    }
+
+    /**
+     * Xác định organization hiện tại cho user khi đăng nhập:
+     * 1) Nếu chỉ có 1 org → tự gán + lưu preference.
+     * 2) Tra cứu preference đã lưu trong DB.
+     * 3) Nhiều org, chưa có preference hợp lệ → trả null (frontend hiện dialog chọn).
+     */
+    protected function resolveCurrentOrganization(User $user, array $organizations): ?int
+    {
+        $orgIds = array_column($organizations, 'id');
+
+        if (empty($orgIds)) {
+            return null;
+        }
+
+        // 1 org duy nhất → tự gán
+        if (count($orgIds) === 1) {
+            $this->saveOrganizationPreference($user, $orgIds[0]);
+
+            return $orgIds[0];
+        }
+
+        // Tra cứu preference đã lưu
+        $pref = $user->userPreference;
+        if ($pref && in_array($pref->current_organization_id, $orgIds, true)) {
+            return $pref->current_organization_id;
+        }
+
+        // Nhiều org, chưa có preference → null
+        return null;
+    }
+
+    /**
+     * Lưu tổ chức đang chọn vào bảng user_preferences.
+     */
+    protected function saveOrganizationPreference(User $user, int $organizationId): void
+    {
+        $user->userPreference()->updateOrCreate(
+            ['user_id' => $user->id],
+            ['current_organization_id' => $organizationId]
+        );
     }
 }

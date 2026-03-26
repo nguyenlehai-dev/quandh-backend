@@ -57,6 +57,9 @@ class MeetingService
     public function store(array $validated): Meeting
     {
         $meeting = Meeting::create($validated);
+        if (array_key_exists('agendas', $validated) && is_array($validated['agendas'])) {
+            $this->syncAgendas($meeting, $validated['agendas']);
+        }
 
         return $meeting->load(['creator', 'editor']);
     }
@@ -65,8 +68,41 @@ class MeetingService
     public function update(Meeting $meeting, array $validated): Meeting
     {
         $meeting->update($validated);
+        if (array_key_exists('agendas', $validated) && is_array($validated['agendas'])) {
+            $this->syncAgendas($meeting, $validated['agendas']);
+        }
 
         return $meeting->load(['creator', 'editor']);
+    }
+
+    private function syncAgendas(Meeting $meeting, array $agendas): void
+    {
+        $keepIds = [];
+        foreach ($agendas as $index => $agendaData) {
+            if (!empty($agendaData['id'])) {
+                $agenda = $meeting->agendas()->find($agendaData['id']);
+                if ($agenda) {
+                    $agenda->update([
+                        'title' => $agendaData['title'],
+                        'duration' => $agendaData['duration'] ?? 0,
+                        'presenter_id' => $agendaData['presenter_id'] ?? null,
+                        'order_index' => $index + 1,
+                    ]);
+                    $keepIds[] = $agenda->id;
+                    continue;
+                }
+            }
+            
+            $newAgenda = $meeting->agendas()->create([
+                'title' => $agendaData['title'],
+                'duration' => $agendaData['duration'] ?? 0,
+                'presenter_id' => $agendaData['presenter_id'] ?? null,
+                'order_index' => $index + 1,
+            ]);
+            $keepIds[] = $newAgenda->id;
+        }
+
+        $meeting->agendas()->whereNotIn('id', $keepIds)->delete();
     }
 
     /** Xóa cuộc họp. */
