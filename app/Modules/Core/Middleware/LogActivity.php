@@ -6,6 +6,8 @@ use App\Modules\Core\Models\LogActivity as LogActivityModel;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,6 +31,12 @@ class LogActivity
     /** GET actions không cần ghi log (giảm ~80% DB writes). */
     protected static array $skipGetActions = [
         'index', 'show', 'stats', 'tree', 'public', 'publicOptions',
+    ];
+
+    /** Paths không tạo notification. */
+    protected static array $skipNotificationPaths = [
+        'user/notifications', 'user/notification-preferences', 'user/change-password',
+        'auth/login', 'auth/logout',
     ];
 
     public function handle(Request $request, Closure $next): Response
@@ -80,9 +88,10 @@ class LogActivity
             $userType = $user ? class_basename($user) : 'Guest';
             $userId = $user?->id;
             $organizationId = function_exists('getPermissionsTeamId') ? getPermissionsTeamId() : null;
+            $description = $this->buildDescription($request);
 
             LogActivityModel::create([
-                'description' => $this->buildDescription($request),
+                'description' => $description,
                 'user_type' => $userType,
                 'user_id' => $userId,
                 'organization_id' => $organizationId,
@@ -93,6 +102,59 @@ class LogActivity
                 'country' => $this->resolveCountry($request),
                 'user_agent' => $request->userAgent(),
                 'request_data' => $this->sanitizeRequestData($request),
+            ]);
+
+            // Tạo notification cho write operations thành công
+            if ($user && in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE']) && $statusCode >= 200 && $statusCode < 300) {
+                $this->createNotification($user, $request->method(), $description);
+            }
+        } catch (\Throwable $e) {
+            report($e);
+        }
+    }
+
+    /**
+     * Tạo database notification cho user khi thực hiện thao tác ghi.
+     */
+    protected function createNotification($user, string $method, string $description): void
+    {
+        // Skip notification cho một số paths
+        $path = trim(request()->path(), '/');
+        $apiPath = str_starts_with($path, 'api/') ? substr($path, 4) : $path;
+        foreach (self::$skipNotificationPaths as $skip) {
+            if (str_starts_with($apiPath, $skip)) {
+                return;
+            }
+        }
+
+        $iconMap = [
+            'POST' => 'tabler-circle-plus',
+            'PUT' => 'tabler-edit',
+            'PATCH' => 'tabler-edit',
+            'DELETE' => 'tabler-trash',
+        ];
+
+        $colorMap = [
+            'POST' => 'success',
+            'PUT' => 'warning',
+            'PATCH' => 'warning',
+            'DELETE' => 'error',
+        ];
+
+        try {
+            DB::table('notifications')->insert([
+                'id' => Str::uuid()->toString(),
+                'type' => 'App\\Notifications\\ActivityNotification',
+                'notifiable_type' => get_class($user),
+                'notifiable_id' => $user->id,
+                'data' => json_encode([
+                    'title' => $description,
+                    'subtitle' => 'Thao tác thành công',
+                    'icon' => $iconMap[$method] ?? 'tabler-bell',
+                    'color' => $colorMap[$method] ?? 'primary',
+                ]),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         } catch (\Throwable $e) {
             report($e);

@@ -11,6 +11,7 @@ use App\Modules\Auth\Services\AuthService;
 use App\Modules\Auth\Services\CaslAbilityConverter;
 use App\Modules\Core\Resources\UserResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @group Auth
@@ -144,5 +145,34 @@ class AuthController extends Controller
         return $ok
             ? $this->success(null, 'Mật khẩu đã được đặt lại')
             : $this->error('Không thể đặt lại mật khẩu', 400);
+    }
+
+    /**
+     * Đổi mật khẩu
+     *
+     * Cho phép user đang đăng nhập đổi mật khẩu bằng cách xác minh mật khẩu hiện tại.
+     *
+     * @bodyParam current_password string required Mật khẩu hiện tại.
+     * @bodyParam password string required Mật khẩu mới (tối thiểu 6 ký tự).
+     * @bodyParam password_confirmation string required Xác nhận mật khẩu mới.
+     *
+     * @response 200 {"success": true, "message": "Đổi mật khẩu thành công."}
+     */
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = $request->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return $this->error('Mật khẩu hiện tại không chính xác.', 422);
+        }
+
+        $user->forceFill(['password' => Hash::make($request->password)])->save();
+
+        return $this->success(null, 'Đổi mật khẩu thành công.');
     }
 }
