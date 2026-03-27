@@ -10,6 +10,8 @@ use App\Modules\Meeting\Exports\MeetingsExport;
 use App\Modules\Meeting\Imports\MeetingsImport;
 use App\Modules\Meeting\Jobs\SendMeetingNotificationsJob;
 use App\Modules\Meeting\Models\Meeting;
+use App\Modules\Meeting\Models\MeetingVoting;
+use App\Modules\Meeting\Models\MeetingDocument;
 use App\Modules\Meeting\Models\MeetingParticipant;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -23,10 +25,34 @@ class MeetingService
     {
         $base = Meeting::filter($filters);
 
+        $meetingIds = (clone $base)->pluck('id')->toArray();
+        $totalVotes = empty($meetingIds) ? 0 : MeetingVoting::whereIn('meeting_id', $meetingIds)->count();
+        $totalDocuments = empty($meetingIds) ? 0 : MeetingDocument::whereIn('meeting_id', $meetingIds)->count();
+
+        $meetingsForFrequency = (clone $base)->whereYear('start_at', date('Y'))->get(['id', 'start_at']);
+        $chart_frequency = array_fill(0, 12, 0);
+        foreach($meetingsForFrequency as $m) {
+            if ($m->start_at) {
+                $month = (int) $m->start_at->format('n');
+                if ($month >= 1 && $month <= 12) {
+                    $chart_frequency[$month - 1]++;
+                }
+            }
+        }
+
+        $pending = (clone $base)->where('status', 'draft')->count();
+        $activeInProgress = (clone $base)->whereIn('status', [MeetingStatusEnum::Active->value, 'in_progress'])->count();
+        $completed = (clone $base)->where('status', 'completed')->count();
+        $canceled = (clone $base)->whereNotIn('status', ['draft', MeetingStatusEnum::Active->value, 'in_progress', 'completed'])->count();
+
         return [
             'total' => (clone $base)->count(),
-            'active' => (clone $base)->where('status', MeetingStatusEnum::Active->value)->count(),
+            'active' => $activeInProgress,
             'inactive' => (clone $base)->where('status', '!=', MeetingStatusEnum::Active->value)->count(),
+            'total_votes' => $totalVotes,
+            'total_documents' => $totalDocuments,
+            'chart_frequency' => $chart_frequency,
+            'chart_status_ratio' => [$pending, $activeInProgress, $completed, $canceled],
         ];
     }
 

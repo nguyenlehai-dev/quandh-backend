@@ -44,35 +44,43 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
-        $rootNames = ['Tin công nghệ', 'Tin thể thao', 'Tin kinh tế', 'Giải trí', 'Giáo dục'];
-        foreach ($rootNames as $index => $name) {
-            PostCategory::factory()
-                ->create([
-                    'name' => $name,
-                    'slug' => \Illuminate\Support\Str::slug($name),
-                    'sort_order' => $index + 1,
-                    'parent_id' => null,
-                ]);
-        }
-
-        $roots = PostCategory::whereNull('parent_id')->orderBy('sort_order')->get();
-
-        foreach ($roots as $root) {
-            $childCount = rand(2, 3);
-            for ($i = 0; $i < $childCount; $i++) {
-                PostCategory::factory()->create([
-                    'name' => $root->name.' - '.fake()->word(),
-                    'slug' => \Illuminate\Support\Str::slug($root->name.' '.fake()->word()).'-'.uniqid(),
-                    'sort_order' => $i + 1,
-                    'parent_id' => $root->id,
-                ]);
+        PostCategory::withoutEvents(function () use ($user) {
+            $rootNames = ['Tin công nghệ', 'Tin thể thao', 'Tin kinh tế', 'Giải trí', 'Giáo dục'];
+            foreach ($rootNames as $index => $name) {
+                $slug = \Illuminate\Support\Str::slug($name);
+                PostCategory::updateOrCreate(
+                    ['slug' => $slug],
+                    [
+                        'name' => $name,
+                        'sort_order' => $index + 1,
+                        'parent_id' => null,
+                        'status' => 'active',
+                        'created_by' => $user->id,
+                        'updated_by' => $user->id,
+                    ]
+                );
             }
-        }
 
-        PostCategory::whereNull('created_by')->update([
-            'created_by' => $user->id,
-            'updated_by' => $user->id,
-        ]);
+            $roots = PostCategory::whereNull('parent_id')->orderBy('sort_order')->get();
+
+            foreach ($roots as $root) {
+                $childCount = rand(2, 3);
+                for ($i = 0; $i < $childCount; $i++) {
+                    $childSlug = \Illuminate\Support\Str::slug($root->name.' '.fake()->word()).'-'.uniqid();
+                    PostCategory::updateOrCreate(
+                        ['slug' => $childSlug],
+                        [
+                            'name' => $root->name.' - '.fake()->word(),
+                            'sort_order' => $i + 1,
+                            'parent_id' => $root->id,
+                            'status' => 'active',
+                            'created_by' => $user->id,
+                            'updated_by' => $user->id,
+                        ]
+                    );
+                }
+            }
+        });
     }
 
     /**
