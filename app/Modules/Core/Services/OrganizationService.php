@@ -53,10 +53,29 @@ class OrganizationService
 
     public function index(array $filters, int $limit)
     {
-        return Organization::with(['creator', 'editor', 'parent'])
-            ->filter($filters)
-            ->treeOrder()
-            ->paginate($limit);
+        $all = Organization::with(['creator', 'editor', 'parent'])->filter($filters)->get();
+        $tree = $this->buildTree($all);
+        
+        $result = collect();
+        $flatten = function ($nodes) use (&$flatten, &$result) {
+            foreach ($nodes as $node) {
+                $result->push($node);
+                $flatten($node->children);
+            }
+        };
+        $flatten($tree);
+
+        // Calculate pagination parameters
+        $page = \Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1;
+        
+        // Return a length-aware paginator based on the flattened Collection
+        return new \Illuminate\Pagination\LengthAwarePaginator(
+            $result->forPage($page, $limit)->values(),
+            $result->count(),
+            $limit,
+            $page,
+            ['path' => \Illuminate\Pagination\Paginator::resolveCurrentPath()]
+        );
     }
 
     public function tree(?string $status)

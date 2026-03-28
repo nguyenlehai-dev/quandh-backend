@@ -13,6 +13,7 @@ class RoleResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'guard_name' => $this->guard_name,
+            'scope' => $this->scope ?? 'admin',
             'organization_id' => $this->organization_id,
             'users_count' => $this->whenCounted('users'),
             'organization' => $this->whenLoaded('organization', fn () => $this->organization ? ['id' => $this->organization->id, 'name' => $this->organization->name] : null),

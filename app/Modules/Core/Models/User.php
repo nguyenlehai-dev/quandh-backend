@@ -80,6 +80,15 @@ class User extends Authenticatable
             });
         })->when($filters['status'] ?? null, function ($query, $status) {
             $query->where('status', $status);
+        })->when($filters['role_id'] ?? null, function ($query, $roleId) {
+            $query->whereHas('roles', function ($q) use ($roleId) {
+                $q->where('roles.id', $roleId);
+            });
+        })->when($filters['organization_id'] ?? null, function ($query, $orgId) {
+            $teamKey = config('permission.column_names.team_foreign_key', 'organization_id');
+            $query->whereHas('roles', function ($q) use ($orgId, $teamKey) {
+                $q->where('model_has_roles.'.$teamKey, $orgId);
+            });
         })->when($filters['sort_by'] ?? 'created_at', function ($query, $sortBy) use ($filters) {
             $allowed = ['id', 'name', 'email', 'user_name', 'created_at'];
             $column = in_array($sortBy, $allowed) ? $sortBy : 'created_at';

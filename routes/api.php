@@ -28,6 +28,101 @@ Route::get('/organizations/public-options', [\App\Modules\Core\OrganizationContr
 // Route yêu cầu đăng nhập (Bearer token) và đặt ngữ cảnh team cho Spatie Permission
 Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
+    Route::put('/user/change-password', [AuthController::class, 'changePassword']);
+
+    // Notification preferences
+    Route::get('/user/notification-preferences', function (\Illuminate\Http\Request $request) {
+        $pref = $request->user()->userPreference;
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'notify_email' => $pref?->notify_email ?? true,
+                'notify_system' => $pref?->notify_system ?? true,
+                'notify_meeting_reminder' => $pref?->notify_meeting_reminder ?? true,
+                'notify_vote' => $pref?->notify_vote ?? true,
+                'notify_document' => $pref?->notify_document ?? false,
+            ],
+        ]);
+    });
+
+    Route::put('/user/notification-preferences', function (\Illuminate\Http\Request $request) {
+        $data = $request->validate([
+            'notify_email' => 'boolean',
+            'notify_system' => 'boolean',
+            'notify_meeting_reminder' => 'boolean',
+            'notify_vote' => 'boolean',
+            'notify_document' => 'boolean',
+        ]);
+
+        $request->user()->userPreference()->updateOrCreate(
+            ['user_id' => $request->user()->id],
+            $data,
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cập nhật cấu hình thông báo thành công.',
+        ]);
+    });
+
+    // Notifications (Laravel Database Notifications)
+    Route::get('/user/notifications', function (\Illuminate\Http\Request $request) {
+        $notifications = $request->user()
+            ->notifications()
+            ->latest()
+            ->take(20)
+            ->get()
+            ->map(fn($n) => [
+                'id' => $n->id,
+                'title' => $n->data['title'] ?? 'Thông báo',
+                'subtitle' => $n->data['subtitle'] ?? $n->data['body'] ?? '',
+                'icon' => $n->data['icon'] ?? 'tabler-bell',
+                'color' => $n->data['color'] ?? 'primary',
+                'time' => $n->created_at->diffForHumans(),
+                'isSeen' => $n->read_at !== null,
+            ]);
+
+        return response()->json([
+            'success' => true,
+            'data' => $notifications,
+            'unread_count' => $request->user()->unreadNotifications()->count(),
+        ]);
+    });
+
+    Route::post('/user/notifications/mark-read', function (\Illuminate\Http\Request $request) {
+        $ids = $request->validate(['ids' => 'required|array'])['ids'];
+
+        $request->user()
+            ->unreadNotifications()
+            ->whereIn('id', $ids)
+            ->update(['read_at' => now()]);
+
+        return response()->json(['success' => true]);
+    });
+
+    Route::post('/user/notifications/mark-all-read', function (\Illuminate\Http\Request $request) {
+        $request->user()->unreadNotifications->markAsRead();
+
+        return response()->json(['success' => true]);
+    });
+
+    Route::post('/user/notifications/mark-unread', function (\Illuminate\Http\Request $request) {
+        $ids = $request->validate(['ids' => 'required|array'])['ids'];
+
+        $request->user()
+            ->notifications()
+            ->whereIn('id', $ids)
+            ->update(['read_at' => null]);
+
+        return response()->json(['success' => true]);
+    });
+
+    Route::delete('/user/notifications/{id}', function (\Illuminate\Http\Request $request, string $id) {
+        $request->user()->notifications()->where('id', $id)->delete();
+
+        return response()->json(['success' => true]);
+    });
 
     Route::prefix('users')->group(function () {
         require base_path('app/Modules/Core/Routes/user.php');

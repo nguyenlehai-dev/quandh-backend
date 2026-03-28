@@ -15,7 +15,10 @@ class PermissionService
     {
         $base = Permission::filter($filters);
 
-        return ['total' => (clone $base)->count()];
+        return [
+            'total' => (clone $base)->count(),
+            'groups' => Permission::whereNull('parent_id')->count(),
+        ];
     }
 
     public function index(array $filters, int $limit)

@@ -297,9 +297,7 @@ class PermissionSeeder extends Seeder
     }
 
     /**
-     * Tạo user cố định để đăng nhập kiểm tra và gán role:
-     * - admin@example.com => Super Admin
-     * - basic@example.com => Vai trò mẫu (quyền cơ bản)
+     * Tạo user cố định để đăng nhập kiểm tra và gán role mỗi role 1 user.
      */
     protected function seedFixedUsersAndAssignRoles(): void
     {
@@ -310,42 +308,42 @@ class PermissionSeeder extends Seeder
         setPermissionsTeamId($defaultOrganization->id);
 
         $superAdmin = Role::where('name', 'Super Admin')->where('guard_name', self::GUARD)->first();
+        $admin = Role::where('name', 'Admin')->where('guard_name', self::GUARD)->first();
+        $editor = Role::where('name', 'Editor')->where('guard_name', self::GUARD)->first();
         $sampleRole = Role::where('name', 'Vai trò mẫu')->where('guard_name', self::GUARD)->first();
 
         $superAdminUser = User::updateOrCreate(
             ['email' => 'admin@example.com'],
-            [
-                'name' => 'admin',
-                'user_name' => 'admin',
-                'password' => 'quandcore**11',
-                'status' => StatusEnum::Active->value,
-                'email_verified_at' => now(),
-            ]
+            ['name' => 'Super Admin', 'user_name' => 'admin', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
         );
-        $superAdminUser->forceFill([
-            'created_by' => $superAdminUser->id,
-            'updated_by' => $superAdminUser->id,
-        ])->save();
-
+        $superAdminUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
         if ($superAdmin) {
             $superAdminUser->syncRoles([$superAdmin]);
         }
 
+        $adminUser = User::updateOrCreate(
+            ['email' => 'admin2@example.com'],
+            ['name' => 'Admin Role', 'user_name' => 'admin2', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+        );
+        $adminUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
+        if ($admin) {
+            $adminUser->syncRoles([$admin]);
+        }
+
+        $editorUser = User::updateOrCreate(
+            ['email' => 'editor@example.com'],
+            ['name' => 'Editor Role', 'user_name' => 'editor', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+        );
+        $editorUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
+        if ($editor) {
+            $editorUser->syncRoles([$editor]);
+        }
+
         $basicUser = User::updateOrCreate(
             ['email' => 'basic@example.com'],
-            [
-                'name' => 'basic',
-                'user_name' => 'basic',
-                'password' => 'quandcore**11',
-                'status' => StatusEnum::Active->value,
-                'email_verified_at' => now(),
-            ]
+            ['name' => 'Basic Role', 'user_name' => 'basic', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
         );
-        $basicUser->forceFill([
-            'created_by' => $superAdminUser->id,
-            'updated_by' => $superAdminUser->id,
-        ])->save();
-
+        $basicUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
         if ($sampleRole) {
             $basicUser->syncRoles([$sampleRole]);
         }
