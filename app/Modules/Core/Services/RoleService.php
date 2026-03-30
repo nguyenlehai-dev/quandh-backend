@@ -15,7 +15,11 @@ class RoleService
     {
         $base = Role::with('organization')->filter($filters);
 
-        return ['total' => (clone $base)->count()];
+        return [
+            'total' => (clone $base)->count(),
+            'admin' => (clone $base)->where('scope', 'admin')->count(),
+            'user' => (clone $base)->where('scope', 'user')->count(),
+        ];
     }
 
     public function index(array $filters, int $limit)

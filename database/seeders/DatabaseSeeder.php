@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     * Thứ tự: User → PostCategory (cây) → Post → Permission/Role/Team (phân quyền).
+     * Thứ tự: Permission/Role/User hệ thống → nội dung chung → dữ liệu demo nghiệp vụ.
      */
     public function run(): void
     {
@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->seedPostCategories();
         $this->seedPosts();
         $this->call(SettingSeeder::class);
+        $this->call(ProjectDemoSeeder::class);
     }
 
     /**
