@@ -18,7 +18,7 @@ use App\Modules\Document\Services\CatalogService;
 
 /**
  * @group Document - Người ký
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
  */
@@ -266,3 +266,4 @@ class DocumentSignerController extends Controller
         return $this->success(null, 'Import người ký thành công.');
     }
 }
+

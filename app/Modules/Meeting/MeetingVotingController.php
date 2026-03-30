@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Biểu quyết
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý biểu quyết: tạo phiên, mở/đóng bỏ phiếu, bỏ phiếu, xem kết quả. Hỗ trợ biểu quyết ẩn danh.
  */
@@ -207,3 +207,4 @@ class MeetingVotingController extends Controller
         return $this->success($results);
     }
 }
+

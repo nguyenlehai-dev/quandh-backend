@@ -22,7 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - Organization
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
  */
@@ -311,3 +311,4 @@ class OrganizationController extends Controller
         return $this->success(null, 'Import organization thành công.');
     }
 }
+

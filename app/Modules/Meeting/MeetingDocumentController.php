@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Tài liệu cuộc họp
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý tài liệu đính kèm cuộc họp: upload, cập nhật, xóa file.
  */
@@ -129,3 +129,4 @@ class MeetingDocumentController extends Controller
         return $this->success(null, 'Đã xóa tài liệu!');
     }
 }
+

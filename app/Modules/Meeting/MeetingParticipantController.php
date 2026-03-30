@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Thành viên cuộc họp
- * @header X-Organization-Id ID tổ chức cần làm việc. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý thành viên: gán, xóa, cập nhật vai trò, điểm danh.
  */
@@ -176,8 +176,10 @@ class MeetingParticipantController extends Controller
         $users = \App\Modules\Core\Models\User::query();
 
         if ($organizationId) {
-            $users->whereHas('organizations', function ($q) use ($organizationId) {
-                $q->where('m_organizations.id', $organizationId);
+            $teamKey = config('permission.column_names.team_foreign_key', 'organization_id');
+
+            $users->whereHas('roles', function ($q) use ($organizationId, $teamKey) {
+                $q->where("model_has_roles.{$teamKey}", $organizationId);
             });
         }
 
@@ -186,3 +188,4 @@ class MeetingParticipantController extends Controller
         return $this->success($users, 'Danh sách người nhận ủy quyền khả dụng.');
     }
 }
+

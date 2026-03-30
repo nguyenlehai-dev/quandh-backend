@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Cuộc họp
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý cuộc họp: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel.
  */
@@ -282,3 +282,4 @@ class MeetingController extends Controller
         }
     }
 }
+

@@ -26,6 +26,14 @@ class PermissionSeeder extends Seeder
      * Khi thêm module/chức năng: bổ sung vào đúng nhóm và chạy sail artisan db:seed --class=PermissionSeeder.
      */
     protected static array $PERMISSIONS = [
+        // Dashboard - Tổng quan hệ thống
+        'dashboard' => [
+            'index',
+        ],
+        // Dashboard - Tổng quan nghiệp vụ
+        'business-overview' => [
+            'index',
+        ],
         // Core - Users
         'users' => [
             'stats', 'index', 'show', 'store', 'update', 'destroy',
@@ -172,6 +180,8 @@ class PermissionSeeder extends Seeder
 
     /** Nhãn nhóm permission theo resource (để description). */
     protected static array $RESOURCE_LABELS = [
+        'dashboard' => 'Tổng quan hệ thống',
+        'business-overview' => 'Tổng quan nghiệp vụ',
         'users' => 'Người dùng',
         'permissions' => 'Quyền',
         'roles' => 'Vai trò',
@@ -377,7 +387,12 @@ class PermissionSeeder extends Seeder
     protected function getEditorPermissionNames(): array
     {
         $names = [];
-        foreach (['posts' => self::$PERMISSIONS['posts'], 'post-categories' => self::$PERMISSIONS['post-categories']] as $resource => $actions) {
+        foreach ([
+            'dashboard' => self::$PERMISSIONS['dashboard'],
+            'business-overview' => self::$PERMISSIONS['business-overview'],
+            'posts' => self::$PERMISSIONS['posts'],
+            'post-categories' => self::$PERMISSIONS['post-categories'],
+        ] as $resource => $actions) {
             foreach ($actions as $action) {
                 $names[] = "{$resource}.{$action}";
             }
@@ -410,6 +425,8 @@ class PermissionSeeder extends Seeder
     protected function getSamplePermissionNames(): array
     {
         return [
+            'dashboard.index',
+            'business-overview.index',
             'posts.stats',
             'posts.index',
             'posts.show',

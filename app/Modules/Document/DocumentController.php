@@ -17,7 +17,7 @@ use App\Modules\Document\Services\DocumentService;
 
 /**
  * @group Document - Văn bản
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý văn bản pháp lý và các tệp đính kèm.
  */
@@ -254,3 +254,4 @@ class DocumentController extends Controller
         return $this->success(null, 'Import văn bản thành công.');
     }
 }
+

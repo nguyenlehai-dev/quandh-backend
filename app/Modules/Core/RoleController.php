@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - Role
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
  */
@@ -201,3 +201,4 @@ class RoleController extends Controller
         return $this->success(null, 'Import vai trò thành công.');
     }
 }
+

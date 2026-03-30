@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - Permission
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
  */
@@ -221,3 +221,4 @@ class PermissionController extends Controller
         return $this->success(null, 'Import quyền thành công.');
     }
 }
+

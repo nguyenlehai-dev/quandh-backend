@@ -12,7 +12,7 @@ use App\Modules\Meeting\Services\MyMeetingService;
 
 /**
  * @group MyMeeting - Lịch họp của tôi (Đại biểu)
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * API cho phân hệ đại biểu: xem danh sách cuộc họp được mời, chi tiết, thông tin tham gia.
  */
@@ -79,3 +79,4 @@ class MyMeetingController extends Controller
         return $this->successResource(new MeetingParticipantResource($participant));
     }
 }
+
