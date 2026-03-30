@@ -46,7 +46,7 @@ class PermissionService
 
     public function store(array $data): Permission
     {
-        $data['guard_name'] = $data['guard_name'] ?? config('auth.defaults.guard', 'web');
+        $data['guard_name'] = $data['guard_name'] ?? 'api';
 
         return Permission::create($data);
     }

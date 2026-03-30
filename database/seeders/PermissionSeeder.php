@@ -101,6 +101,14 @@ class PermissionSeeder extends Seeder
             'stats', 'index', 'show', 'store', 'update', 'destroy',
             'bulkDestroy', 'bulkUpdateStatus', 'changeStatus', 'export', 'import',
         ],
+        // Meeting - Nhóm người dự họp
+        'attendee-groups' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        // Meeting - Loại cuộc họp
+        'meeting-types' => [
+            'index', 'store', 'update', 'destroy',
+        ],
         // Meeting - Thành viên cuộc họp
         'meeting-participants' => [
             'index', 'store', 'update', 'destroy', 'checkin',
@@ -179,6 +187,8 @@ class PermissionSeeder extends Seeder
         'document-fields' => 'Lĩnh vực',
         'settings' => 'Cấu hình hệ thống',
         'meetings' => 'Cuộc họp',
+        'attendee-groups' => 'Nhóm người dự họp',
+        'meeting-types' => 'Loại cuộc họp',
         'meeting-participants' => 'Thành viên cuộc họp',
         'meeting-agendas' => 'Chương trình nghị sự',
         'meeting-documents' => 'Tài liệu cuộc họp',
@@ -278,9 +288,10 @@ class PermissionSeeder extends Seeder
             $superAdmin->syncPermissions($allPermissionNames);
         }
 
+        $adminPermissionNames = $this->getAdminPermissionNames();
         $admin = Role::where('name', 'Admin')->where('guard_name', self::GUARD)->first();
         if ($admin) {
-            $admin->syncPermissions($allPermissionNames);
+            $admin->syncPermissions($adminPermissionNames);
         }
 
         $editorPermissionNames = $this->getEditorPermissionNames();
@@ -313,37 +324,37 @@ class PermissionSeeder extends Seeder
         $sampleRole = Role::where('name', 'Vai trò mẫu')->where('guard_name', self::GUARD)->first();
 
         $superAdminUser = User::updateOrCreate(
-            ['email' => 'admin@example.com'],
-            ['name' => 'Super Admin', 'user_name' => 'admin', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+            ['user_name' => 'admin'],
+            ['name' => 'Super Admin', 'email' => 'admin@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
         );
-        $superAdminUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
+        $superAdminUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
         if ($superAdmin) {
             $superAdminUser->syncRoles([$superAdmin]);
         }
 
         $adminUser = User::updateOrCreate(
-            ['email' => 'admin2@example.com'],
-            ['name' => 'Admin Role', 'user_name' => 'admin2', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+            ['user_name' => 'admin2'],
+            ['name' => 'Admin Role', 'email' => 'admin2@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
         );
-        $adminUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
+        $adminUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
         if ($admin) {
             $adminUser->syncRoles([$admin]);
         }
 
         $editorUser = User::updateOrCreate(
-            ['email' => 'editor@example.com'],
-            ['name' => 'Editor Role', 'user_name' => 'editor', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+            ['user_name' => 'editor'],
+            ['name' => 'Editor Role', 'email' => 'editor@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
         );
-        $editorUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
+        $editorUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
         if ($editor) {
             $editorUser->syncRoles([$editor]);
         }
 
         $basicUser = User::updateOrCreate(
-            ['email' => 'basic@example.com'],
-            ['name' => 'Basic Role', 'user_name' => 'basic', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+            ['user_name' => 'basic'],
+            ['name' => 'Basic Role', 'email' => 'basic@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
         );
-        $basicUser->forceFill(['created_by' => 1, 'updated_by' => 1])->save();
+        $basicUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
         if ($sampleRole) {
             $basicUser->syncRoles([$sampleRole]);
         }
@@ -367,6 +378,26 @@ class PermissionSeeder extends Seeder
     {
         $names = [];
         foreach (['posts' => self::$PERMISSIONS['posts'], 'post-categories' => self::$PERMISSIONS['post-categories']] as $resource => $actions) {
+            foreach ($actions as $action) {
+                $names[] = "{$resource}.{$action}";
+            }
+        }
+
+        return $names;
+    }
+
+    /**
+     * Permission cho role Admin: tất cả trừ permissions.*, roles.*, settings.*, log-activities.*
+     * Các quyền hệ thống này chỉ dành cho Super Admin.
+     */
+    protected function getAdminPermissionNames(): array
+    {
+        $excludedResources = ['permissions', 'roles', 'settings', 'log-activities'];
+        $names = [];
+        foreach (self::$PERMISSIONS as $resource => $actions) {
+            if (in_array($resource, $excludedResources, true)) {
+                continue;
+            }
             foreach ($actions as $action) {
                 $names[] = "{$resource}.{$action}";
             }

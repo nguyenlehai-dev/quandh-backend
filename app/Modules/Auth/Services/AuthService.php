@@ -147,6 +147,17 @@ class AuthService
         $teamForeignKey = $columnNames['team_foreign_key'] ?? 'organization_id';
         $modelType = \App\Modules\Core\Models\User::class;
 
+        // Nếu user có role global (không gán team) -> xem được tất cả tổ chức
+        $hasGlobalRole = DB::table($tableNames['model_has_roles'] ?? 'model_has_roles')
+            ->where($modelMorphKey, $userId)
+            ->where('model_type', $modelType)
+            ->whereNull($teamForeignKey)
+            ->exists();
+
+        if ($hasGlobalRole) {
+            return \App\Modules\Core\Models\Organization::where('status', 'active')->pluck('id')->map(fn($id) => (int)$id)->all();
+        }
+
         $roleOrgIds = DB::table($tableNames['model_has_roles'] ?? 'model_has_roles')
             ->where($modelMorphKey, $userId)
             ->where('model_type', $modelType)
@@ -176,19 +187,53 @@ class AuthService
      */
     protected function getRolesAndPermissionsForOrganization(User $user, ?int $organizationId): array
     {
+        $tableNames = config('permission.table_names');
+        $columnNames = config('permission.column_names');
+        $modelMorphKey = $columnNames['model_morph_key'] ?? 'model_id';
+        $modelType = \App\Modules\Core\Models\User::class;
+
+        // Kiểm tra xem có phải là SuperAdmin không
+        $isSuperAdmin = \Illuminate\Support\Facades\DB::table($tableNames['model_has_roles'] ?? 'model_has_roles')
+            ->where($modelMorphKey, $user->id)
+            ->where('model_type', $modelType)
+            ->whereIn('role_id', function ($query) {
+                $query->select('id')->from(config('permission.table_names.roles'))
+                    ->whereIn('name', ['Quản trị hệ thống', 'Super Admin']);
+            })
+            ->exists();
+
+        if ($isSuperAdmin) {
+            $permissions = \Spatie\Permission\Models\Permission::pluck('name')->values()->unique()->all();
+            return [
+                'roles' => ['Quản trị hệ thống'],
+                'permissions' => $permissions,
+                'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
+            ];
+        }
+
         if ($organizationId === null) {
             return ['roles' => [], 'permissions' => [], 'abilities' => []];
         }
 
+        // 1. Lấy quyền Global (của Role có organization_id = null)
+        setPermissionsTeamId(null);
+        $user->unsetRelation('roles');
+        $user->unsetRelation('permissions');
+        $globalPermissions = $user->getAllPermissions()->pluck('name');
+        $globalRoles = $user->getRoleNames();
+
+        // 2. Lấy quyền Local (của Role có organization_id = $organizationId)
         setPermissionsTeamId($organizationId);
         $user->unsetRelation('roles');
         $user->unsetRelation('permissions');
+        $teamPermissions = $user->getAllPermissions()->pluck('name');
+        $teamRoles = $user->getRoleNames();
 
-        // getAllPermissions() = direct + từ vai trò; getPermissionNames() chỉ direct
-        $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
+        $permissions = $globalPermissions->merge($teamPermissions)->unique()->values()->all();
+        $roles = $globalRoles->merge($teamRoles)->unique()->values()->all();
 
         return [
-            'roles' => $user->getRoleNames()->values()->all(),
+            'roles' => $roles,
             'permissions' => $permissions,
             'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
         ];

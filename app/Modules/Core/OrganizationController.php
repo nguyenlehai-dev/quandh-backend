@@ -11,12 +11,14 @@ use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Requests\ImportOrganizationRequest;
 use App\Modules\Core\Requests\StoreOrganizationRequest;
 use App\Modules\Core\Requests\UpdateOrganizationRequest;
+use App\Modules\Core\Exports\OrganizationsTemplateExport;
 use App\Modules\Core\Resources\OrganizationCollection;
 use App\Modules\Core\Resources\OrganizationResource;
 use App\Modules\Core\Resources\OrganizationTreeResource;
 use App\Modules\Core\Resources\PublicOptionResource;
 use App\Modules\Core\Services\OrganizationService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - Organization
@@ -279,6 +281,18 @@ class OrganizationController extends Controller
     public function export(FilterRequest $request)
     {
         return $this->organizationService->export($request->all());
+    }
+
+    /**
+     * Tải file Excel mẫu (template import)
+     *
+     * Trả về file Excel mẫu (.xlsx) để tham khảo cấu trúc cột khi import organization.
+     *
+     * @response 200 scenario="File download" File Excel (.xlsx)
+     */
+    public function template()
+    {
+        return Excel::download(new OrganizationsTemplateExport, 'organizations_template.xlsx');
     }
 
     /**

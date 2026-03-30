@@ -15,9 +15,10 @@ class UpdateMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'sometimes|string|max:255',
+            'title' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
+            'meeting_type_id' => 'nullable|integer|exists:m_meeting_types,id',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date|after_or_equal:start_at',
             'status' => ['sometimes', MeetingStatusEnum::rule()],

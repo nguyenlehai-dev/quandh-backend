@@ -59,16 +59,51 @@ class MeetingService
     /** Danh sách cuộc họp có phân trang, lọc và sắp xếp. */
     public function index(array $filters, int $limit)
     {
-        return Meeting::with(['creator', 'editor'])
+        return Meeting::with(['creator', 'editor', 'meetingType'])
             ->withCount(['participants', 'agendas', 'documents', 'conclusions'])
             ->filter($filters)
             ->paginate($limit);
+    }
+
+    /** Lấy danh sách lịch họp của user hiện tại (Dành cho FullCalendar). */
+    public function myCalendar(?string $start, ?string $end): \Illuminate\Support\Collection
+    {
+        $userId = auth()->id();
+
+        $query = Meeting::with('meetingType')
+            ->whereHas('participants', fn ($q) => $q->where('user_id', $userId))
+            ->where('status', '!=', 'draft');
+
+        if ($start) {
+            $query->where('end_at', '>=', $start);
+        }
+
+        if ($end) {
+            $query->where('start_at', '<=', $end);
+        }
+
+        return $query->get()->map(fn ($meeting) => [
+            'id' => $meeting->id,
+            'url' => '', // Mở trực tiếp bằng router frontend thay vì backend URL
+            'title' => $meeting->title,
+            'start' => $meeting->start_at?->toIso8601String(),
+            'end' => $meeting->end_at?->toIso8601String(),
+            'allDay' => false,
+            'extendedProps' => [
+                'calendar' => $meeting->status,
+                'location' => $meeting->location,
+                'status' => $meeting->status,
+                'meetingType' => $meeting->meetingType?->name,
+                'description' => $meeting->description,
+            ],
+        ]);
     }
 
     /** Chi tiết cuộc họp kèm quan hệ đầy đủ. */
     public function show(Meeting $meeting): Meeting
     {
         return $meeting->load([
+            'meetingType',
             'participants.user',
             'agendas',
             'documents.media',

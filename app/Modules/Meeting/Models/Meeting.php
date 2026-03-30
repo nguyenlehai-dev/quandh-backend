@@ -13,12 +13,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Meeting extends Model implements HasMedia
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
     use InteractsWithMedia;
 
     protected $table = 'm_meetings';
 
     protected $fillable = [
+        'meeting_type_id',
         'title',
         'description',
         'location',
@@ -64,6 +67,12 @@ class Meeting extends Model implements HasMedia
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /** Loại cuộc họp. */
+    public function meetingType()
+    {
+        return $this->belongsTo(MeetingType::class, 'meeting_type_id');
     }
 
     /** Người cập nhật cuộc họp. */
@@ -127,6 +136,8 @@ class Meeting extends Model implements HasMedia
     /** Bộ lọc: search (title), status, from_date, to_date, sort_by, sort_order. */
     public function scopeFilter($query, array $filters)
     {
+        $this->scopeUserRelated($query);
+
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where('title', 'like', '%'.$search.'%');
         })->when($filters['status'] ?? null, function ($query, $status) {
@@ -140,5 +151,20 @@ class Meeting extends Model implements HasMedia
             $column = in_array($sortBy, $allowed) ? $sortBy : 'created_at';
             $query->orderBy($column, $filters['sort_order'] ?? 'desc');
         });
+    }
+
+    /** 
+     * Ràng buộc: Nếu không phải là Quản trị viên (không có quyền sửa), 
+     * chỉ được thấy cuộc họp do mình tạo hoặc có tham gia.
+     */
+    public function scopeUserRelated($query)
+    {
+        if (auth()->check() && !auth()->user()->can('meetings.update')) {
+            $userId = auth()->id();
+            $query->where(function ($q) use ($userId) {
+                $q->where('created_by', $userId)
+                  ->orWhereHas('participants', fn($sub) => $sub->where('user_id', $userId));
+            });
+        }
     }
 }

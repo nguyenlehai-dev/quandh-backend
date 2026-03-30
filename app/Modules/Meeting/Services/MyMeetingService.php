@@ -15,7 +15,10 @@ class MyMeetingService
     /** Danh sách cuộc họp của tôi (có phân trang + lọc). */
     public function index(int $userId, array $filters, int $limit)
     {
-        return Meeting::whereHas('participants', fn ($q) => $q->where('user_id', $userId))
+        return Meeting::where(function ($query) use ($userId) {
+            $query->whereHas('participants', fn ($q) => $q->where('user_id', $userId))
+                ->orWhere('created_by', $userId);
+        })
             ->with(['creator'])
             ->withCount(['participants', 'agendas', 'documents', 'conclusions'])
             ->filter($filters)

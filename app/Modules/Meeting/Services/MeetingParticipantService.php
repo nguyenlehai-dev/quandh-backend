@@ -8,10 +8,36 @@ use Illuminate\Support\Facades\DB;
 
 class MeetingParticipantService
 {
-    /** Danh sách thành viên của cuộc họp. */
     public function index(Meeting $meeting)
     {
         return $meeting->participants()->with('user')->get();
+    }
+
+    /** Danh sách tất cả thành viên trên toàn hệ thống. */
+    public function globalIndex(array $filters)
+    {
+        $limit = $filters['limit'] ?? 15;
+        $query = MeetingParticipant::query()
+            ->with(['meeting:id,title', 'user'])
+            ->has('meeting')
+            ->orderBy('id', 'desc');
+
+        if (!empty($filters['search'])) {
+            $query->whereHas('user', function ($q) use ($filters) {
+                $q->where('name', 'like', "%{$filters['search']}%");
+            })->orWhere('name', 'like', "%{$filters['search']}%");
+        }
+
+        return $query->paginate($limit);
+    }
+
+    /** Xuất dữ liệu thành viên trên toàn hệ thống. */
+    public function export(array $filters)
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Modules\Meeting\Exports\MeetingParticipantsExport($filters),
+            'nguoi-du-hop.xlsx'
+        );
     }
 
     /** Gán thành viên mới cho cuộc họp. */
@@ -46,5 +72,20 @@ class MeetingParticipantService
         ]);
 
         return $participant->load('user');
+    }
+
+    /** Tự báo cáo điểm danh, vắng mặt hoặc ủy quyền. */
+    public function selfCheckin(MeetingParticipant $participant, array $validated): MeetingParticipant
+    {
+        $status = $validated['attendance_status'];
+        
+        $participant->update([
+            'attendance_status' => $status,
+            'checkin_at' => $status === 'present' ? now() : null,
+            'absence_reason' => $status === 'absent' ? ($validated['absence_reason'] ?? null) : null,
+            'delegated_to_id' => $status === 'delegated' ? ($validated['delegated_to_id'] ?? null) : null,
+        ]);
+
+        return $participant->load('user', 'delegatedUser');
     }
 }

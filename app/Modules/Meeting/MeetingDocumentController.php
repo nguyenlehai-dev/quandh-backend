@@ -20,6 +20,21 @@ class MeetingDocumentController extends Controller
     public function __construct(private MeetingDocumentService $service) {}
 
     /**
+     * Danh sách toàn bộ tài liệu
+     */
+    public function globalIndex(Request $request)
+    {
+        $documents = $this->service->globalIndex($request->all());
+
+        return $this->successCollection(MeetingDocumentResource::collection($documents));
+    }
+
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
+
+    /**
      * Danh sách tài liệu
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
@@ -46,6 +61,10 @@ class MeetingDocumentController extends Controller
             $validated = $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'nullable|string',
+                'document_type_id' => 'nullable|integer',
+                'document_field_id' => 'nullable|integer',
+                'issuing_agency_id' => 'nullable|integer',
+                'document_signer_id' => 'nullable|integer',
                 'files' => 'nullable|array',
                 'files.*' => 'file|max:20480',
             ], [
@@ -81,6 +100,10 @@ class MeetingDocumentController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
+            'document_type_id' => 'nullable|integer',
+            'document_field_id' => 'nullable|integer',
+            'issuing_agency_id' => 'nullable|integer',
+            'document_signer_id' => 'nullable|integer',
             'files' => 'nullable|array',
             'files.*' => 'file|max:20480',
             'remove_file_ids' => 'nullable|array',

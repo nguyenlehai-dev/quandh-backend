@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MeetingPersonalNote extends Model
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
 
     protected $table = 'm_personal_notes';

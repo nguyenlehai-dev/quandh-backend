@@ -18,6 +18,11 @@ class MeetingTypeController extends Controller
         return $this->successCollection(MeetingTypeResource::collection($items));
     }
 
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -44,5 +49,28 @@ class MeetingTypeController extends Controller
     {
         $this->service->destroy($meeting_type);
         return $this->success(null, 'Xóa loại cuộc họp thành công!');
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array',
+            'ids.*' => 'integer|exists:m_meeting_types,id',
+        ]);
+        
+        $this->service->bulkDestroy($validated['ids']);
+        return $this->success(null, 'Xóa hàng loạt thành công!');
+    }
+
+    public function bulkUpdate(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'    => 'required|array',
+            'ids.*'  => 'integer|exists:m_meeting_types,id',
+            'status' => 'required|in:active,inactive',
+        ]);
+        
+        $this->service->bulkUpdate($validated['ids'], ['status' => $validated['status']]);
+        return $this->success(null, 'Cập nhật trạng thái hàng loạt thành công!');
     }
 }

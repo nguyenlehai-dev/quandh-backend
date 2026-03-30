@@ -54,16 +54,21 @@ class OrganizationService
     public function index(array $filters, int $limit)
     {
         $all = Organization::with(['creator', 'editor', 'parent'])->filter($filters)->get();
-        $tree = $this->buildTree($all);
         
-        $result = collect();
-        $flatten = function ($nodes) use (&$flatten, &$result) {
-            foreach ($nodes as $node) {
-                $result->push($node);
-                $flatten($node->children);
-            }
-        };
-        $flatten($tree);
+        // If searching or custom sorting, do not build a tree (prevent orphans)
+        if (!empty($filters['search']) || !empty($filters['status']) || (!empty($filters['sort_by']) && $filters['sort_by'] !== 'sort_order')) {
+            $result = $all;
+        } else {
+            $tree = $this->buildTree($all);
+            $result = collect();
+            $flatten = function ($nodes) use (&$flatten, &$result) {
+                foreach ($nodes as $node) {
+                    $result->push($node);
+                    $flatten($node->children);
+                }
+            };
+            $flatten($tree);
+        }
 
         // Calculate pagination parameters
         $page = \Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1;
@@ -100,7 +105,7 @@ class OrganizationService
     public function update(Organization $organization, array $data): array
     {
         if (isset($data['parent_id']) && (int) $data['parent_id'] !== 0) {
-            if ($this->isDescendantOf((int) $data['parent_id'], $organization->id)) {
+            if ($this->isDescendantOf($organization->id, (int) $data['parent_id'])) {
                 return [
                     'ok' => false,
                     'message' => 'Không thể chọn organization con làm organization cha.',

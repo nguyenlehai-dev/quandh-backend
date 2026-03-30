@@ -53,18 +53,48 @@ class AuthController extends Controller
      * Lấy thông tin user đăng nhập hiện tại kèm roles và permissions của tổ chức đang chọn.
      *
      * Dùng để Vue Casl khởi tạo ability khi refresh trang. Cần header X-Organization-Id (middleware set.permissions.team đã đặt ngữ cảnh).
-     *
      * @response 200 {"success": true, "data": {"user": {"id": 1, "name": "Admin"}, "roles": ["admin"], "permissions": ["users.index", "users.store"], "abilities": [{"action": "index", "subject": "User"}, {"action": "store", "subject": "User"}]}}
      */
     public function me(Request $request)
     {
         $user = $request->user();
-        // getAllPermissions() = direct + từ vai trò
-        $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
+        // Lưu lại org ID hiện tại (được gán từ middleware vào header)
+        $currentOrgId = request()->header('X-Organization-Id');
+
+        $isSuperAdmin = \Illuminate\Support\Facades\DB::table(config('permission.table_names.model_has_roles', 'model_has_roles'))
+            ->where('model_id', $user->id)
+            ->where('model_type', get_class($user))
+            ->whereIn('role_id', function ($query) {
+                $query->select('id')->from(config('permission.table_names.roles'))
+                    ->whereIn('name', ['Quản trị hệ thống', 'Super Admin']);
+            })
+            ->exists();
+
+        if ($isSuperAdmin) {
+            $permissions = \Spatie\Permission\Models\Permission::pluck('name')->values()->unique()->all();
+            $roles = ['Quản trị hệ thống'];
+        } else {
+            // 1. Lấy quyền Global
+            setPermissionsTeamId(null);
+            $user->unsetRelation('roles');
+            $user->unsetRelation('permissions');
+            $globalPermissions = $user->getAllPermissions()->pluck('name');
+            $globalRoles = $user->getRoleNames();
+
+            // 2. Lấy quyền Local
+            setPermissionsTeamId($currentOrgId);
+            $user->unsetRelation('roles');
+            $user->unsetRelation('permissions');
+            $teamPermissions = $user->getAllPermissions()->pluck('name');
+            $teamRoles = $user->getRoleNames();
+
+            $permissions = $globalPermissions->merge($teamPermissions)->unique()->values()->all();
+            $roles = $globalRoles->merge($teamRoles)->unique()->values()->all();
+        }
 
         return $this->success([
             'user' => (new UserResource($user))->resolve(),
-            'roles' => $user->getRoleNames()->values()->all(),
+            'roles' => $roles,
             'permissions' => $permissions,
             'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
         ]);
@@ -152,11 +182,12 @@ class AuthController extends Controller
      *
      * Cho phép user đang đăng nhập đổi mật khẩu bằng cách xác minh mật khẩu hiện tại.
      *
-     * @bodyParam current_password string required Mật khẩu hiện tại.
-     * @bodyParam password string required Mật khẩu mới (tối thiểu 6 ký tự).
-     * @bodyParam password_confirmation string required Xác nhận mật khẩu mới.
+     * @bodyParam current_password string required Mật khẩu hiện tại. Example: oldpassword123
+     * @bodyParam password string required Mật khẩu mới (tối thiểu 6 ký tự). Example: newpassword123
+     * @bodyParam password_confirmation string required Xác nhận mật khẩu mới. Example: newpassword123
      *
      * @response 200 {"success": true, "message": "Đổi mật khẩu thành công."}
+     * @response 422 {"success": false, "message": "Mật khẩu hiện tại không chính xác.", "code": "VALIDATION_ERROR"}
      */
     public function changePassword(Request $request)
     {
@@ -174,5 +205,49 @@ class AuthController extends Controller
         $user->forceFill(['password' => Hash::make($request->password)])->save();
 
         return $this->success(null, 'Đổi mật khẩu thành công.');
+    }
+
+    /**
+     * Lấy thông tin profile
+     *
+     * Trả về thông tin cá nhân của user đang đăng nhập, bao gồm assignments (role-organization).
+     *
+     * @response 200 {"success": true, "data": {"id": 1, "name": "Admin", "email": "admin@example.com", "user_name": "admin", "status": "active", "assignments": []}}
+     */
+    public function getProfile(Request $request)
+    {
+        $user = $request->user();
+        $user->load(['assignments.organizations']);
+        
+        return $this->success(new UserResource($user));
+    }
+
+    /**
+     * Cập nhật thông tin profile cơ bản (Tên, Email)
+     *
+     * Chỉ cho phép cập nhật name và email. Không cho phép tự đổi status hoặc role.
+     *
+     * @bodyParam name string required Tên hiển thị. Example: Nguyễn Văn A
+     * @bodyParam email string required Email (duy nhất). Example: user@example.com
+     *
+     * @response 200 {"success": true, "data": {"id": 1, "name": "Nguyễn Văn A", "email": "user@example.com"}, "message": "Cập nhật hồ sơ thành công."}
+     */
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $request->user()->id,
+        ]);
+
+        $user = $request->user();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        // Note: regular users cannot update their own status or role assignments via this endpoint.
+        // Role assignments must be done through UserController by an admin.
+
+        return $this->success(new UserResource($user), 'Cập nhật hồ sơ thành công.');
     }
 }

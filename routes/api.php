@@ -29,6 +29,8 @@ Route::get('/organizations/public-options', [\App\Modules\Core\OrganizationContr
 Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
     Route::put('/user/change-password', [AuthController::class, 'changePassword']);
+    Route::get('/user/profile', [AuthController::class, 'getProfile']);
+    Route::put('/user/profile', [AuthController::class, 'updateProfile']);
 
     // Notification preferences
     Route::get('/user/notification-preferences', function (\Illuminate\Http\Request $request) {

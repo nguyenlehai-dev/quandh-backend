@@ -20,7 +20,25 @@ class MeetingVotingController extends Controller
     public function __construct(private MeetingVotingService $service) {}
 
     /**
+     * Danh sách toàn bộ phiên biểu quyết
+     *
+     * @urlParam search string Tên biểu quyết để tìm kiếm
+     */
+    public function globalIndex(Request $request)
+    {
+        $votings = $this->service->globalIndex($request->all());
+
+        return $this->successCollection(MeetingVotingResource::collection($votings));
+    }
+
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
+
+    /**
      * Danh sách phiên biểu quyết
+
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      */

@@ -3,17 +3,21 @@
 namespace App\Modules\Document\Models;
 
 use App\Modules\Core\Models\User;
+use App\Modules\Meeting\Models\MeetingType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DocumentType extends Model
 {
+    use \App\Modules\Core\Traits\MasterDataScoped;
+
     use HasFactory;
 
     protected $fillable = [
         'name',
         'description',
         'status',
+        'meeting_type_id',
         'created_by',
         'updated_by',
     ];
@@ -22,6 +26,12 @@ class DocumentType extends Model
     {
         static::creating(fn (DocumentType $model) => $model->created_by = $model->updated_by = auth()->id());
         static::updating(fn (DocumentType $model) => $model->updated_by = auth()->id());
+    }
+
+    /** Loại cuộc họp mà loại tài liệu này thuộc về. */
+    public function meetingType()
+    {
+        return $this->belongsTo(MeetingType::class, 'meeting_type_id');
     }
 
     public function creator()
@@ -43,6 +53,7 @@ class DocumentType extends Model
     {
         $query->when($filters['search'] ?? null, fn ($q, $search) => $q->where('name', 'like', '%'.$search.'%'))
             ->when($filters['status'] ?? null, fn ($q, $status) => $q->where('status', $status))
+            ->when($filters['meeting_type_id'] ?? null, fn ($q, $mtId) => $q->where('meeting_type_id', $mtId))
             ->when($filters['from_date'] ?? null, fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
             ->when($filters['to_date'] ?? null, fn ($q, $date) => $q->whereDate('created_at', '<=', $date))
             ->when($filters['sort_by'] ?? 'created_at', function ($q, $sortBy) use ($filters) {

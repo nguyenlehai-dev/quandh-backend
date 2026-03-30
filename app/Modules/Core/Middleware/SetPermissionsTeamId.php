@@ -83,6 +83,20 @@ class SetPermissionsTeamId
         $modelHasPermissionsTable = $tableNames['model_has_permissions'] ?? 'model_has_permissions';
         $modelType = \App\Modules\Core\Models\User::class;
 
+        // Cho phép Super Admin (có role Quản trị hệ thống) truy cập mọi tổ chức dù bị gắn nhầm team_id
+        $hasGlobalRole = DB::table($modelHasRolesTable)
+            ->where($modelMorphKey, $userId)
+            ->where('model_type', $modelType)
+            ->whereIn('role_id', function ($query) {
+                $query->select('id')->from(config('permission.table_names.roles'))
+                    ->whereIn('name', ['Quản trị hệ thống', 'Super Admin']);
+            })
+            ->exists();
+
+        if ($hasGlobalRole) {
+            return true;
+        }
+
         $hasRole = DB::table($modelHasRolesTable)
             ->where($modelMorphKey, $userId)
             ->where('model_type', $modelType)

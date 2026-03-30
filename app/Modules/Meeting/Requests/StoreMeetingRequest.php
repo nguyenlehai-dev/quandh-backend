@@ -18,6 +18,7 @@ class StoreMeetingRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
+            'meeting_type_id' => 'nullable|integer|exists:m_meeting_types,id',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date|after_or_equal:start_at',
             'status' => ['required', MeetingStatusEnum::rule()],

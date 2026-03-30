@@ -11,6 +11,13 @@ class MeetingResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'meeting_type_id' => $this->meeting_type_id,
+            'meeting_type' => $this->whenLoaded('meetingType', function () {
+                return [
+                    'id' => $this->meetingType->id,
+                    'name' => $this->meetingType->name,
+                ];
+            }),
             'title' => $this->title,
             'description' => $this->description,
             'location' => $this->location,

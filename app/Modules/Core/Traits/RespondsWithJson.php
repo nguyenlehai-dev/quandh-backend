@@ -35,6 +35,9 @@ trait RespondsWithJson
 
     /**
      * Trả về response thành công với JsonResource (show, store, update, changeStatus).
+     *
+     * Dùng ->response()->getData(true) rồi merge lại để đảm bảo
+     * `success` luôn là boolean, tránh bị additional() serialize thành "true" string.
      */
     protected function successResource(
         JsonResource $resource,
@@ -42,17 +45,25 @@ trait RespondsWithJson
         int $statusCode = 200
         ): JsonResponse
     {
-        $additional = array_filter([
-            'success' => true,
-            'message' => $message,
-        ], fn($v) => $v !== null);
+        $responseData = $resource->response()->getData(true);
 
-        return $resource->additional($additional)->response()->setStatusCode($statusCode);
+        $payload = array_merge(
+            $responseData,
+            array_filter([
+                'success' => true,
+                'message' => $message,
+            ], fn($v) => $v !== null)
+        );
+
+        return response()->json($payload, $statusCode);
     }
 
     /**
      * Trả về response thành công với ResourceCollection (index, tree).
      * Thêm success, message vào envelope của collection.
+     *
+     * Lưu ý: dùng ->response()->getData(true) rồi merge lại để đảm bảo
+     * `success` luôn là boolean, tránh bị Scribe/additional() serialize thành "true" string.
      */
     protected function successCollection(
         ResourceCollection $collection,
@@ -60,12 +71,17 @@ trait RespondsWithJson
         int $statusCode = 200
         ): JsonResponse
     {
-        $additional = array_filter([
-            'success' => true,
-            'message' => $message,
-        ], fn($v) => $v !== null);
+        $responseData = $collection->response()->getData(true);
 
-        return $collection->additional($additional)->response()->setStatusCode($statusCode);
+        $payload = array_merge(
+            $responseData,
+            array_filter([
+                'success' => true,
+                'message' => $message,
+            ], fn($v) => $v !== null)
+        );
+
+        return response()->json($payload, $statusCode);
     }
 
     /**

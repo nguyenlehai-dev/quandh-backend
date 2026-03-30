@@ -15,6 +15,34 @@ class MeetingVotingService
         return $meeting->votings()->with(['agenda', 'results'])->get();
     }
 
+    /** Danh sách tất cả biểu quyết trên toàn hệ thống (của các cuộc họp user có quyền, hoặc thuộc tổ chức). */
+    public function globalIndex(array $filters)
+    {
+        $limit = $filters['limit'] ?? 15;
+        $query = MeetingVoting::query()
+            ->with(['meeting:id,title', 'agenda:id,title', 'results'])
+            ->whereHas('meeting', fn ($q) => $q->userRelated())
+            ->orderBy('id', 'desc');
+
+        if (!empty($filters['search'])) {
+            $query->where('title', 'like', "%{$filters['search']}%");
+        }
+        if (!empty($filters['meeting_type_id'])) {
+            $query->whereHas('meeting', fn ($q) => $q->where('meeting_type_id', $filters['meeting_type_id']));
+        }
+
+        return $query->paginate($limit);
+    }
+
+    /** Xuất dữ liệu biểu quyết. */
+    public function export(array $filters)
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Modules\Meeting\Exports\MeetingVotingsExport($filters),
+            'bieu-quyet.xlsx'
+        );
+    }
+
     /** Tạo phiên biểu quyết mới. */
     public function store(Meeting $meeting, array $validated): MeetingVoting
     {

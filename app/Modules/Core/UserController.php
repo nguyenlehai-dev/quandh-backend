@@ -11,9 +11,11 @@ use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Requests\ImportUserRequest;
 use App\Modules\Core\Requests\StoreUserRequest;
 use App\Modules\Core\Requests\UpdateUserRequest;
+use App\Modules\Core\Exports\UsersTemplateExport;
 use App\Modules\Core\Resources\UserCollection;
 use App\Modules\Core\Resources\UserResource;
 use App\Modules\Core\Services\UserService;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - User
@@ -188,6 +190,18 @@ class UserController extends Controller
     public function export(FilterRequest $request)
     {
         return $this->userService->export($request->all());
+    }
+
+    /**
+     * Tải file Excel mẫu (template import)
+     *
+     * Trả về file Excel mẫu (.xlsx) để tham khảo cấu trúc cột khi import người dùng.
+     *
+     * @response 200 scenario="File download" File Excel (.xlsx)
+     */
+    public function template()
+    {
+        return Excel::download(new UsersTemplateExport, 'users_template.xlsx');
     }
 
     /**

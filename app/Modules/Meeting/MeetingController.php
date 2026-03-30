@@ -67,6 +67,24 @@ class MeetingController extends Controller
     }
 
     /**
+     * Lịch họp của tôi
+     *
+     * Lấy danh sách các cuộc họp dành cho FullCalendar mà user hiện tại đang tham gia.
+     *
+     * @queryParam start string Thời gian bắt đầu (Y-m-d). Example: 2026-03-01
+     * @queryParam end string Thời gian kết thúc (Y-m-d). Example: 2026-04-01
+     */
+    public function myCalendar(Request $request)
+    {
+        $meetings = $this->meetingService->myCalendar(
+            $request->input('start'),
+            $request->input('end')
+        );
+
+        return $this->success($meetings);
+    }
+
+    /**
      * Chi tiết cuộc họp
      *
      * Lấy chi tiết cuộc họp kèm danh sách thành viên, chương trình, tài liệu, kết luận, biểu quyết.
@@ -92,6 +110,8 @@ class MeetingController extends Controller
      */
     public function store(StoreMeetingRequest $request)
     {
+        abort_if(!auth()->user()->can('meetings.store'), 403, 'Unauthorized action.');
+
         $meeting = $this->meetingService->store($request->validated());
 
         return $this->successResource(new MeetingResource($meeting), 'Cuộc họp đã được tạo thành công!', 201);

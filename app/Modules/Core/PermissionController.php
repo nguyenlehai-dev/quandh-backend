@@ -9,11 +9,13 @@ use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Requests\ImportPermissionRequest;
 use App\Modules\Core\Requests\StorePermissionRequest;
 use App\Modules\Core\Requests\UpdatePermissionRequest;
+use App\Modules\Core\Exports\PermissionsTemplateExport;
 use App\Modules\Core\Resources\PermissionCollection;
 use App\Modules\Core\Resources\PermissionResource;
 use App\Modules\Core\Resources\PermissionTreeResource;
 use App\Modules\Core\Services\PermissionService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - Permission
@@ -74,7 +76,7 @@ class PermissionController extends Controller
      *
      * @queryParam parent_id integer Lọc theo parent_id (null = gốc). Example: null
      *
-     * @response 200 {"success": true, "data": [{"id": 1, "name": "posts", "guard_name": "web", "description": "Quản lý bài viết", "sort_order": 0, "parent_id": null, "children": []}]}
+     * @response 200 {"success": true, "data": [{"id": 1, "name": "posts", "guard_name": "api", "description": "Quản lý bài viết", "sort_order": 0, "parent_id": null, "children": []}]}
      */
     public function tree(Request $request)
     {
@@ -105,7 +107,7 @@ class PermissionController extends Controller
      * Tạo permission mới
      *
      * @bodyParam name string required Tên permission. Example: posts.create
-     * @bodyParam guard_name string Guard name (mặc định web). Example: web
+     * @bodyParam guard_name string Guard name (mặc định api). Example: api
      * @bodyParam description string Mô tả hiển thị trên frontend.
      * @bodyParam sort_order integer Thứ tự sắp xếp. Example: 0
      * @bodyParam parent_id integer ID permission cha (null = gốc/nhóm).
@@ -129,7 +131,7 @@ class PermissionController extends Controller
      * @urlParam permission integer required ID permission. Example: 1
      *
      * @bodyParam name string Tên permission. Example: posts.update
-     * @bodyParam guard_name string Guard name. Example: web
+     * @bodyParam guard_name string Guard name. Example: api
      * @bodyParam description string Mô tả.
      * @bodyParam sort_order integer Thứ tự sắp xếp.
      * @bodyParam parent_id integer ID permission cha (null = gốc).
@@ -192,9 +194,21 @@ class PermissionController extends Controller
     }
 
     /**
+     * Tải file Excel mẫu (template import)
+     *
+     * Trả về file Excel mẫu (.xlsx) để tham khảo cấu trúc cột khi import quyền.
+     *
+     * @response 200 scenario="File download" File Excel (.xlsx)
+     */
+    public function template()
+    {
+        return Excel::download(new PermissionsTemplateExport, 'permissions_template.xlsx');
+    }
+
+    /**
      * Nhập danh sách permission
      *
-     * Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "web"), description, sort_order, parent_id.
+     * Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "api"), description, sort_order, parent_id.
      *
      * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *

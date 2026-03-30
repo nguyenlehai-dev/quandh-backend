@@ -20,6 +20,21 @@ class MeetingConclusionController extends Controller
     public function __construct(private MeetingConclusionService $service) {}
 
     /**
+     * Danh sách toàn bộ kết luận
+     */
+    public function globalIndex(Request $request)
+    {
+        $conclusions = $this->service->globalIndex($request->all());
+
+        return $this->successCollection(MeetingConclusionResource::collection($conclusions));
+    }
+
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
+
+    /**
      * Danh sách kết luận
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1

@@ -18,6 +18,7 @@ class MeetingVotingResource extends JsonResource
             'type' => $this->type,
             'status' => $this->status,
             'agenda_title' => $this->whenLoaded('agenda', fn () => $this->agenda->title),
+            'meeting_title' => $this->whenLoaded('meeting', fn () => $this->meeting->title),
             'results_summary' => $this->whenLoaded('results', function () {
                 $results = $this->results;
 

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MeetingVoting extends Model
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
 
     protected $table = 'm_votings';

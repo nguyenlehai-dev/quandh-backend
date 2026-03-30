@@ -10,6 +10,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Document extends Model implements HasMedia
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
     use InteractsWithMedia;
 
