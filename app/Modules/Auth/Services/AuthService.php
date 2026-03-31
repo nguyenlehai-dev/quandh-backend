@@ -56,6 +56,11 @@ class AuthService
 
     public function logout($user): void
     {
+        $user->userPreference()->updateOrCreate(
+            ['user_id' => $user->id],
+            ['current_organization_id' => null]
+        );
+
         $user->currentAccessToken()->delete();
     }
 

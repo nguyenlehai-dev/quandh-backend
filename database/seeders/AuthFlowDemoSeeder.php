@@ -41,7 +41,7 @@ class AuthFlowDemoSeeder extends Seeder
                 'email' => 'flow.select@example.com',
                 'password' => 'quandcore**11',
                 'assignments' => [
-                    'Editor' => ['default', 'so-noi-vu'],
+                    'Editor' => ['so-noi-vu', 'ubnd-thanh-pho'],
                 ],
                 'current_organization_slug' => null,
             ],
@@ -51,7 +51,7 @@ class AuthFlowDemoSeeder extends Seeder
                 'email' => 'flow.switch@example.com',
                 'password' => 'quandcore**11',
                 'assignments' => [
-                    'Vai trò mẫu' => ['default', 'trung-tam-cong-nghe'],
+                    'Vai trò mẫu' => ['ubnd-thanh-pho', 'trung-tam-cong-nghe'],
                 ],
                 'current_organization_slug' => 'trung-tam-cong-nghe',
             ],
