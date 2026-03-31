@@ -69,16 +69,59 @@ class LogActivity
 
         // Skip GET read-only requests (index, show, stats, tree, public)
         if ($request->isMethod('GET')) {
-            $routeName = $request->route()?->getName();
-            if ($routeName) {
-                $action = last(explode('.', $routeName));
-                if (in_array($action, self::$skipGetActions, true)) {
-                    return false;
-                }
+            $action = $this->resolveGetAction($request);
+            if ($action && in_array($action, self::$skipGetActions, true)) {
+                return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * Xác định action GET kể cả khi route chưa được đặt name.
+     */
+    protected function resolveGetAction(Request $request): ?string
+    {
+        $routeName = $request->route()?->getName();
+        if ($routeName) {
+            return last(explode('.', $routeName));
+        }
+
+        $path = trim($request->path(), '/');
+        $segments = array_values(array_filter(explode('/', $path)));
+
+        if (($segments[0] ?? null) === 'api') {
+            array_shift($segments);
+        }
+
+        $resource = $segments[0] ?? null;
+        $subAction = $segments[1] ?? null;
+
+        if (! $resource) {
+            return null;
+        }
+
+        if (! $subAction) {
+            return 'index';
+        }
+
+        $pathActions = [
+            'stats' => 'stats',
+            'tree' => 'tree',
+            'public' => 'public',
+            'public-options' => 'publicOptions',
+        ];
+
+        if (isset($pathActions[$subAction])) {
+            return $pathActions[$subAction];
+        }
+
+        if (count($segments) === 2 && ! in_array($subAction, ['export', 'template', 'results'], true)) {
+            return 'show';
+        }
+
+        return null;
     }
 
     protected function log(Request $request, int $statusCode): void

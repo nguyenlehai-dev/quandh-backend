@@ -26,16 +26,19 @@ Route::get('/attendee-groups', [AttendeeGroupController::class, 'index'])->middl
 Route::post('/attendee-groups', [AttendeeGroupController::class, 'store'])->middleware('permission:attendee-groups.store,api');
 Route::put('/attendee-groups/{attendee_group}', [AttendeeGroupController::class, 'update'])->middleware('permission:attendee-groups.update,api');
 Route::delete('/attendee-groups/{attendee_group}', [AttendeeGroupController::class, 'destroy'])->middleware('permission:attendee-groups.destroy,api');
+Route::patch('/attendee-groups/{attendee_group}/status', [AttendeeGroupController::class, 'changeStatus'])->middleware('permission:attendee-groups.changeStatus,api');
 Route::post('/attendee-groups/{attendee_group}/members', [AttendeeGroupController::class, 'addMember'])->middleware('permission:attendee-groups.update,api');
 Route::delete('/attendee-groups/{attendee_group}/members/{userId}', [AttendeeGroupController::class, 'removeMember'])->middleware('permission:attendee-groups.update,api');
 
 Route::post('/meeting-types/bulk-delete', [MeetingTypeController::class, 'bulkDestroy'])->middleware('permission:meeting-types.destroy,api');
-Route::put('/meeting-types/bulk-update', [MeetingTypeController::class, 'bulkUpdate'])->middleware('permission:meeting-types.update,api');
+Route::put('/meeting-types/bulk-update', [MeetingTypeController::class, 'bulkUpdate'])->middleware('permission:meeting-types.bulkUpdateStatus,api');
+Route::patch('/meeting-types/bulk-status', [MeetingTypeController::class, 'bulkUpdate'])->middleware('permission:meeting-types.bulkUpdateStatus,api');
 Route::get('/meeting-types/export', [MeetingTypeController::class, 'export'])->middleware('permission:meeting-types.export,api');
 Route::get('/meeting-types', [MeetingTypeController::class, 'index'])->middleware('permission:meeting-types.index,api');
 Route::post('/meeting-types', [MeetingTypeController::class, 'store'])->middleware('permission:meeting-types.store,api');
 Route::put('/meeting-types/{meeting_type}', [MeetingTypeController::class, 'update'])->middleware('permission:meeting-types.update,api');
 Route::delete('/meeting-types/{meeting_type}', [MeetingTypeController::class, 'destroy'])->middleware('permission:meeting-types.destroy,api');
+Route::patch('/meeting-types/{meeting_type}/status', [MeetingTypeController::class, 'changeStatus'])->middleware('permission:meeting-types.changeStatus,api');
 
 // === Meeting chính (11 hàm bắt buộc) ===
 Route::get('/export', [MeetingController::class, 'export'])->middleware('permission:meetings.export,api');

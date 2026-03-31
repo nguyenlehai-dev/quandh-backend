@@ -8,13 +8,19 @@ class AttendeeGroupService
 {
     public function __construct(private AttendeeGroup $model) {}
 
-    public function index($params = [])
+    public function index(array $params = [])
     {
+        $sortBy = in_array($params['sort_by'] ?? null, ['id', 'name', 'status', 'meeting_type_id', 'created_at', 'updated_at'], true)
+            ? $params['sort_by']
+            : 'created_at';
+        $sortOrder = ($params['sort_order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+
         return $this->model
             ->with(['meetingType:id,name', 'members:id,name,email'])
             ->when(!empty($params['search']), fn ($q) => $q->where('name', 'like', "%{$params['search']}%"))
+            ->when(!empty($params['status']), fn ($q) => $q->where('status', $params['status']))
             ->when(!empty($params['meeting_type_id']), fn ($q) => $q->where('meeting_type_id', $params['meeting_type_id']))
-            ->orderBy($params['sort_by'] ?? 'created_at', $params['sort_order'] ?? 'desc')
+            ->orderBy($sortBy, $sortOrder)
             ->paginate($params['limit'] ?? 10);
     }
 
@@ -53,6 +59,13 @@ class AttendeeGroupService
     public function destroy(AttendeeGroup $group)
     {
         return $group->delete();
+    }
+
+    public function changeStatus(AttendeeGroup $group, string $status): AttendeeGroup
+    {
+        $group->update(['status' => $status]);
+
+        return $group->load(['meetingType:id,name', 'members:id,name,email']);
     }
 
     /** Thêm thành viên vào nhóm. */

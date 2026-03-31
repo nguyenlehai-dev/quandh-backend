@@ -3,6 +3,8 @@
 namespace App\Modules\Meeting;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Core\Enums\StatusEnum;
+use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Meeting\Models\MeetingType;
 use App\Modules\Meeting\Resources\MeetingTypeResource;
 use App\Modules\Meeting\Services\MeetingTypeService;
@@ -12,15 +14,32 @@ class MeetingTypeController extends Controller
 {
     public function __construct(private MeetingTypeService $service) {}
 
-    public function index(Request $request)
+    public function index(FilterRequest $request)
     {
-        $items = $this->service->index($request->all());
+        $validated = $request->validate([
+            'status' => ['nullable', StatusEnum::rule()],
+            'sort_by' => 'nullable|in:id,name,status,created_at,updated_at',
+        ], [
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+            'sort_by.in' => 'Trường sắp xếp không hợp lệ.',
+        ]);
+
+        $items = $this->service->index(array_merge($request->all(), $validated));
+
         return $this->successCollection(MeetingTypeResource::collection($items));
     }
 
-    public function export(Request $request)
+    public function export(FilterRequest $request)
     {
-        return $this->service->export($request->all());
+        $validated = $request->validate([
+            'status' => ['nullable', StatusEnum::rule()],
+            'sort_by' => 'nullable|in:id,name,status,created_at,updated_at',
+        ], [
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+            'sort_by.in' => 'Trường sắp xếp không hợp lệ.',
+        ]);
+
+        return $this->service->export(array_merge($request->all(), $validated));
     }
 
     public function store(Request $request)
@@ -72,5 +91,19 @@ class MeetingTypeController extends Controller
         
         $this->service->bulkUpdate($validated['ids'], ['status' => $validated['status']]);
         return $this->success(null, 'Cập nhật trạng thái hàng loạt thành công!');
+    }
+
+    public function changeStatus(Request $request, MeetingType $meeting_type)
+    {
+        $validated = $request->validate([
+            'status' => ['required', StatusEnum::rule()],
+        ], [
+            'status.required' => 'Vui lòng chọn trạng thái.',
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+        ]);
+
+        $item = $this->service->changeStatus($meeting_type, $validated['status']);
+
+        return $this->successResource(new MeetingTypeResource($item), 'Cập nhật trạng thái loại cuộc họp thành công!');
     }
 }

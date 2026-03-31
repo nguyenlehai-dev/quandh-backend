@@ -9,6 +9,8 @@ class LogActivityResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $displayTimezone = config('app.display_timezone', 'Asia/Ho_Chi_Minh');
+
         return [
             'id' => $this->id,
             'description' => $this->description,
@@ -25,8 +27,8 @@ class LogActivityResource extends JsonResource
             'country' => $this->country,
             'user_agent' => $this->user_agent,
             'request_data' => $this->request_data,
-            'created_at' => $this->created_at?->format('H:i:s d/m/Y'),
-            'updated_at' => $this->updated_at?->format('H:i:s d/m/Y'),
+            'created_at' => $this->created_at?->copy()->setTimezone($displayTimezone)->format('H:i:s d/m/Y'),
+            'updated_at' => $this->updated_at?->copy()->setTimezone($displayTimezone)->format('H:i:s d/m/Y'),
         ];
     }
 }

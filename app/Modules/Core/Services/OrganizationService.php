@@ -7,6 +7,7 @@ use App\Modules\Core\Exports\OrganizationsExport;
 use App\Modules\Core\Imports\OrganizationsImport;
 use App\Modules\Core\Models\Organization;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -139,11 +140,19 @@ class OrganizationService
 
     public function bulkUpdateStatus(array $ids, string $status): void
     {
+        if ($status !== StatusEnum::Active->value) {
+            $this->guardAgainstInvalidDeactivation($ids);
+        }
+
         Organization::whereIn('id', $ids)->update(['status' => $status]);
     }
 
     public function changeStatus(Organization $organization, string $status): Organization
     {
+        if ($status !== StatusEnum::Active->value) {
+            $this->guardAgainstInvalidDeactivation([$organization->id]);
+        }
+
         $organization->update(['status' => $status]);
 
         return $organization->load(['parent', 'children']);
@@ -244,5 +253,38 @@ class OrganizationService
         }
 
         return false;
+    }
+
+    private function guardAgainstInvalidDeactivation(array $organizationIds): void
+    {
+        $ids = collect($organizationIds)
+            ->map(fn ($id) => (int) $id)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+
+        if (empty($ids)) {
+            return;
+        }
+
+        $currentOrganizationId = (int) request()->header('X-Organization-Id');
+
+        if ($currentOrganizationId && in_array($currentOrganizationId, $ids, true)) {
+            throw ValidationException::withMessages([
+                'status' => ['Không thể chuyển tổ chức đang làm việc hiện tại sang ngừng hoạt động.'],
+            ]);
+        }
+
+        $remainingActiveCount = Organization::query()
+            ->where('status', StatusEnum::Active->value)
+            ->whereNotIn('id', $ids)
+            ->count();
+
+        if ($remainingActiveCount === 0) {
+            throw ValidationException::withMessages([
+                'status' => ['Hệ thống phải luôn có ít nhất một tổ chức đang hoạt động.'],
+            ]);
+        }
     }
 }

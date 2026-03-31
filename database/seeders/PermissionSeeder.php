@@ -111,11 +111,11 @@ class PermissionSeeder extends Seeder
         ],
         // Meeting - Nhóm người dự họp
         'attendee-groups' => [
-            'index', 'store', 'update', 'destroy',
+            'index', 'store', 'update', 'destroy', 'changeStatus', 'export',
         ],
         // Meeting - Loại cuộc họp
         'meeting-types' => [
-            'index', 'store', 'update', 'destroy',
+            'index', 'store', 'update', 'destroy', 'changeStatus', 'bulkUpdateStatus', 'export',
         ],
         // Meeting - Thành viên cuộc họp
         'meeting-participants' => [

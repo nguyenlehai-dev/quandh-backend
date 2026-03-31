@@ -8,12 +8,18 @@ class MeetingTypeService
 {
     public function __construct(private MeetingType $model) {}
 
-    public function index($params = [])
+    public function index(array $params = [])
     {
+        $sortBy = in_array($params['sort_by'] ?? null, ['id', 'name', 'status', 'created_at', 'updated_at'], true)
+            ? $params['sort_by']
+            : 'created_at';
+        $sortOrder = ($params['sort_order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+
         return $this->model
             ->withCount(['attendeeGroups', 'documentTypes', 'meetings'])
             ->when(!empty($params['search']), fn ($q) => $q->where('name', 'like', "%{$params['search']}%"))
-            ->orderBy($params['sort_by'] ?? 'created_at', $params['sort_order'] ?? 'desc')
+            ->when(!empty($params['status']), fn ($q) => $q->where('status', $params['status']))
+            ->orderBy($sortBy, $sortOrder)
             ->paginate($params['limit'] ?? 10);
     }
 
@@ -50,5 +56,12 @@ class MeetingTypeService
     public function bulkUpdate(array $ids, array $data)
     {
         return $this->model->whereIn('id', $ids)->update($data);
+    }
+
+    public function changeStatus(MeetingType $type, string $status): MeetingType
+    {
+        $type->update(['status' => $status]);
+
+        return $type->refresh()->loadCount(['attendeeGroups', 'documentTypes', 'meetings']);
     }
 }

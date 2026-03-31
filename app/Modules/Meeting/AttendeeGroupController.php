@@ -3,6 +3,8 @@
 namespace App\Modules\Meeting;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Core\Enums\StatusEnum;
+use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Meeting\Models\AttendeeGroup;
 use App\Modules\Meeting\Resources\AttendeeGroupResource;
 use App\Modules\Meeting\Services\AttendeeGroupService;
@@ -12,15 +14,38 @@ class AttendeeGroupController extends Controller
 {
     public function __construct(private AttendeeGroupService $service) {}
 
-    public function index(Request $request)
+    public function index(FilterRequest $request)
     {
-        $items = $this->service->index($request->all());
+        $validated = $request->validate([
+            'status' => ['nullable', StatusEnum::rule()],
+            'meeting_type_id' => 'nullable|integer|exists:m_meeting_types,id',
+            'sort_by' => 'nullable|in:id,name,status,meeting_type_id,created_at,updated_at',
+        ], [
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+            'meeting_type_id.integer' => 'Loại cuộc họp không hợp lệ.',
+            'meeting_type_id.exists' => 'Loại cuộc họp không tồn tại.',
+            'sort_by.in' => 'Trường sắp xếp không hợp lệ.',
+        ]);
+
+        $items = $this->service->index(array_merge($request->all(), $validated));
+
         return $this->successCollection(AttendeeGroupResource::collection($items));
     }
 
-    public function export(Request $request)
+    public function export(FilterRequest $request)
     {
-        return $this->service->export($request->all());
+        $validated = $request->validate([
+            'status' => ['nullable', StatusEnum::rule()],
+            'meeting_type_id' => 'nullable|integer|exists:m_meeting_types,id',
+            'sort_by' => 'nullable|in:id,name,status,meeting_type_id,created_at,updated_at',
+        ], [
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+            'meeting_type_id.integer' => 'Loại cuộc họp không hợp lệ.',
+            'meeting_type_id.exists' => 'Loại cuộc họp không tồn tại.',
+            'sort_by.in' => 'Trường sắp xếp không hợp lệ.',
+        ]);
+
+        return $this->service->export(array_merge($request->all(), $validated));
     }
 
     public function store(Request $request)
@@ -55,6 +80,20 @@ class AttendeeGroupController extends Controller
     {
         $this->service->destroy($attendee_group);
         return $this->success(null, 'Xóa nhóm người dự họp thành công!');
+    }
+
+    public function changeStatus(Request $request, AttendeeGroup $attendee_group)
+    {
+        $validated = $request->validate([
+            'status' => ['required', StatusEnum::rule()],
+        ], [
+            'status.required' => 'Vui lòng chọn trạng thái.',
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+        ]);
+
+        $item = $this->service->changeStatus($attendee_group, $validated['status']);
+
+        return $this->successResource(new AttendeeGroupResource($item), 'Cập nhật trạng thái nhóm người dự họp thành công!');
     }
 
     /** Thêm thành viên vào nhóm. */
