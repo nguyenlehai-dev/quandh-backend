@@ -18,7 +18,7 @@ Bảng người dùng (Laravel Auth).
 | email_verified_at | timestamp | Yes | null | |
 | password | varchar(255) | No | — | |
 | remember_token | varchar(100) | Yes | null | |
-| status | varchar(255) | No | 'active' | active, inactive, banned |
+| status | varchar(255) | No | 'active' | active, inactive |
 | created_by | bigint unsigned | Yes | null | FK → users.id |
 | updated_by | bigint unsigned | Yes | null | FK → users.id |
 | created_at | timestamp | Yes | null | |

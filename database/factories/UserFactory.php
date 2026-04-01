@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'status' => fake()->randomElement(['active', 'inactive', 'banned']),
+            'status' => fake()->randomElement(['active', 'inactive']),
             'created_by' => null,
             'updated_by' => null,
         ];

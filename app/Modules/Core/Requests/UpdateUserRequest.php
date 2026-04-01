@@ -46,7 +46,7 @@ class UpdateUserRequest extends FormRequest
             'password.string' => 'Mật khẩu phải là một chuỗi ký tự.',
             'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
             'password.confirmed' => 'Mật khẩu không khớp.',
-            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive, banned.',
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
             'assignments.array' => 'Danh sách phân quyền phải là mảng.',
             'assignments.*.role_id.required' => 'Vai trò là bắt buộc trong từng phân quyền.',
             'assignments.*.role_id.integer' => 'ID vai trò phải là số nguyên.',

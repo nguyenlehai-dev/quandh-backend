@@ -31,7 +31,10 @@ class UserService
 
     public function index(array $filters, int $limit)
     {
-        return User::filter($filters)->paginate($limit);
+        return User::query()
+            ->with(['creator:id,name', 'editor:id,name'])
+            ->filter($filters)
+            ->paginate($limit);
     }
 
     public function store(array $data): User

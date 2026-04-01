@@ -9,11 +9,11 @@ class UserStatusEnumTest extends TestCase
 {
     public function test_values_returns_expected_statuses(): void
     {
-        $this->assertSame(['active', 'inactive', 'banned'], UserStatusEnum::values());
+        $this->assertSame(['active', 'inactive'], UserStatusEnum::values());
     }
 
     public function test_rule_returns_validation_rule(): void
     {
-        $this->assertSame('in:active,inactive,banned', UserStatusEnum::rule());
+        $this->assertSame('in:active,inactive', UserStatusEnum::rule());
     }
 }
