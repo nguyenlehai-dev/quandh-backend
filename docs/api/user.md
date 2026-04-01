@@ -12,8 +12,8 @@ Quản lý tài khoản người dùng: thống kê, danh sách, chi tiết, CRU
 |---|---|
 | **Method** | GET |
 | **Path** | `/api/users/stats` |
-| **Query** | `search` (name, email), `status` (active \| inactive \| banned), `from_date` (Y-m-d), `to_date` (Y-m-d), `sort_by`, `sort_order`, `limit` (1-100). Cùng bộ lọc với index. |
-| **Response** | `{ "total": 100, "active": 80, "inactive": 20 }` — total (sau lọc), active, inactive (gồm banned). |
+| **Query** | `search` (name, email), `status` (active \| inactive), `from_date` (Y-m-d), `to_date` (Y-m-d), `sort_by`, `sort_order`, `limit` (1-100). Cùng bộ lọc với index. |
+| **Response** | `{ "total": 100, "active": 80, "inactive": 20 }` — total (sau lọc), active, inactive. |
 
 ---
 
@@ -23,7 +23,7 @@ Quản lý tài khoản người dùng: thống kê, danh sách, chi tiết, CRU
 |---|---|
 | **Method** | GET |
 | **Path** | `/api/users` |
-| **Query** | `search` (name, email), `status` (active \| inactive \| banned), `from_date`, `to_date`, `sort_by` (id \| name \| created_at), `sort_order` (asc \| desc), `limit` (1-100). |
+| **Query** | `search` (name, email), `status` (active \| inactive), `from_date`, `to_date`, `sort_by` (id \| name \| created_at), `sort_order` (asc \| desc), `limit` (1-100). |
 | **Response** | Paginated collection (UserResource). |
 
 ---
@@ -45,7 +45,7 @@ Quản lý tài khoản người dùng: thống kê, danh sách, chi tiết, CRU
 |---|---|
 | **Method** | POST |
 | **Path** | `/api/users` |
-| **Body** | `name` (required), `email` (required, unique), `password` (required, min 6, confirmed), `password_confirmation` (required), `status` (optional: active \| inactive \| banned), `assignments` (optional). |
+| **Body** | `name` (required), `email` (required, unique), `password` (required, min 6, confirmed), `password_confirmation` (required), `status` (optional: active \| inactive), `assignments` (optional). |
 | **Response** | 201, object người dùng + `"message": "Tài khoản đã được tạo thành công!"`. |
 
 **Mẫu assignments**
@@ -96,7 +96,7 @@ Quản lý tài khoản người dùng: thống kê, danh sách, chi tiết, CRU
 |---|---|
 | **Method** | PATCH |
 | **Path** | `/api/users/bulk-status` |
-| **Body** | `ids` (array), `status` (required: active \| inactive \| banned). |
+| **Body** | `ids` (array), `status` (required: active \| inactive). |
 | **Response** | `{ "message": "Cập nhật trạng thái thành công" }`. |
 
 ---
@@ -107,7 +107,7 @@ Quản lý tài khoản người dùng: thống kê, danh sách, chi tiết, CRU
 |---|---|
 | **Method** | PATCH |
 | **Path** | `/api/users/{id}/status` |
-| **Body** | `status` (required: active \| inactive \| banned). |
+| **Body** | `status` (required: active \| inactive). |
 | **Response** | `{ "message": "Cập nhật trạng thái thành công!", "data": UserResource }`. |
 
 ---
