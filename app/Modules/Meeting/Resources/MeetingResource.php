@@ -11,12 +11,20 @@ class MeetingResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'meeting_type_id' => $this->meeting_type_id,
+            'meeting_type' => $this->whenLoaded('meetingType', function () {
+                return [
+                    'id' => $this->meetingType->id,
+                    'name' => $this->meetingType->name,
+                ];
+            }),
             'title' => $this->title,
             'description' => $this->description,
             'location' => $this->location,
             'start_at' => $this->start_at?->format('H:i:s d/m/Y'),
             'end_at' => $this->end_at?->format('H:i:s d/m/Y'),
             'status' => $this->status,
+            'qr_token' => $this->when($this->qr_token, $this->qr_token),
 
             // Counts (withCount)
             'participants_count' => $this->whenCounted('participants'),

@@ -12,12 +12,14 @@ use App\Modules\Meeting\Requests\ImportMeetingRequest;
 use App\Modules\Meeting\Requests\StoreMeetingRequest;
 use App\Modules\Meeting\Requests\UpdateMeetingRequest;
 use App\Modules\Meeting\Resources\MeetingCollection;
+use App\Modules\Meeting\Resources\MeetingParticipantResource;
 use App\Modules\Meeting\Resources\MeetingResource;
 use App\Modules\Meeting\Services\MeetingService;
+use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Cuộc họp
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý cuộc họp: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel.
  */
@@ -65,6 +67,24 @@ class MeetingController extends Controller
     }
 
     /**
+     * Lịch họp của tôi
+     *
+     * Lấy danh sách các cuộc họp dành cho FullCalendar mà user hiện tại đang tham gia.
+     *
+     * @queryParam start string Thời gian bắt đầu (Y-m-d). Example: 2026-03-01
+     * @queryParam end string Thời gian kết thúc (Y-m-d). Example: 2026-04-01
+     */
+    public function myCalendar(Request $request)
+    {
+        $meetings = $this->meetingService->myCalendar(
+            $request->input('start'),
+            $request->input('end')
+        );
+
+        return $this->success($meetings);
+    }
+
+    /**
      * Chi tiết cuộc họp
      *
      * Lấy chi tiết cuộc họp kèm danh sách thành viên, chương trình, tài liệu, kết luận, biểu quyết.
@@ -90,6 +110,8 @@ class MeetingController extends Controller
      */
     public function store(StoreMeetingRequest $request)
     {
+        abort_if(!auth()->user()->can('meetings.store'), 403, 'Unauthorized action.');
+
         $meeting = $this->meetingService->store($request->validated());
 
         return $this->successResource(new MeetingResource($meeting), 'Cuộc họp đã được tạo thành công!', 201);
@@ -201,4 +223,63 @@ class MeetingController extends Controller
 
         return $this->success(null, 'Import cuộc họp thành công.');
     }
+
+    /**
+     * Lấy QR token của cuộc họp
+     *
+     * Admin dùng để hiển thị mã QR cho đại biểu quét điểm danh.
+     * QR token sẽ tự động sinh nếu chưa có.
+     *
+     * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @response 200 {"success": true, "data": {"qr_token": "A1B2C3D4E5F6", "meeting_id": 1, "meeting_title": "Họp ban giám đốc"}}
+     */
+    public function qrToken(Meeting $meeting)
+    {
+        $token = $this->meetingService->qrToken($meeting);
+
+        return $this->success([
+            'qr_token' => $token,
+            'meeting_id' => $meeting->id,
+            'meeting_title' => $meeting->title,
+        ]);
+    }
+
+    /**
+     * Điểm danh bằng QR code
+     *
+     * Đại biểu gửi mã QR token để xác nhận tham dự cuộc họp.
+     *
+     * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @bodyParam qr_token string required Mã QR token (12 ký tự). Example: A1B2C3D4E5F6
+     *
+     * @response 200 {"success": true, "message": "Điểm danh thành công!", "data": {"id": 1, "attendance_status": "present"}}
+     * @response 422 {"success": false, "message": "Mã QR không hợp lệ hoặc đã hết hạn."}
+     */
+    public function qrCheckin(Request $request, Meeting $meeting)
+    {
+        $validated = $request->validate([
+            'qr_token' => 'required|string|size:12',
+        ], [
+            'qr_token.required' => 'Vui lòng nhập mã QR.',
+            'qr_token.size' => 'Mã QR phải có đúng 12 ký tự.',
+        ]);
+
+        try {
+            $participant = $this->meetingService->qrCheckin(
+                $meeting,
+                $validated['qr_token'],
+                auth()->id()
+            );
+
+            return $this->successResource(
+                new MeetingParticipantResource($participant),
+                'Điểm danh thành công!'
+            );
+        } catch (\InvalidArgumentException $e) {
+            return $this->error($e->getMessage(), 422);
+        }
+    }
 }
+

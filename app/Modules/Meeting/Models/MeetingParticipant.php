@@ -20,6 +20,7 @@ class MeetingParticipant extends Model
         'attendance_status',
         'checkin_at',
         'absence_reason',
+        'delegated_to_id',
     ];
 
     protected $casts = [
@@ -42,5 +43,11 @@ class MeetingParticipant extends Model
     public function speechRequests()
     {
         return $this->hasMany(MeetingSpeechRequest::class, 'meeting_participant_id');
+    }
+
+    /** Người được ủy quyền. */
+    public function delegatedUser()
+    {
+        return $this->belongsTo(User::class, 'delegated_to_id');
     }
 }

@@ -64,8 +64,13 @@ class CatalogService
         /** @var Model $model */
         $model = app($modelClass);
 
+        $relations = ['creator', 'editor'];
+        if (method_exists($model, 'meetingType')) {
+            $relations[] = 'meetingType';
+        }
+
         return $model->newQuery()
-            ->with(['creator', 'editor'])
+            ->with($relations)
             ->filter($filters)
             ->paginate($limit);
     }

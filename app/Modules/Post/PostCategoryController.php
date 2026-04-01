@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Post - Category
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý danh mục tin tức phân cấp (cấu trúc cây parent_id): danh sách, cây, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập, đổi trạng thái.
  */
@@ -295,3 +295,4 @@ class PostCategoryController extends Controller
         return $this->successResource(new PostCategoryResource($category), 'Cập nhật trạng thái thành công!');
     }
 }
+

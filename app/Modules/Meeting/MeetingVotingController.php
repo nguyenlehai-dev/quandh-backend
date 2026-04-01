@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Biểu quyết
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý biểu quyết: tạo phiên, mở/đóng bỏ phiếu, bỏ phiếu, xem kết quả. Hỗ trợ biểu quyết ẩn danh.
  */
@@ -20,7 +20,25 @@ class MeetingVotingController extends Controller
     public function __construct(private MeetingVotingService $service) {}
 
     /**
+     * Danh sách toàn bộ phiên biểu quyết
+     *
+     * @urlParam search string Tên biểu quyết để tìm kiếm
+     */
+    public function globalIndex(Request $request)
+    {
+        $votings = $this->service->globalIndex($request->all());
+
+        return $this->successCollection(MeetingVotingResource::collection($votings));
+    }
+
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
+
+    /**
      * Danh sách phiên biểu quyết
+
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      */
@@ -189,3 +207,4 @@ class MeetingVotingController extends Controller
         return $this->success($results);
     }
 }
+

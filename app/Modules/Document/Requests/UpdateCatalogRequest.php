@@ -18,6 +18,7 @@ class UpdateCatalogRequest extends FormRequest
             'name' => 'sometimes|string|max:255',
             'description' => 'nullable|string|max:65535',
             'status' => ['sometimes', DocumentStatusEnum::rule()],
+            'meeting_type_id' => 'nullable|integer',
         ];
     }
 

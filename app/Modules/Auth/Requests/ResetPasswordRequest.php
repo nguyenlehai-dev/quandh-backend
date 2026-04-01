@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Validate request đặt lại mật khẩu (dùng token từ email reset).
+ * Validate reset password request using token from email.
  */
 class ResetPasswordRequest extends FormRequest
 {
@@ -27,17 +27,34 @@ class ResetPasswordRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Email không được để trống.',
-            'email.email' => 'Email không hợp lệ.',
-            'password.required' => 'Mật khẩu không được để trống.',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
-            'password.confirmed' => 'Mật khẩu xác nhận không khớp.',
-            'token.required' => 'Token đặt lại mật khẩu không được để trống.',
+            'email.required' => 'Email khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng.',
+            'email.email' => 'Email khÃ´ng há»£p lá»‡.',
+            'password.required' => 'Máº­t kháº©u khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng.',
+            'password.min' => 'Máº­t kháº©u pháº£i cÃ³ Ã­t nháº¥t 6 kÃ½ tá»±.',
+            'password.confirmed' => 'Máº­t kháº©u xÃ¡c nháº­n khÃ´ng khá»›p.',
+            'token.required' => 'Token Ä‘áº·t láº¡i máº­t kháº©u khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng.',
         ];
     }
 
     public function bodyParameters(): array
     {
-        return [];
+        return [
+            'email' => [
+                'description' => 'Email tai khoan can dat lai mat khau.',
+                'example' => 'user@example.com',
+            ],
+            'password' => [
+                'description' => 'Mat khau moi.',
+                'example' => 'newpassword123',
+            ],
+            'password_confirmation' => [
+                'description' => 'Xac nhan mat khau moi.',
+                'example' => 'newpassword123',
+            ],
+            'token' => [
+                'description' => 'Token nhan tu email reset mat khau.',
+                'example' => 'sample-reset-token',
+            ],
+        ];
     }
 }

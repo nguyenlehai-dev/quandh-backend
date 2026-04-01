@@ -14,6 +14,7 @@ class LogActivitiesExport implements FromCollection, WithHeadings
 
     public function collection()
     {
+        $displayTimezone = config('app.display_timezone', 'Asia/Ho_Chi_Minh');
         $logs = LogActivity::with(['user', 'organization'])
             ->filter($this->filters)
             ->get();
@@ -32,8 +33,8 @@ class LogActivitiesExport implements FromCollection, WithHeadings
             'country' => $log->country,
             'user_agent' => $log->user_agent,
             'request_data' => $log->request_data ? json_encode($log->request_data, JSON_UNESCAPED_UNICODE) : null,
-            'created_at' => $log->created_at?->format('H:i:s d/m/Y'),
-            'updated_at' => $log->updated_at?->format('H:i:s d/m/Y'),
+            'created_at' => $log->created_at?->copy()->setTimezone($displayTimezone)->format('H:i:s d/m/Y'),
+            'updated_at' => $log->updated_at?->copy()->setTimezone($displayTimezone)->format('H:i:s d/m/Y'),
         ]);
     }
 

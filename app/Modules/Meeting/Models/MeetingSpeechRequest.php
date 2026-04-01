@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MeetingSpeechRequest extends Model
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
 
     protected $table = 'm_speech_requests';

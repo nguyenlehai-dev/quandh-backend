@@ -18,7 +18,7 @@ use App\Modules\Document\Services\CatalogService;
 
 /**
  * @group Document - Cấp ban hành
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý danh mục cấp ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
  */
@@ -266,3 +266,4 @@ class IssuingLevelController extends Controller
         return $this->success(null, 'Import cấp ban hành thành công.');
     }
 }
+

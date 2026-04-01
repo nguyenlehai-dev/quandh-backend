@@ -11,13 +11,28 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Tài liệu cuộc họp
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý tài liệu đính kèm cuộc họp: upload, cập nhật, xóa file.
  */
 class MeetingDocumentController extends Controller
 {
     public function __construct(private MeetingDocumentService $service) {}
+
+    /**
+     * Danh sách toàn bộ tài liệu
+     */
+    public function globalIndex(Request $request)
+    {
+        $documents = $this->service->globalIndex($request->all());
+
+        return $this->successCollection(MeetingDocumentResource::collection($documents));
+    }
+
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
 
     /**
      * Danh sách tài liệu
@@ -42,15 +57,26 @@ class MeetingDocumentController extends Controller
      */
     public function store(Request $request, Meeting $meeting)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'files' => 'nullable|array',
-            'files.*' => 'file|max:20480',
-        ], [
-            'title.required' => 'Tên tài liệu không được để trống.',
-            'files.*.max' => 'Kích thước mỗi file tối đa 20MB.',
-        ]);
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'document_type_id' => 'nullable|integer',
+                'document_field_id' => 'nullable|integer',
+                'issuing_agency_id' => 'nullable|integer',
+                'document_signer_id' => 'nullable|integer',
+                'files' => 'nullable|array',
+                'files.*' => 'file|max:20480',
+            ], [
+                'title.required' => 'Tên tài liệu không được để trống.',
+                'files.*.max' => 'Kích thước mỗi file tối đa 20MB.',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation Failed in Document Store: ', $e->errors());
+            \Log::error('Request files: ', $request->allFiles());
+            \Log::error('Request data: ', $request->all());
+            throw $e;
+        }
 
         $files = $request->file('files', []);
         $document = $this->service->store($meeting, $validated, $files);
@@ -74,6 +100,10 @@ class MeetingDocumentController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
+            'document_type_id' => 'nullable|integer',
+            'document_field_id' => 'nullable|integer',
+            'issuing_agency_id' => 'nullable|integer',
+            'document_signer_id' => 'nullable|integer',
             'files' => 'nullable|array',
             'files.*' => 'file|max:20480',
             'remove_file_ids' => 'nullable|array',
@@ -99,3 +129,4 @@ class MeetingDocumentController extends Controller
         return $this->success(null, 'Đã xóa tài liệu!');
     }
 }
+

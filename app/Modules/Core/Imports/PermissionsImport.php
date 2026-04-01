@@ -3,22 +3,44 @@
 namespace App\Modules\Core\Imports;
 
 use App\Modules\Core\Models\Permission;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PermissionsImport implements ToModel, WithHeadingRow
+class PermissionsImport implements ToCollection, WithHeadingRow
 {
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        $guard = $row['guard_name'] ?? config('auth.defaults.guard', 'web');
-        $parentId = isset($row['parent_id']) && $row['parent_id'] !== '' ? (int) $row['parent_id'] : null;
+        foreach ($rows as $row) {
+            $name = $row['name'] ?? $row['name_'] ?? '';
+            if (!$name) {
+                continue;
+            }
 
-        return new Permission([
-            'name' => $row['name'] ?? $row['name_'] ?? '',
-            'guard_name' => $guard,
-            'description' => $row['description'] ?? null,
-            'sort_order' => isset($row['sort_order']) ? (int) $row['sort_order'] : 0,
-            'parent_id' => $parentId,
-        ]);
+            $guard = $row['guard_name'] ?? 'api';
+            $parentId = isset($row['parent_id']) && $row['parent_id'] !== '' ? (int) $row['parent_id'] : null;
+
+            $permission = null;
+            if (!empty($row['id'])) {
+                $permission = Permission::find($row['id']);
+            }
+            if (!$permission) {
+                $permission = Permission::where('name', $name)->where('guard_name', $guard)->first();
+            }
+
+            $data = [
+                'name' => $name,
+                'guard_name' => $guard,
+                'description' => $row['description'] ?? null,
+                'sort_order' => isset($row['sort_order']) ? (int) $row['sort_order'] : 0,
+                'parent_id' => $parentId,
+            ];
+
+            if (!$permission) {
+                Permission::create($data);
+            } else {
+                $permission->update($data);
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Chương trình nghị sự
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý chương trình cuộc họp: tạo, cập nhật, xóa, sắp xếp lại thứ tự.
  */
@@ -131,3 +131,4 @@ class MeetingAgendaController extends Controller
         return $this->successResource(new MeetingAgendaResource($agenda), 'Đã chuyển mục nghị sự!');
     }
 }
+

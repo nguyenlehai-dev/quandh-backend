@@ -11,13 +11,28 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Kết luận cuộc họp
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý kết luận cuộc họp (1 cuộc họp có nhiều kết luận).
  */
 class MeetingConclusionController extends Controller
 {
     public function __construct(private MeetingConclusionService $service) {}
+
+    /**
+     * Danh sách toàn bộ kết luận
+     */
+    public function globalIndex(Request $request)
+    {
+        $conclusions = $this->service->globalIndex($request->all());
+
+        return $this->successCollection(MeetingConclusionResource::collection($conclusions));
+    }
+
+    public function export(Request $request)
+    {
+        return $this->service->export($request->all());
+    }
 
     /**
      * Danh sách kết luận
@@ -92,3 +107,4 @@ class MeetingConclusionController extends Controller
         return $this->success(null, 'Đã xóa kết luận!');
     }
 }
+

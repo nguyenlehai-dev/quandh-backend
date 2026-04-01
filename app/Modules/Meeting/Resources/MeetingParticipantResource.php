@@ -11,6 +11,8 @@ class MeetingParticipantResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'meeting_id' => $this->meeting_id,
+            'meeting_title' => $this->whenLoaded('meeting', fn () => $this->meeting->title),
             'user_id' => $this->user_id,
             'user_name' => $this->whenLoaded('user', fn () => $this->user->name),
             'user_email' => $this->whenLoaded('user', fn () => $this->user->email),
