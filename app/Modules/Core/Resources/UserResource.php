@@ -20,10 +20,21 @@ class UserResource extends JsonResource
             'status' => $this->status,
             'created_by' => $this->creator?->name ?? 'N/A',
             'updated_by' => $this->editor?->name ?? 'N/A',
-            'assignments' => $this->roleAssignments(),
+            'assignments' => $this->resolveAssignments(),
             'created_at' => $this->created_at?->format('d/m/Y H:i:s'),
             'updated_at' => $this->updated_at?->format('d/m/Y H:i:s'),
         ];
+    }
+
+    protected function resolveAssignments(): array
+    {
+        $prefetchedAssignments = $this->resource->getAttribute('prefetched_assignments');
+
+        if (is_array($prefetchedAssignments)) {
+            return $prefetchedAssignments;
+        }
+
+        return $this->roleAssignments();
     }
 
     protected function roleAssignments(): array

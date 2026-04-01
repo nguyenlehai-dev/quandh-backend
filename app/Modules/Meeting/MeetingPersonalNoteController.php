@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Gate;
 
 /**
  * @group Meeting - Ghi chú cá nhân
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý ghi chú cá nhân của đại biểu. Mỗi người chỉ xem được ghi chú của mình (dữ liệu cô lập).
  */
@@ -102,3 +102,4 @@ class MeetingPersonalNoteController extends Controller
         return $this->success(null, 'Đã xóa ghi chú!');
     }
 }
+

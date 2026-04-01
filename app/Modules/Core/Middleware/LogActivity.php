@@ -6,6 +6,8 @@ use App\Modules\Core\Models\LogActivity as LogActivityModel;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,31 +28,100 @@ class LogActivity
         'api_firebase_token', 'api_google_maps_token',
     ];
 
-    /** Đường dẫn không ghi log (vd: health check). */
-    protected static array $excludedPaths = ['/up'];
+    /** GET actions không cần ghi log (giảm ~80% DB writes). */
+    protected static array $skipGetActions = [
+        'index', 'show', 'stats', 'tree', 'public', 'publicOptions',
+    ];
+
+    /** Paths không tạo notification. */
+    protected static array $skipNotificationPaths = [
+        'user/notifications', 'user/notification-preferences', 'user/change-password',
+        'auth/login', 'auth/logout',
+    ];
 
     public function handle(Request $request, Closure $next): Response
     {
-        $response = $next($request);
+        return $next($request);
+    }
 
+    /**
+     * Terminable middleware — chạy SAU khi response đã gửi cho client.
+     * Client nhận response ngay, log ghi bất đồng bộ.
+     */
+    public function terminate(Request $request, Response $response): void
+    {
         if (! $this->shouldLog($request)) {
-            return $response;
+            return;
         }
 
         $this->log($request, $response->getStatusCode());
-
-        return $response;
     }
 
     protected function shouldLog(Request $request): bool
     {
-        foreach (self::$excludedPaths as $path) {
+        // Skip excluded paths
+        $excludedPaths = ['/up'];
+        foreach ($excludedPaths as $path) {
             if (str_starts_with($request->path(), ltrim($path, '/'))) {
                 return false;
             }
         }
 
+        // Skip GET read-only requests (index, show, stats, tree, public)
+        if ($request->isMethod('GET')) {
+            $action = $this->resolveGetAction($request);
+            if ($action && in_array($action, self::$skipGetActions, true)) {
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    /**
+     * Xác định action GET kể cả khi route chưa được đặt name.
+     */
+    protected function resolveGetAction(Request $request): ?string
+    {
+        $routeName = $request->route()?->getName();
+        if ($routeName) {
+            return last(explode('.', $routeName));
+        }
+
+        $path = trim($request->path(), '/');
+        $segments = array_values(array_filter(explode('/', $path)));
+
+        if (($segments[0] ?? null) === 'api') {
+            array_shift($segments);
+        }
+
+        $resource = $segments[0] ?? null;
+        $subAction = $segments[1] ?? null;
+
+        if (! $resource) {
+            return null;
+        }
+
+        if (! $subAction) {
+            return 'index';
+        }
+
+        $pathActions = [
+            'stats' => 'stats',
+            'tree' => 'tree',
+            'public' => 'public',
+            'public-options' => 'publicOptions',
+        ];
+
+        if (isset($pathActions[$subAction])) {
+            return $pathActions[$subAction];
+        }
+
+        if (count($segments) === 2 && ! in_array($subAction, ['export', 'template', 'results'], true)) {
+            return 'show';
+        }
+
+        return null;
     }
 
     protected function log(Request $request, int $statusCode): void
@@ -60,9 +131,10 @@ class LogActivity
             $userType = $user ? class_basename($user) : 'Guest';
             $userId = $user?->id;
             $organizationId = function_exists('getPermissionsTeamId') ? getPermissionsTeamId() : null;
+            $description = $this->buildDescription($request);
 
             LogActivityModel::create([
-                'description' => $this->buildDescription($request),
+                'description' => $description,
                 'user_type' => $userType,
                 'user_id' => $userId,
                 'organization_id' => $organizationId,
@@ -73,6 +145,59 @@ class LogActivity
                 'country' => $this->resolveCountry($request),
                 'user_agent' => $request->userAgent(),
                 'request_data' => $this->sanitizeRequestData($request),
+            ]);
+
+            // Tạo notification cho write operations thành công
+            if ($user && in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE']) && $statusCode >= 200 && $statusCode < 300) {
+                $this->createNotification($user, $request->method(), $description);
+            }
+        } catch (\Throwable $e) {
+            report($e);
+        }
+    }
+
+    /**
+     * Tạo database notification cho user khi thực hiện thao tác ghi.
+     */
+    protected function createNotification($user, string $method, string $description): void
+    {
+        // Skip notification cho một số paths
+        $path = trim(request()->path(), '/');
+        $apiPath = str_starts_with($path, 'api/') ? substr($path, 4) : $path;
+        foreach (self::$skipNotificationPaths as $skip) {
+            if (str_starts_with($apiPath, $skip)) {
+                return;
+            }
+        }
+
+        $iconMap = [
+            'POST' => 'tabler-circle-plus',
+            'PUT' => 'tabler-edit',
+            'PATCH' => 'tabler-edit',
+            'DELETE' => 'tabler-trash',
+        ];
+
+        $colorMap = [
+            'POST' => 'success',
+            'PUT' => 'warning',
+            'PATCH' => 'warning',
+            'DELETE' => 'error',
+        ];
+
+        try {
+            DB::table('notifications')->insert([
+                'id' => Str::uuid()->toString(),
+                'type' => 'App\\Notifications\\ActivityNotification',
+                'notifiable_type' => get_class($user),
+                'notifiable_id' => $user->id,
+                'data' => json_encode([
+                    'title' => $description,
+                    'subtitle' => 'Thao tác thành công',
+                    'icon' => $iconMap[$method] ?? 'tabler-bell',
+                    'color' => $colorMap[$method] ?? 'primary',
+                ]),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         } catch (\Throwable $e) {
             report($e);
@@ -261,7 +386,7 @@ class LogActivity
         try {
             $position = Location::get($ip);
 
-            return $position?->countryName;
+            return $position ? $position->countryName : null;
         } catch (\Throwable $e) {
             report($e);
 

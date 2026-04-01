@@ -11,13 +11,15 @@ use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Requests\ImportUserRequest;
 use App\Modules\Core\Requests\StoreUserRequest;
 use App\Modules\Core\Requests\UpdateUserRequest;
+use App\Modules\Core\Exports\UsersTemplateExport;
 use App\Modules\Core\Resources\UserCollection;
 use App\Modules\Core\Resources\UserResource;
 use App\Modules\Core\Services\UserService;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - User
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
  */
@@ -28,10 +30,10 @@ class UserController extends Controller
     /**
      * Thống kê người dùng
      *
-     * Tổng số, đang kích hoạt (active), không kích hoạt (inactive, banned). Áp dụng cùng bộ lọc với index.
+     * Tổng số, đang kích hoạt (active), ngừng kích hoạt (inactive). Áp dụng cùng bộ lọc với index.
      *
      * @queryParam search string Từ khóa tìm kiếm (name, email, user_name). Example: john
-     * @queryParam status string Lọc theo trạng thái: active, inactive, banned.
+     * @queryParam status string Lọc theo trạng thái: active, inactive.
      * @queryParam sort_by string Sắp xếp theo: id, name, email, user_name, created_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
@@ -49,7 +51,7 @@ class UserController extends Controller
      * Lấy danh sách có phân trang, lọc và sắp xếp.
      *
      * @queryParam search string Từ khóa tìm kiếm (name, email, user_name). Example: john
-     * @queryParam status string Lọc theo trạng thái: active, inactive, banned.
+     * @queryParam status string Lọc theo trạng thái: active, inactive.
      * @queryParam sort_by string Sắp xếp theo: id, name, email, user_name, created_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
@@ -90,7 +92,7 @@ class UserController extends Controller
      * @bodyParam email string required Email (duy nhất). Example: user@example.com
      * @bodyParam password string required Mật khẩu (tối thiểu 6 ký tự). Example: password123
      * @bodyParam password_confirmation string required Xác nhận mật khẩu.
-     * @bodyParam status string Trạng thái: active, inactive, banned. Example: active
+     * @bodyParam status string Trạng thái: active, inactive. Example: active
      * @bodyParam assignments array Danh sách gán vai trò theo tổ chức. Ví dụ: [{"role_id":1,"organization_ids":[2,3]},{"role_id":5,"organization_ids":[9]}]
      *
      * @apiResource App\Modules\Core\Resources\UserResource status=201
@@ -115,7 +117,7 @@ class UserController extends Controller
      * @bodyParam email string Email (duy nhất).
      * @bodyParam password string Mật khẩu mới (nếu muốn đổi).
      * @bodyParam password_confirmation string Xác nhận mật khẩu.
-     * @bodyParam status string Trạng thái: active, inactive, banned.
+     * @bodyParam status string Trạng thái: active, inactive.
      * @bodyParam assignments array Danh sách gán vai trò theo tổ chức. Khi gửi field này, hệ thống sẽ đồng bộ lại toàn bộ phân quyền của user.
      *
      * @apiResource App\Modules\Core\Resources\UserResource
@@ -163,7 +165,7 @@ class UserController extends Controller
      * Cập nhật trạng thái hàng loạt
      *
      * @bodyParam ids array required Danh sách ID. Example: [1, 2, 3]
-     * @bodyParam status string required Trạng thái: active, inactive, banned. Example: active
+     * @bodyParam status string required Trạng thái: active, inactive. Example: active
      *
      * @response 200 {"success": true, "message": "Cập nhật trạng thái thành công."}
      */
@@ -180,7 +182,7 @@ class UserController extends Controller
      * Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, email, user_name, status, created_by, updated_by, created_at, updated_at.
      *
      * @queryParam search string Từ khóa tìm kiếm (name, email).
-     * @queryParam status string Lọc theo trạng thái: active, inactive, banned.
+     * @queryParam status string Lọc theo trạng thái: active, inactive.
      * @queryParam sort_by string Sắp xếp theo: id, name, email, created_at.
      * @queryParam sort_order string Thứ tự: asc, desc.
      * @queryParam limit integer Số bản ghi (1-100).
@@ -188,6 +190,18 @@ class UserController extends Controller
     public function export(FilterRequest $request)
     {
         return $this->userService->export($request->all());
+    }
+
+    /**
+     * Tải file Excel mẫu (template import)
+     *
+     * Trả về file Excel mẫu (.xlsx) để tham khảo cấu trúc cột khi import người dùng.
+     *
+     * @response 200 scenario="File download" File Excel (.xlsx)
+     */
+    public function template()
+    {
+        return Excel::download(new UsersTemplateExport, 'users_template.xlsx');
     }
 
     /**
@@ -211,7 +225,7 @@ class UserController extends Controller
      *
      * @urlParam user integer required ID người dùng. Example: 1
      *
-     * @bodyParam status string required Trạng thái mới: active, inactive, banned. Example: active
+     * @bodyParam status string required Trạng thái mới: active, inactive. Example: active
      *
      * @apiResource App\Modules\Core\Resources\UserResource
      *

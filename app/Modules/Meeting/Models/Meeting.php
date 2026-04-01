@@ -2,6 +2,8 @@
 
 namespace App\Modules\Meeting\Models;
 
+use Illuminate\Support\Str;
+
 use App\Modules\Core\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,18 +13,22 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Meeting extends Model implements HasMedia
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
     use InteractsWithMedia;
 
     protected $table = 'm_meetings';
 
     protected $fillable = [
+        'meeting_type_id',
         'title',
         'description',
         'location',
         'start_at',
         'end_at',
         'status',
+        'qr_token',
         'created_by',
         'updated_by',
     ];
@@ -35,13 +41,38 @@ class Meeting extends Model implements HasMedia
     protected static function booted()
     {
         static::creating(fn ($meeting) => $meeting->created_by = $meeting->updated_by = auth()->id());
-        static::updating(fn ($meeting) => $meeting->updated_by = auth()->id());
+        static::updating(function ($meeting) {
+            $meeting->updated_by = auth()->id();
+
+            // Tự động sinh QR token khi chuyển sang active/in_progress (nếu chưa có)
+            if ($meeting->isDirty('status')
+                && in_array($meeting->status, ['active', 'in_progress'])
+                && ! $meeting->qr_token) {
+                $meeting->qr_token = $meeting->generateQrToken();
+            }
+        });
+    }
+
+    /** Sinh mã QR token duy nhất (12 ký tự hex). */
+    public function generateQrToken(): string
+    {
+        do {
+            $token = strtoupper(Str::random(12));
+        } while (static::where('qr_token', $token)->exists());
+
+        return $token;
     }
 
     /** Người tạo cuộc họp. */
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /** Loại cuộc họp. */
+    public function meetingType()
+    {
+        return $this->belongsTo(MeetingType::class, 'meeting_type_id');
     }
 
     /** Người cập nhật cuộc họp. */
@@ -105,6 +136,8 @@ class Meeting extends Model implements HasMedia
     /** Bộ lọc: search (title), status, from_date, to_date, sort_by, sort_order. */
     public function scopeFilter($query, array $filters)
     {
+        $this->scopeUserRelated($query);
+
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where('title', 'like', '%'.$search.'%');
         })->when($filters['status'] ?? null, function ($query, $status) {
@@ -118,5 +151,20 @@ class Meeting extends Model implements HasMedia
             $column = in_array($sortBy, $allowed) ? $sortBy : 'created_at';
             $query->orderBy($column, $filters['sort_order'] ?? 'desc');
         });
+    }
+
+    /** 
+     * Ràng buộc: Nếu không phải là Quản trị viên (không có quyền sửa), 
+     * chỉ được thấy cuộc họp do mình tạo hoặc có tham gia.
+     */
+    public function scopeUserRelated($query)
+    {
+        if (auth()->check() && !auth()->user()->can('meetings.update')) {
+            $userId = auth()->id();
+            $query->where(function ($q) use ($userId) {
+                $q->where('created_by', $userId)
+                  ->orWhereHas('participants', fn($sub) => $sub->where('user_id', $userId));
+            });
+        }
     }
 }

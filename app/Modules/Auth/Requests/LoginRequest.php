@@ -5,8 +5,8 @@ namespace App\Modules\Auth\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Validate request đăng nhập.
- * Cho phép đăng nhập bằng email hoặc user_name.
+ * Validate login request.
+ * Allow login by email or user_name.
  */
 class LoginRequest extends FormRequest
 {
@@ -26,8 +26,8 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Email hoặc tên đăng nhập không được để trống.',
-            'password.required' => 'Mật khẩu không được để trống.',
+            'email.required' => 'Email hoáº·c tÃªn Ä‘Äƒng nháº­p khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng.',
+            'password.required' => 'Máº­t kháº©u khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng.',
         ];
     }
 
@@ -35,11 +35,11 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => [
-                'description' => 'Email hoặc tên đăng nhập (user_name)',
+                'description' => 'Email hoac ten dang nhap (user_name).',
                 'example' => 'admin@example.com',
             ],
             'password' => [
-                'description' => 'Mật khẩu',
+                'description' => 'Mat khau dang nhap.',
                 'example' => 'password',
             ],
         ];

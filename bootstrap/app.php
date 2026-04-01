@@ -30,6 +30,24 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 422);
             }
         });
+        $exceptions->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Chưa xác thực.',
+                    'code' => 'UNAUTHORIZED',
+                ], 401);
+            }
+        });
+        $exceptions->renderable(function (\Illuminate\Auth\Access\AuthorizationException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'Không có quyền thực hiện hành động này.',
+                    'code' => 'FORBIDDEN',
+                ], 403);
+            }
+        });
         $exceptions->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
@@ -37,6 +55,24 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => $e->getMessage(),
                     'code' => 'FORBIDDEN',
                 ], 403);
+            }
+        });
+        $exceptions->renderable(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không tìm thấy dữ liệu yêu cầu.',
+                    'code' => 'NOT_FOUND',
+                ], 404);
+            }
+        });
+        $exceptions->renderable(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Đường dẫn API không tồn tại.',
+                    'code' => 'NOT_FOUND',
+                ], 404);
             }
         });
     })->create();

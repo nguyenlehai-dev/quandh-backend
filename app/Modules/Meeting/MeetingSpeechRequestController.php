@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Đăng ký phát biểu
- * @header X-Organization-Id ID tổ chức. Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý đăng ký phát biểu trong cuộc họp: nộp, duyệt, từ chối.
  */
@@ -90,3 +90,4 @@ class MeetingSpeechRequestController extends Controller
         return $this->success(null, 'Đã xóa đăng ký phát biểu!');
     }
 }
+

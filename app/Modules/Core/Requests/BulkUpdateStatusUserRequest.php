@@ -28,7 +28,7 @@ class BulkUpdateStatusUserRequest extends FormRequest
             'ids.array' => 'Danh sách người dùng phải là một mảng.',
             'ids.min' => 'Danh sách người dùng phải có ít nhất 1 người dùng.',
             'status.required' => 'Trạng thái không được để trống.',
-            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive, banned.',
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
         ];
     }
 

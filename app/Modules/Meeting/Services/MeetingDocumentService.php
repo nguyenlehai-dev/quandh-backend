@@ -11,10 +11,40 @@ class MeetingDocumentService
 {
     public function __construct(private MediaService $mediaService) {}
 
-    /** Danh sách tài liệu của cuộc họp. */
     public function index(Meeting $meeting)
     {
-        return $meeting->documents()->with('media')->get();
+        return $meeting->documents()->with(['media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner'])->get();
+    }
+
+    /** Danh sách tất cả tài liệu trên toàn hệ thống. */
+    public function globalIndex(array $filters)
+    {
+        $limit = $filters['limit'] ?? 15;
+        $query = MeetingDocument::query()
+            ->with(['meeting:id,title', 'media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner'])
+            ->whereHas('meeting', fn($q) => $q->userRelated())
+            ->orderBy('id', 'desc');
+
+        if (!empty($filters['search'])) {
+            $query->where('title', 'like', "%{$filters['search']}%");
+        }
+        if (!empty($filters['document_type_id'])) {
+            $query->where('document_type_id', $filters['document_type_id']);
+        }
+        if (!empty($filters['meeting_type_id'])) {
+            $query->whereHas('meeting', fn ($q) => $q->where('meeting_type_id', $filters['meeting_type_id']));
+        }
+
+        return $query->paginate($limit);
+    }
+
+    /** Xuất dữ liệu tài liệu trên toàn hệ thống. */
+    public function export(array $filters)
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Modules\Meeting\Exports\MeetingDocumentsExport($filters),
+            'tai-lieu-cuoc-hop.xlsx'
+        );
     }
 
     /** Tạo tài liệu mới kèm upload file. */
@@ -29,7 +59,7 @@ class MeetingDocumentService
 
                 $this->saveDocumentFiles($document, $files, $storedFiles);
 
-                return $document->load('media');
+                return $document->load(['media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner']);
             });
         } catch (\Throwable $exception) {
             $this->mediaService->cleanupStoredFiles($storedFiles);
@@ -53,7 +83,7 @@ class MeetingDocumentService
 
                 $this->saveDocumentFiles($document, $files, $storedFiles);
 
-                return $document->load('media');
+                return $document->load(['media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner']);
             });
         } catch (\Throwable $exception) {
             $this->mediaService->cleanupStoredFiles($storedFiles);

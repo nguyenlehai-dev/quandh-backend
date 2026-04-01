@@ -56,9 +56,15 @@ class LogActivity extends Model
                     ->orWhere('route', 'like', '%'.$search.'%')
                     ->orWhere('ip_address', 'like', '%'.$search.'%')
                     ->orWhere('country', 'like', '%'.$search.'%')
-                    ->orWhere('user_type', 'like', '%'.$search.'%');
+                    ->orWhere('user_type', 'like', '%'.$search.'%')
+                    ->orWhereHas('user', function ($q3) use ($search) {
+                        $q3->where('name', 'like', '%'.$search.'%')
+                           ->orWhere('user_name', 'like', '%'.$search.'%');
+                    });
             });
         });
+        $query->when(isset($filters['user_id']) && $filters['user_id'], fn ($q) => $q->where('user_id', $filters['user_id']));
+        $query->when(isset($filters['organization_id']) && $filters['organization_id'], fn ($q) => $q->where('organization_id', $filters['organization_id']));
         $query->when(isset($filters['from_date']) && $filters['from_date'], fn ($q) => $q->whereDate('created_at', '>=', $filters['from_date']));
         $query->when(isset($filters['to_date']) && $filters['to_date'], fn ($q) => $q->whereDate('created_at', '<=', $filters['to_date']));
         $query->when(isset($filters['method_type']) && $filters['method_type'], fn ($q) => $q->where('method_type', $filters['method_type']));

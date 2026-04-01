@@ -9,13 +9,15 @@ use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Requests\ImportRoleRequest;
 use App\Modules\Core\Requests\StoreRoleRequest;
 use App\Modules\Core\Requests\UpdateRoleRequest;
+use App\Modules\Core\Exports\RolesTemplateExport;
 use App\Modules\Core\Resources\RoleCollection;
 use App\Modules\Core\Resources\RoleResource;
 use App\Modules\Core\Services\RoleService;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * @group Core - Role
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
  */
@@ -89,7 +91,7 @@ class RoleController extends Controller
      * Tạo role mới
      *
      * @bodyParam name string required Tên role. Example: admin
-     * @bodyParam guard_name string Guard name (mặc định web). Example: web
+     * @bodyParam guard_name string Guard name (mặc định api). Example: api
      * @bodyParam permission_ids array Danh sách ID permission để sync. Example: [1, 2, 3]
      *
      * @apiResource App\Modules\Core\Resources\RoleResource status=201
@@ -111,7 +113,7 @@ class RoleController extends Controller
      * @urlParam role integer required ID role. Example: 1
      *
      * @bodyParam name string Tên role. Example: editor
-     * @bodyParam guard_name string Guard name. Example: web
+     * @bodyParam guard_name string Guard name. Example: api
      * @bodyParam permission_ids array Danh sách ID permission để sync (gửi mảng rỗng để bỏ hết). Example: [1, 2]
      *
      * @apiResource App\Modules\Core\Resources\RoleResource
@@ -172,9 +174,21 @@ class RoleController extends Controller
     }
 
     /**
+     * Tải file Excel mẫu (template import)
+     *
+     * Trả về file Excel mẫu (.xlsx) để tham khảo cấu trúc cột khi import vai trò.
+     *
+     * @response 200 scenario="File download" File Excel (.xlsx)
+     */
+    public function template()
+    {
+        return Excel::download(new RolesTemplateExport, 'roles_template.xlsx');
+    }
+
+    /**
      * Nhập danh sách role
      *
-     * Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "web"), organization_id.
+     * Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "api"), organization_id.
      *
      * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
@@ -187,3 +201,4 @@ class RoleController extends Controller
         return $this->success(null, 'Import vai trò thành công.');
     }
 }
+

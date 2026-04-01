@@ -18,7 +18,7 @@ use App\Modules\Document\Services\CatalogService;
 
 /**
  * @group Document - Loại văn bản
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
  */
@@ -266,3 +266,4 @@ class DocumentTypeController extends Controller
         return $this->success(null, 'Import loại văn bản thành công.');
     }
 }
+

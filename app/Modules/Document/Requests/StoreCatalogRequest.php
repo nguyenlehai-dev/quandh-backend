@@ -18,6 +18,7 @@ class StoreCatalogRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:65535',
             'status' => ['required', DocumentStatusEnum::rule()],
+            'meeting_type_id' => 'nullable|integer',
         ];
     }
 

@@ -3,6 +3,10 @@
 namespace App\Modules\Meeting\Models;
 
 use App\Modules\Core\Models\User;
+use App\Modules\Document\Models\DocumentField;
+use App\Modules\Document\Models\DocumentSigner;
+use App\Modules\Document\Models\DocumentType;
+use App\Modules\Document\Models\IssuingAgency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -18,6 +22,10 @@ class MeetingDocument extends Model implements HasMedia
 
     protected $fillable = [
         'meeting_id',
+        'document_type_id',
+        'document_field_id',
+        'issuing_agency_id',
+        'document_signer_id',
         'title',
         'description',
         'created_by',
@@ -46,6 +54,26 @@ class MeetingDocument extends Model implements HasMedia
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function documentType()
+    {
+        return $this->belongsTo(DocumentType::class, 'document_type_id');
+    }
+
+    public function documentField()
+    {
+        return $this->belongsTo(DocumentField::class, 'document_field_id');
+    }
+
+    public function issuingAgency()
+    {
+        return $this->belongsTo(IssuingAgency::class, 'issuing_agency_id');
+    }
+
+    public function documentSigner()
+    {
+        return $this->belongsTo(DocumentSigner::class, 'document_signer_id');
     }
 
     /** Người cập nhật. */

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Core - Setting
- * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
+ * @header X-Organization-Id 1
  *
  * Quản lý cấu hình hệ thống: lấy công khai, lấy toàn bộ (auth), cập nhật.
  */
@@ -81,3 +81,4 @@ class SettingController extends Controller
         return $this->success($data, 'Cấu hình đã được cập nhật!');
     }
 }
+

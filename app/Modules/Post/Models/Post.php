@@ -11,6 +11,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Post extends Model implements HasMedia
 {
+    use \App\Modules\Core\Traits\OrganizationScoped;
+
     use HasFactory;
     use InteractsWithMedia;
 

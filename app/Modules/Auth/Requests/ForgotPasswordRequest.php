@@ -31,6 +31,11 @@ class ForgotPasswordRequest extends FormRequest
 
     public function bodyParameters(): array
     {
-        return [];
+        return [
+            'email' => [
+                'description' => 'Email tài khoản cần gửi link đặt lại mật khẩu.',
+                'example' => 'user@example.com',
+            ],
+        ];
     }
 }

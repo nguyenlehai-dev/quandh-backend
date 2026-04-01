@@ -12,6 +12,7 @@ class MeetingConclusionResource extends JsonResource
         return [
             'id' => $this->id,
             'meeting_id' => $this->meeting_id,
+            'meeting_title' => $this->whenLoaded('meeting', fn () => $this->meeting->title),
             'meeting_agenda_id' => $this->meeting_agenda_id,
             'title' => $this->title,
             'content' => $this->content,
