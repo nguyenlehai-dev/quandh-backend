@@ -9,7 +9,6 @@ use App\Modules\Auth\Requests\ResetPasswordRequest;
 use App\Modules\Auth\Requests\SwitchOrganizationRequest;
 use App\Modules\Auth\Services\AuthService;
 use App\Modules\Auth\Services\CaslAbilityConverter;
-use App\Modules\Core\Resources\UserResource;
 use Illuminate\Http\Request;
 
 /**
@@ -25,6 +24,9 @@ class AuthController extends Controller
      * Đăng nhập
      *
      * Trả về access_token, thông tin user và danh sách organization user có thể truy cập.
+     * `current_organization_id` ưu tiên lấy từ `user_preferences` nếu còn hợp lệ;
+     * nếu user chỉ có đúng một organization thì tự gán; nếu có nhiều organization
+     * và chưa có preference hợp lệ thì trả `null`.
      *
      * @unauthenticated
      *
@@ -62,7 +64,10 @@ class AuthController extends Controller
         $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
 
         return $this->success([
-            'user' => (new UserResource($user))->resolve(),
+            'user' => [
+                'id' => (int) $user->id,
+                'name' => $user->name,
+            ],
             'roles' => $user->getRoleNames()->values()->all(),
             'permissions' => $permissions,
             'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
@@ -87,6 +92,8 @@ class AuthController extends Controller
      * Chuyển tổ chức làm việc
      *
      * Chọn organization để frontend gắn vào header `X-Organization-Id` cho các request tiếp theo.
+     * Khi hạ tầng hỗ trợ `user_preferences`, backend sẽ lưu lại `current_organization_id`
+     * để lần đăng nhập sau tự nhớ organization hiện tại.
      *
      * @bodyParam organization_id integer required ID tổ chức muốn chuyển. Example: 2
      *

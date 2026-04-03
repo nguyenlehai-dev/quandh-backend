@@ -2,6 +2,8 @@
 
 namespace App\Modules\Auth\Services;
 
+use Illuminate\Support\Str;
+
 /**
  * Chuyển đổi permission Spatie (resource.action) sang định dạng CASL abilities.
  *
@@ -40,8 +42,9 @@ class CaslAbilityConverter
 
     protected static function resourceToSubject(string $resource): string
     {
-        return collect(explode('-', $resource))
-            ->map(fn (string $part) => ucfirst(strtolower($part)))
-            ->implode('');
+        return Str::of(Str::singular($resource))
+            ->replace('-', ' ')
+            ->studly()
+            ->toString();
     }
 }

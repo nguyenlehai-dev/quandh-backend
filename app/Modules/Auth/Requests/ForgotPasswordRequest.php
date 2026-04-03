@@ -31,6 +31,11 @@ class ForgotPasswordRequest extends FormRequest
 
     public function bodyParameters(): array
     {
-        return [];
+        return [
+            'email' => [
+                'description' => 'Email tài khoản',
+                'example' => 'user@example.com',
+            ],
+        ];
     }
 }

@@ -38,6 +38,23 @@ class ResetPasswordRequest extends FormRequest
 
     public function bodyParameters(): array
     {
-        return [];
+        return [
+            'email' => [
+                'description' => 'Email tài khoản',
+                'example' => 'user@example.com',
+            ],
+            'password' => [
+                'description' => 'Mật khẩu mới (tối thiểu 6 ký tự, có xác nhận)',
+                'example' => 'newpassword123',
+            ],
+            'password_confirmation' => [
+                'description' => 'Xác nhận mật khẩu',
+                'example' => 'newpassword123',
+            ],
+            'token' => [
+                'description' => 'Token từ email reset',
+                'example' => 'architecto',
+            ],
+        ];
     }
 }
