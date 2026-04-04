@@ -19,6 +19,9 @@ class MeetingParticipantResource extends JsonResource
             'attendance_status' => $this->attendance_status,
             'checkin_at' => $this->checkin_at?->format('H:i:s d/m/Y'),
             'absence_reason' => $this->absence_reason,
+            'delegated_to_id' => $this->delegated_to_id,
+            'delegated_to_name' => $this->whenLoaded('delegatedTo', fn () => $this->delegatedTo?->name),
+            'is_guest' => (bool) $this->is_guest,
             'created_at' => $this->created_at?->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at?->format('H:i:s d/m/Y'),
         ];

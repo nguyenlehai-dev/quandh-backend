@@ -13,8 +13,12 @@ class MeetingDocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'meeting_id' => $this->meeting_id,
+            'meeting_agenda_id' => $this->meeting_agenda_id,
+            'document_type_id' => $this->document_type_id,
+            'document_field_id' => $this->document_field_id,
             'title' => $this->title,
             'description' => $this->description,
+            'status' => $this->status,
             'files' => $this->whenLoaded('media', function () {
                 return $this->media
                     ->where('collection_name', 'meeting-document-files')
@@ -28,6 +32,7 @@ class MeetingDocumentResource extends JsonResource
                         'size' => $media->size,
                     ]);
             }),
+            'agenda_title' => $this->whenLoaded('agenda', fn () => $this->agenda?->title),
             'created_by' => $this->creator->name ?? 'N/A',
             'updated_by' => $this->editor->name ?? 'N/A',
             'created_at' => $this->created_at?->format('H:i:s d/m/Y'),

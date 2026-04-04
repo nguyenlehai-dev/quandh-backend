@@ -13,10 +13,12 @@ class MeetingConclusion extends Model
     protected $table = 'm_conclusions';
 
     protected $fillable = [
+        'organization_id',
         'meeting_id',
         'meeting_agenda_id',
         'title',
         'content',
+        'status',
         'created_by',
         'updated_by',
     ];

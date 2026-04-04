@@ -17,9 +17,14 @@ class MeetingDocument extends Model implements HasMedia
     protected $table = 'm_documents';
 
     protected $fillable = [
+        'organization_id',
         'meeting_id',
+        'meeting_agenda_id',
+        'document_type_id',
+        'document_field_id',
         'title',
         'description',
+        'status',
         'created_by',
         'updated_by',
     ];
@@ -40,6 +45,11 @@ class MeetingDocument extends Model implements HasMedia
     public function personalNotes()
     {
         return $this->hasMany(MeetingPersonalNote::class, 'meeting_document_id');
+    }
+
+    public function agenda()
+    {
+        return $this->belongsTo(MeetingAgenda::class, 'meeting_agenda_id');
     }
 
     /** Người tạo. */

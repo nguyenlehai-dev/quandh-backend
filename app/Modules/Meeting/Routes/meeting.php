@@ -6,6 +6,7 @@ use App\Modules\Meeting\MeetingController;
 use App\Modules\Meeting\MeetingDocumentController;
 use App\Modules\Meeting\MeetingParticipantController;
 use App\Modules\Meeting\MeetingPersonalNoteController;
+use App\Modules\Meeting\MeetingReminderController;
 use App\Modules\Meeting\MeetingSpeechRequestController;
 use App\Modules\Meeting\MeetingVotingController;
 use Illuminate\Support\Facades\Route;
@@ -39,12 +40,19 @@ Route::put('/{meeting}/participants/{participant}', [MeetingParticipantControlle
 Route::delete('/{meeting}/participants/{participant}', [MeetingParticipantController::class, 'destroy'])->middleware('permission:meeting-participants.destroy,web');
 Route::patch('/{meeting}/participants/{participant}/checkin', [MeetingParticipantController::class, 'checkin'])->middleware('permission:meeting-participants.checkin,web');
 
+// === Reminders (Nhắc họp) ===
+Route::get('/{meeting}/reminders', [MeetingReminderController::class, 'index'])->middleware('permission:meeting-reminders.index,web');
+Route::post('/{meeting}/reminders', [MeetingReminderController::class, 'store'])->middleware('permission:meeting-reminders.store,web');
+Route::put('/{meeting}/reminders/{reminder}', [MeetingReminderController::class, 'update'])->middleware('permission:meeting-reminders.update,web');
+Route::delete('/{meeting}/reminders/{reminder}', [MeetingReminderController::class, 'destroy'])->middleware('permission:meeting-reminders.destroy,web');
+
 // === Agendas (Chương trình nghị sự) ===
 Route::get('/{meeting}/agendas', [MeetingAgendaController::class, 'index'])->middleware('permission:meeting-agendas.index,web');
 Route::post('/{meeting}/agendas', [MeetingAgendaController::class, 'store'])->middleware('permission:meeting-agendas.store,web');
 Route::put('/{meeting}/agendas/{agenda}', [MeetingAgendaController::class, 'update'])->middleware('permission:meeting-agendas.update,web');
 Route::delete('/{meeting}/agendas/{agenda}', [MeetingAgendaController::class, 'destroy'])->middleware('permission:meeting-agendas.destroy,web');
 Route::patch('/{meeting}/agendas/reorder', [MeetingAgendaController::class, 'reorder'])->middleware('permission:meeting-agendas.reorder,web');
+Route::patch('/{meeting}/agendas/{agenda}/set-active', [MeetingAgendaController::class, 'setActive'])->middleware('permission:meeting-agendas.set-active,web');
 
 // === Documents (Tài liệu) ===
 Route::get('/{meeting}/documents', [MeetingDocumentController::class, 'index'])->middleware('permission:meeting-documents.index,web');

@@ -115,4 +115,13 @@ class MeetingAgendaController extends Controller
 
         return $this->success(null, 'Đã sắp xếp lại thứ tự!');
     }
+
+    public function setActive(Meeting $meeting, MeetingAgenda $agenda)
+    {
+        abort_unless((int) $agenda->meeting_id === (int) $meeting->id, 422, 'Agenda không thuộc cuộc họp này.');
+
+        $agenda = $this->service->setActive($meeting, $agenda);
+
+        return $this->successResource(new MeetingAgendaResource($agenda), 'Đã cập nhật agenda đang hoạt động!');
+    }
 }

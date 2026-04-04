@@ -1,223 +1,448 @@
 # API Cuộc họp (Meeting)
 
-Quản lý cuộc họp không giấy: thống kê, danh sách, chi tiết, CRUD, thao tác hàng loạt, xuất/nhập Excel. Một cuộc họp bao gồm: thành viên, chương trình nghị sự, tài liệu, kết luận, ghi chú cá nhân, đăng ký phát biểu, biểu quyết.
+Tài liệu này phản ánh đúng contract hiện tại của module `Meeting`, gồm 4 nhóm endpoint:
 
-**Base path:** `/api/meetings`
+- `admin meeting`: dashboard, reports, live payload, qr token, participant candidates
+- `meeting core`: CRUD cuộc họp và sub-resources quản trị
+- `participant meeting`: lịch họp của tôi và trung tâm tương tác cho đại biểu
+- `meeting catalogs`: meeting types, attendee groups, meeting document types, meeting document fields
 
----
+Tất cả endpoint private đều yêu cầu:
 
-## Thống kê
+- `Authorization: Bearer {token}`
+- `X-Organization-Id: {organization_id}`
+
+## 1. Base paths
+
+| Nhóm | Base path |
+|---|---|
+| Meeting core | `/api/meetings` |
+| Admin meeting | `/api/admin/meetings` |
+| Participant meeting | `/api/participant` |
+| Meeting types | `/api/meeting-types` |
+| Attendee groups | `/api/attendee-groups` |
+| Meeting document types | `/api/meeting-document-types` |
+| Meeting document fields | `/api/meeting-document-fields` |
+
+## 2. Meeting core
+
+### 2.1 Thống kê
 
 | | |
 |---|---|
-| **Method** | GET |
+| **Method** | `GET` |
 | **Path** | `/api/meetings/stats` |
-| **Query** | `search` (tiêu đề), `status` (draft \| active \| in_progress \| completed), `from_date`, `to_date`, `sort_by`, `sort_order`, `limit` (1-100). |
-| **Response** | `{ "total": 10, "active": 5, "inactive": 5 }` — total (sau lọc), active = active, inactive = draft + in_progress + completed. |
+| **Query** | `search`, `status`, `meeting_type_id`, `from_date`, `to_date`, `sort_by`, `sort_order` |
 
----
+**Response**
 
-## Danh sách cuộc họp
+```json
+{
+  "success": true,
+  "data": {
+    "total": 12,
+    "draft": 2,
+    "active": 4,
+    "in_progress": 3,
+    "completed": 3
+  }
+}
+```
+
+### 2.2 Danh sách cuộc họp
 
 | | |
 |---|---|
-| **Method** | GET |
+| **Method** | `GET` |
 | **Path** | `/api/meetings` |
-| **Query** | `search`, `status`, `from_date`, `to_date`, `sort_by` (id \| title \| start_at \| created_at), `sort_order` (asc \| desc), `limit` (1-100). |
-| **Response** | Paginated collection; mỗi item có `participants_count`, `agendas_count`, `documents_count`, `conclusions_count`. |
+| **Query** | `search`, `status`, `meeting_type_id`, `from_date`, `to_date`, `sort_by`, `sort_order`, `limit` |
 
----
+Response là paginated collection của `MeetingResource`.
 
-## Chi tiết cuộc họp
-
-| | |
-|---|---|
-| **Method** | GET |
-| **Path** | `/api/meetings/{id}` |
-| **UrlParam** | `id` — ID cuộc họp. |
-| **Response** | Object cuộc họp kèm `participants`, `agendas`, `documents`, `conclusions`, `votings`. |
-
----
-
-## Tạo cuộc họp
+### 2.3 Chi tiết cuộc họp
 
 | | |
 |---|---|
-| **Method** | POST |
+| **Method** | `GET` |
+| **Path** | `/api/meetings/{meeting}` |
+
+Response trả đầy đủ:
+
+- `meetingType`
+- `participants`
+- `agendas`
+- `active_agenda`
+- `documents`
+- `conclusions`
+- `votings`
+
+### 2.4 Tạo cuộc họp
+
+| | |
+|---|---|
+| **Method** | `POST` |
 | **Path** | `/api/meetings` |
-| **Body** | `title` (required), `description` (optional), `location` (optional), `start_at` (optional, datetime), `end_at` (optional, datetime, after start_at), `status` (required: draft \| active \| in_progress \| completed). |
-| **Response** | 201, object cuộc họp + `"message": "Cuộc họp đã được tạo thành công!"`. |
+| **Body** | `meeting_type_id` (nullable), `code` (nullable), `title` (required), `description`, `location`, `start_at`, `end_at`, `status` |
 
----
-
-## Cập nhật cuộc họp
+### 2.5 Cập nhật cuộc họp
 
 | | |
 |---|---|
-| **Method** | PUT / PATCH |
-| **Path** | `/api/meetings/{id}` |
-| **Body** | Giống tạo (các field tùy chọn). |
-| **Response** | Object cuộc họp đã cập nhật. |
+| **Method** | `PUT` / `PATCH` |
+| **Path** | `/api/meetings/{meeting}` |
+| **Body** | như tạo, các field đều optional |
 
----
-
-## Xóa cuộc họp
+### 2.6 Xóa cuộc họp
 
 | | |
 |---|---|
-| **Method** | DELETE |
-| **Path** | `/api/meetings/{id}` |
-| **Response** | `{ "message": "Cuộc họp đã được xóa thành công!" }`. |
+| **Method** | `DELETE` |
+| **Path** | `/api/meetings/{meeting}` |
 
----
+### 2.7 Bulk
 
-## Xóa hàng loạt
+| Method | Path | Body |
+|---|---|---|
+| `POST` | `/api/meetings/bulk-delete` | `ids[]` |
+| `PATCH` | `/api/meetings/bulk-status` | `ids[]`, `status` |
 
-| | |
-|---|---|
-| **Method** | POST |
-| **Path** | `/api/meetings/bulk-delete` |
-| **Body** | `ids` (array) — danh sách ID cuộc họp. |
-| **Response** | `{ "message": "Đã xóa thành công các cuộc họp được chọn!" }`. |
-
----
-
-## Cập nhật trạng thái hàng loạt
+### 2.8 Đổi trạng thái
 
 | | |
 |---|---|
-| **Method** | PATCH |
-| **Path** | `/api/meetings/bulk-status` |
-| **Body** | `ids` (array), `status` (required: draft \| active \| in_progress \| completed). |
-| **Response** | `{ "message": "Cập nhật trạng thái thành công các cuộc họp được chọn!" }`. |
+| **Method** | `PATCH` |
+| **Path** | `/api/meetings/{meeting}/status` |
+| **Body** | `status` = `draft | active | in_progress | completed` |
 
----
+Khi đổi sang `active`, backend tự mở khả năng check-in và sinh `qr_token` nếu chưa có.
 
-## Đổi trạng thái cuộc họp
+### 2.9 Export / Import
+
+| Method | Path | Ghi chú |
+|---|---|---|
+| `GET` | `/api/meetings/export` | export Excel |
+| `POST` | `/api/meetings/import` | body `file` |
+
+## 3. Sub-resources quản trị trong meeting core
+
+### 3.1 Participants
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/participants` |
+| `POST` | `/api/meetings/{meeting}/participants` |
+| `PUT` | `/api/meetings/{meeting}/participants/{participant}` |
+| `DELETE` | `/api/meetings/{meeting}/participants/{participant}` |
+| `PATCH` | `/api/meetings/{meeting}/participants/{participant}/checkin` |
+
+### 3.2 Reminders
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/reminders` |
+| `POST` | `/api/meetings/{meeting}/reminders` |
+| `PUT` | `/api/meetings/{meeting}/reminders/{reminder}` |
+| `DELETE` | `/api/meetings/{meeting}/reminders/{reminder}` |
+
+Body create/update:
+
+- `channel`: `database | email | push`
+- `remind_at`
+- `status`: `pending | sent | failed | cancelled`
+- `payload`: object
+
+Nếu FE không truyền `status` khi tạo, backend tự set `pending`.
+
+### 3.3 Agendas
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/agendas` |
+| `POST` | `/api/meetings/{meeting}/agendas` |
+| `PUT` | `/api/meetings/{meeting}/agendas/{agenda}` |
+| `DELETE` | `/api/meetings/{meeting}/agendas/{agenda}` |
+| `PATCH` | `/api/meetings/{meeting}/agendas/reorder` |
+| `PATCH` | `/api/meetings/{meeting}/agendas/{agenda}/set-active` |
+
+### 3.4 Documents
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/documents` |
+| `POST` | `/api/meetings/{meeting}/documents` |
+| `PUT` | `/api/meetings/{meeting}/documents/{document}` |
+| `DELETE` | `/api/meetings/{meeting}/documents/{document}` |
+
+Document hỗ trợ media collection `meeting-document-files`.
+
+### 3.5 Conclusions
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/conclusions` |
+| `POST` | `/api/meetings/{meeting}/conclusions` |
+| `PUT` | `/api/meetings/{meeting}/conclusions/{conclusion}` |
+| `DELETE` | `/api/meetings/{meeting}/conclusions/{conclusion}` |
+
+### 3.6 Personal Notes
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/personal-notes` |
+| `POST` | `/api/meetings/{meeting}/personal-notes` |
+| `PUT` | `/api/meetings/{meeting}/personal-notes/{note}` |
+| `DELETE` | `/api/meetings/{meeting}/personal-notes/{note}` |
+
+Đây là API quản trị chung. Participant side dùng prefix `/api/participant/...`.
+
+### 3.7 Speech Requests
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/speech-requests` |
+| `POST` | `/api/meetings/{meeting}/speech-requests` |
+| `PATCH` | `/api/meetings/{meeting}/speech-requests/{speechRequest}/approve` |
+| `PATCH` | `/api/meetings/{meeting}/speech-requests/{speechRequest}/reject` |
+| `DELETE` | `/api/meetings/{meeting}/speech-requests/{speechRequest}` |
+
+### 3.8 Votings
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meetings/{meeting}/votings` |
+| `POST` | `/api/meetings/{meeting}/votings` |
+| `PUT` | `/api/meetings/{meeting}/votings/{voting}` |
+| `DELETE` | `/api/meetings/{meeting}/votings/{voting}` |
+| `PATCH` | `/api/meetings/{meeting}/votings/{voting}/open` |
+| `PATCH` | `/api/meetings/{meeting}/votings/{voting}/close` |
+| `POST` | `/api/meetings/{meeting}/votings/{voting}/vote` |
+| `GET` | `/api/meetings/{meeting}/votings/{voting}/results` |
+
+Backend hiện đã khóa quan hệ `voting.meeting_id === meeting.id` để tránh gọi nhầm resource chéo cuộc họp.
+
+## 4. Admin meeting APIs
+
+### 4.1 Dashboard
 
 | | |
 |---|---|
-| **Method** | PATCH |
-| **Path** | `/api/meetings/{id}/status` |
-| **Body** | `status` (required). |
-| **Response** | Object cuộc họp + message. |
+| **Method** | `GET` |
+| **Path** | `/api/admin/meetings/dashboard` |
 
----
+Response gồm:
 
-## Xuất Excel
+- `summary`
+- `upcoming_meetings`
+- `attendance_ratio`
+- `status_chart`
+- `monthly_chart`
 
-| | |
-|---|---|
-| **Method** | GET |
-| **Path** | `/api/meetings/export` |
-| **Query** | Cùng bộ lọc với index. |
-| **Response** | File `meetings.xlsx`. Cột: ID, Tiêu đề, Mô tả, Địa điểm, Bắt đầu, Kết thúc, Trạng thái, Số thành viên, Số mục nghị sự, Số kết luận, Người tạo, Người cập nhật, Ngày tạo, Ngày cập nhật. |
-
----
-
-## Nhập Excel
+### 4.2 Reports
 
 | | |
 |---|---|
-| **Method** | POST |
-| **Path** | `/api/meetings/import` |
-| **Body** | `file` (required) — xlsx, xls, csv. Cột: title (bắt buộc), description, location, status. |
-| **Response** | `{ "message": "Import cuộc họp thành công." }`. |
+| **Method** | `GET` |
+| **Path** | `/api/admin/meetings/reports` |
 
----
+Response gồm:
 
-## Sub-resources
+- `meetings_by_status`
+- `meetings_by_type`
+- `participant_summary`
+- `monthly_frequency`
 
-### Thành viên (`/api/meetings/{id}/participants`)
+### 4.3 Danh sách/chi tiết/live
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../participants` | Danh sách thành viên |
-| POST | `.../participants` | Gán thành viên (`user_id`, `position`, `meeting_role`) |
-| PUT | `.../participants/{pid}` | Cập nhật vai trò/chức vụ |
-| DELETE | `.../participants/{pid}` | Xóa thành viên |
-| PATCH | `.../participants/{pid}/checkin` | Điểm danh (`attendance_status`, `absence_reason`) |
+| Method | Path |
+|---|---|
+| `GET` | `/api/admin/meetings` |
+| `GET` | `/api/admin/meetings/{meeting}` |
+| `GET` | `/api/admin/meetings/{meeting}/live` |
 
-### Chương trình nghị sự (`/api/meetings/{id}/agendas`)
+`live` trả:
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../agendas` | Danh sách (sorted by order_index) |
-| POST | `.../agendas` | Tạo mục (`title`, `description`, `order_index`, `duration`) |
-| PUT | `.../agendas/{aid}` | Cập nhật |
-| DELETE | `.../agendas/{aid}` | Xóa |
-| PATCH | `.../agendas/reorder` | Sắp xếp lại (`ids[]`) |
+- `meeting`
+- `attendance_summary`
+- `active_agenda`
+- `pending_speech_requests`
+- `open_votings`
 
-### Tài liệu (`/api/meetings/{id}/documents`)
+### 4.4 Participant candidates và QR
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../documents` | Danh sách tài liệu + files |
-| POST | `.../documents` | Tạo + upload (`title`, `files[]`) |
-| PUT | `.../documents/{did}` | Cập nhật + upload/remove files |
-| DELETE | `.../documents/{did}` | Xóa |
+| Method | Path |
+|---|---|
+| `GET` | `/api/admin/meetings/{meeting}/participant-candidates` |
+| `GET` | `/api/admin/meetings/{meeting}/qr-token` |
+| `POST` | `/api/admin/meetings/{meeting}/qr-checkin` |
 
-### Kết luận (`/api/meetings/{id}/conclusions`)
+### 4.5 All resources cho màn quản trị tổng hợp
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../conclusions` | Danh sách kết luận |
-| POST | `.../conclusions` | Tạo (`title`, `content`, `meeting_agenda_id`) |
-| PUT | `.../conclusions/{cid}` | Cập nhật |
-| DELETE | `.../conclusions/{cid}` | Xóa |
+| Method | Path |
+|---|---|
+| `GET` | `/api/admin/meetings/all-documents` |
+| `GET` | `/api/admin/meetings/all-conclusions` |
+| `GET` | `/api/admin/meetings/all-votings` |
 
-### Ghi chú cá nhân (`/api/meetings/{id}/personal-notes`)
+## 5. Participant meeting APIs
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../personal-notes` | Chỉ ghi chú của user đang login |
-| POST | `.../personal-notes` | Tạo (`content`, `meeting_document_id`) |
-| PUT | `.../personal-notes/{nid}` | Cập nhật (kiểm tra ownership) |
-| DELETE | `.../personal-notes/{nid}` | Xóa (kiểm tra ownership) |
+### 5.1 Lịch họp của tôi
 
-### Đăng ký phát biểu (`/api/meetings/{id}/speech-requests`)
+| | |
+|---|---|
+| **Method** | `GET` |
+| **Path** | `/api/participant/my-meetings` |
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../speech-requests` | Danh sách đăng ký |
-| POST | `.../speech-requests` | Nộp đăng ký (`meeting_agenda_id`, `content`) |
-| PATCH | `.../speech-requests/{rid}/approve` | Duyệt |
-| PATCH | `.../speech-requests/{rid}/reject` | Từ chối |
-| DELETE | `.../speech-requests/{rid}` | Xóa |
+### 5.2 Chi tiết cuộc họp của participant
 
-### Biểu quyết (`/api/meetings/{id}/votings`)
+| Method | Path |
+|---|---|
+| `GET` | `/api/participant/meetings/{meeting}` |
+| `GET` | `/api/participant/meetings/{meeting}/documents` |
+| `GET` | `/api/participant/meetings/{meeting}/conclusions` |
+| `POST` | `/api/participant/meetings/{meeting}/self-checkin` |
+| `POST` | `/api/participant/meetings/{meeting}/qr-checkin` |
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `.../votings` | Danh sách phiên |
-| POST | `.../votings` | Tạo phiên (`title`, `type`: public/anonymous) |
-| PUT | `.../votings/{vid}` | Cập nhật (chỉ khi pending) |
-| DELETE | `.../votings/{vid}` | Xóa (chỉ khi pending) |
-| PATCH | `.../votings/{vid}/open` | Mở bỏ phiếu |
-| PATCH | `.../votings/{vid}/close` | Đóng bỏ phiếu |
-| POST | `.../votings/{vid}/vote` | Bỏ phiếu (`choice`: agree/disagree/abstain) |
-| GET | `.../votings/{vid}/results` | Xem kết quả (ẩn user nếu anonymous) |
+### 5.3 Personal notes của participant
 
----
+| Method | Path |
+|---|---|
+| `GET` | `/api/participant/meetings/{meeting}/personal-notes` |
+| `POST` | `/api/participant/meetings/{meeting}/personal-notes` |
+| `PUT` | `/api/participant/meetings/{meeting}/personal-notes/{note}` |
+| `DELETE` | `/api/participant/meetings/{meeting}/personal-notes/{note}` |
 
-## Response mẫu (MeetingResource)
+### 5.4 Speech request của participant
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/participant/meetings/{meeting}/speech-requests/mine` |
+| `POST` | `/api/participant/meetings/{meeting}/speech-requests` |
+
+### 5.5 Voting của participant
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/participant/meetings/{meeting}/votings/current` |
+| `POST` | `/api/participant/meetings/{meeting}/votings/{voting}/vote` |
+| `GET` | `/api/participant/meetings/{meeting}/votings/{voting}/result` |
+
+Participant chỉ truy cập được cuộc họp mà họ được mời.
+
+## 6. Meeting catalogs
+
+### 6.1 Public catalogs
+
+Các endpoint public, không cần auth:
+
+| Method | Path |
+|---|---|
+| `GET` | `/api/meeting-types/public` |
+| `GET` | `/api/meeting-types/public-options` |
+| `GET` | `/api/meeting-document-types/public` |
+| `GET` | `/api/meeting-document-types/public-options` |
+| `GET` | `/api/meeting-document-fields/public` |
+| `GET` | `/api/meeting-document-fields/public-options` |
+
+### 6.2 Private catalogs
+
+#### Meeting types
+
+`/api/meeting-types`
+
+- `GET /stats`
+- `GET /`
+- `GET /{id}`
+- `POST /`
+- `PUT/PATCH /{id}`
+- `DELETE /{id}`
+- `PATCH /{id}/status`
+- `POST /bulk-delete`
+- `PATCH /bulk-status`
+- `GET /export`
+- `POST /import`
+
+#### Attendee groups
+
+`/api/attendee-groups`
+
+- full CRUD + stats + bulk + import/export
+- nested members:
+  - `GET /{attendeeGroup}/members`
+  - `POST /{attendeeGroup}/members`
+  - `PUT /{attendeeGroup}/members/{member}`
+  - `DELETE /{attendeeGroup}/members/{member}`
+
+#### Meeting document types
+
+`/api/meeting-document-types`
+
+- full CRUD + stats + bulk + import/export
+
+#### Meeting document fields
+
+`/api/meeting-document-fields`
+
+- full CRUD + stats + bulk + import/export
+
+## 7. Response shape chính
+
+### MeetingResource
 
 ```json
 {
   "id": 1,
-  "title": "Họp ban giám đốc Q1/2026",
-  "description": "Họp tổng kết quý 1",
-  "location": "Phòng họp A - Tầng 3",
-  "start_at": "08:00:00 01/04/2026",
-  "end_at": "11:00:00 01/04/2026",
+  "organization_id": 2,
+  "meeting_type_id": 1,
+  "meeting_type_name": "Họp giao ban",
+  "code": "MTG-20260404153000",
+  "title": "Họp ban điều hành",
+  "description": "Nội dung họp tháng 4",
+  "location": "Phòng họp A",
+  "start_at": "08:00:00 10/04/2026",
+  "end_at": "10:00:00 10/04/2026",
   "status": "active",
-  "participants_count": 10,
+  "qr_token": "abc123...",
+  "checkin_opened_at": "07:30:00 10/04/2026",
+  "active_agenda_id": 5,
+  "active_agenda": { "id": 5, "title": "Nội dung 1" },
+  "participants_count": 12,
   "agendas_count": 5,
-  "documents_count": 3,
+  "documents_count": 7,
   "conclusions_count": 2,
   "created_by": "Admin",
   "updated_by": "Admin",
-  "created_at": "14:30:00 23/03/2026",
-  "updated_at": "14:30:00 23/03/2026"
+  "created_at": "15:30:00 04/04/2026",
+  "updated_at": "15:45:00 04/04/2026"
 }
 ```
+
+### Meeting realtime event
+
+Backend broadcast event:
+
+- channel: `private-meeting.{meetingId}`
+- event name: `meeting.realtime.updated`
+
+Payload hiện dùng dạng:
+
+```json
+{
+  "meeting_id": 12,
+  "event_type": "voting.opened",
+  "payload": {
+    "voting_id": 3,
+    "title": "Thông qua nghị quyết"
+  }
+}
+```
+
+`event_type` đang được phát cho các tình huống:
+
+- `meeting.status-changed`
+- `agenda.set-active`
+- `participant.self-checkin`
+- `speech-request.created`
+- `speech-request.status-changed`
+- `voting.opened`
+- `voting.closed`
+- `voting.result-updated`

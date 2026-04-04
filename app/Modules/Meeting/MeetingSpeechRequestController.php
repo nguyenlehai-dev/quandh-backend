@@ -59,6 +59,7 @@ class MeetingSpeechRequestController extends Controller
      */
     public function approve(Meeting $meeting, MeetingSpeechRequest $speechRequest)
     {
+        abort_unless((int) $speechRequest->meeting_id === (int) $meeting->id, 422, 'Đăng ký phát biểu không thuộc cuộc họp này.');
         $speechRequest = $this->service->updateStatus($speechRequest, 'approved');
 
         return $this->success($speechRequest, 'Đã duyệt đăng ký phát biểu!');
@@ -72,6 +73,7 @@ class MeetingSpeechRequestController extends Controller
      */
     public function reject(Meeting $meeting, MeetingSpeechRequest $speechRequest)
     {
+        abort_unless((int) $speechRequest->meeting_id === (int) $meeting->id, 422, 'Đăng ký phát biểu không thuộc cuộc họp này.');
         $speechRequest = $this->service->updateStatus($speechRequest, 'rejected');
 
         return $this->success($speechRequest, 'Đã từ chối đăng ký phát biểu!');
@@ -85,6 +87,7 @@ class MeetingSpeechRequestController extends Controller
      */
     public function destroy(Meeting $meeting, MeetingSpeechRequest $speechRequest)
     {
+        abort_unless((int) $speechRequest->meeting_id === (int) $meeting->id, 422, 'Đăng ký phát biểu không thuộc cuộc họp này.');
         $this->service->destroy($speechRequest);
 
         return $this->success(null, 'Đã xóa đăng ký phát biểu!');

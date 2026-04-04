@@ -13,6 +13,7 @@ class MeetingVoteResult extends Model
     protected $table = 'm_vote_results';
 
     protected $fillable = [
+        'organization_id',
         'meeting_voting_id',
         'user_id',
         'choice',

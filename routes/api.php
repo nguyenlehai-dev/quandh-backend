@@ -24,6 +24,12 @@ Route::get('/post-categories/public', [\App\Modules\Post\PostCategoryController:
 Route::get('/post-categories/public-options', [\App\Modules\Post\PostCategoryController::class, 'publicOptions'])->middleware('log.activity');
 Route::get('/organizations/public', [\App\Modules\Core\OrganizationController::class, 'public'])->middleware('log.activity');
 Route::get('/organizations/public-options', [\App\Modules\Core\OrganizationController::class, 'publicOptions'])->middleware('log.activity');
+Route::get('/meeting-types/public', [\App\Modules\Meeting\MeetingTypeController::class, 'public'])->middleware('log.activity');
+Route::get('/meeting-types/public-options', [\App\Modules\Meeting\MeetingTypeController::class, 'publicOptions'])->middleware('log.activity');
+Route::get('/meeting-document-types/public', [\App\Modules\Meeting\MeetingDocumentTypeController::class, 'public'])->middleware('log.activity');
+Route::get('/meeting-document-types/public-options', [\App\Modules\Meeting\MeetingDocumentTypeController::class, 'publicOptions'])->middleware('log.activity');
+Route::get('/meeting-document-fields/public', [\App\Modules\Meeting\MeetingDocumentFieldController::class, 'public'])->middleware('log.activity');
+Route::get('/meeting-document-fields/public-options', [\App\Modules\Meeting\MeetingDocumentFieldController::class, 'publicOptions'])->middleware('log.activity');
 
 // Route yêu cầu đăng nhập (Bearer token) và đặt ngữ cảnh team cho Spatie Permission
 Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->group(function () {
@@ -52,6 +58,27 @@ Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->gro
     });
     Route::prefix('documents')->group(function () {
         require base_path('app/Modules/Document/Routes/document.php');
+    });
+    Route::prefix('meeting-types')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/meeting_type.php');
+    });
+    Route::prefix('attendee-groups')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/attendee_group.php');
+    });
+    Route::prefix('meeting-document-types')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/meeting_document_type.php');
+    });
+    Route::prefix('meeting-document-fields')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/meeting_document_field.php');
+    });
+    Route::prefix('meetings')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/meeting.php');
+    });
+    Route::prefix('admin/meetings')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/admin/meeting.php');
+    });
+    Route::prefix('participant')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/participant/meeting.php');
     });
     Route::prefix('document-types')->group(function () {
         require base_path('app/Modules/Document/Routes/document_type.php');

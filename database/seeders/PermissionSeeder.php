@@ -96,6 +96,54 @@ class PermissionSeeder extends Seeder
         'settings' => [
             'index', 'show', 'update',
         ],
+        // Meeting - Cuộc họp
+        'meetings' => [
+            'stats', 'index', 'show', 'store', 'update', 'destroy',
+            'bulkDestroy', 'bulkUpdateStatus', 'changeStatus', 'export', 'import',
+            'dashboard', 'live-control',
+        ],
+        'meeting-participants' => [
+            'index', 'store', 'update', 'destroy', 'checkin',
+        ],
+        'meeting-agendas' => [
+            'index', 'store', 'update', 'destroy', 'reorder', 'set-active',
+        ],
+        'meeting-documents' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-conclusions' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-speech-requests' => [
+            'index', 'store', 'approve', 'reject', 'destroy',
+        ],
+        'meeting-votings' => [
+            'index', 'store', 'update', 'destroy', 'open', 'close', 'vote', 'results',
+        ],
+        'meeting-personal-notes' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-reminders' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-types' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'attendee-groups' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'attendee-group-members' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-document-types' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'meeting-document-fields' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'my-meetings' => [
+            'index', 'show', 'checkin', 'vote', 'speech-request', 'note',
+        ],
     ];
 
     public function run(): void
@@ -145,6 +193,21 @@ class PermissionSeeder extends Seeder
         'document-signers' => 'Người ký',
         'document-fields' => 'Lĩnh vực',
         'settings' => 'Cấu hình hệ thống',
+        'meetings' => 'Cuộc họp không giấy',
+        'meeting-participants' => 'Thành phần họp',
+        'meeting-agendas' => 'Chương trình họp',
+        'meeting-documents' => 'Tài liệu họp',
+        'meeting-conclusions' => 'Kết luận họp',
+        'meeting-speech-requests' => 'Đăng ký phát biểu',
+        'meeting-votings' => 'Biểu quyết họp',
+        'meeting-personal-notes' => 'Ghi chú cá nhân họp',
+        'meeting-reminders' => 'Nhắc họp',
+        'meeting-types' => 'Loại cuộc họp',
+        'attendee-groups' => 'Nhóm thành phần họp',
+        'attendee-group-members' => 'Thành viên nhóm thành phần họp',
+        'meeting-document-types' => 'Loại tài liệu họp',
+        'meeting-document-fields' => 'Lĩnh vực tài liệu họp',
+        'my-meetings' => 'Lịch họp của tôi',
     ];
 
     /** Nhãn action (để description). */
@@ -164,6 +227,19 @@ class PermissionSeeder extends Seeder
         'incrementView' => 'Tăng lượt xem',
         'destroyByDate' => 'Xóa theo khoảng thời gian',
         'destroyAll' => 'Xóa toàn bộ',
+        'dashboard' => 'Dashboard',
+        'live-control' => 'Điều hành họp trực tiếp',
+        'checkin' => 'Điểm danh',
+        'reorder' => 'Sắp xếp lại',
+        'set-active' => 'Đặt agenda hiện tại',
+        'approve' => 'Duyệt',
+        'reject' => 'Từ chối',
+        'open' => 'Mở biểu quyết',
+        'close' => 'Đóng biểu quyết',
+        'vote' => 'Bỏ phiếu',
+        'results' => 'Xem kết quả',
+        'speech-request' => 'Đăng ký phát biểu',
+        'note' => 'Ghi chú cá nhân',
     ];
 
     /** Tạo đầy đủ permission từ danh sách PERMISSIONS (kèm description, sort_order, parent_id). */

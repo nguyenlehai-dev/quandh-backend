@@ -2,6 +2,7 @@
 
 namespace App\Modules\Meeting\Services;
 
+use App\Modules\Meeting\Events\MeetingRealtimeUpdated;
 use App\Modules\Meeting\Models\Meeting;
 use App\Modules\Meeting\Models\MeetingAgenda;
 
@@ -44,5 +45,23 @@ class MeetingAgendaService
         foreach ($ids as $index => $id) {
             $meeting->agendas()->where('id', $id)->update(['order_index' => $index]);
         }
+    }
+
+    public function setActive(Meeting $meeting, MeetingAgenda $agenda): MeetingAgenda
+    {
+        $meeting->agendas()->update(['is_active' => false]);
+        $agenda->update(['is_active' => true]);
+        $meeting->update(['active_agenda_id' => $agenda->id]);
+
+        event(new MeetingRealtimeUpdated(
+            meetingId: $meeting->id,
+            eventType: 'agenda.set-active',
+            payload: [
+                'agenda_id' => $agenda->id,
+                'title' => $agenda->title,
+            ],
+        ));
+
+        return $agenda->fresh();
     }
 }

@@ -2,12 +2,19 @@
 
 namespace App\Modules\Meeting\Services;
 
+use App\Modules\Meeting\Events\MeetingRealtimeUpdated;
 use App\Modules\Meeting\Models\Meeting;
 use App\Modules\Meeting\Models\MeetingVoteResult;
 use App\Modules\Meeting\Models\MeetingVoting;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class MeetingVotingService
 {
+    private function organizationId(): ?int
+    {
+        return request()->header('X-Organization-Id') ? (int) request()->header('X-Organization-Id') : null;
+    }
+
     /** Danh sách phiên biểu quyết của cuộc họp. */
     public function index(Meeting $meeting)
     {
@@ -17,6 +24,8 @@ class MeetingVotingService
     /** Tạo phiên biểu quyết mới. */
     public function store(Meeting $meeting, array $validated): MeetingVoting
     {
+        $validated['organization_id'] = $meeting->organization_id;
+
         return $meeting->votings()->create($validated)->load('agenda');
     }
 
@@ -37,7 +46,20 @@ class MeetingVotingService
     /** Mở phiên bỏ phiếu. */
     public function open(MeetingVoting $voting): MeetingVoting
     {
-        $voting->update(['status' => 'open']);
+        $voting->update([
+            'status' => 'open',
+            'opened_at' => now(),
+            'closed_at' => null,
+        ]);
+
+        event(new MeetingRealtimeUpdated(
+            meetingId: $voting->meeting_id,
+            eventType: 'voting.opened',
+            payload: [
+                'voting_id' => $voting->id,
+                'title' => $voting->title,
+            ],
+        ));
 
         return $voting->load(['agenda', 'results']);
     }
@@ -45,7 +67,19 @@ class MeetingVotingService
     /** Đóng phiên bỏ phiếu. */
     public function close(MeetingVoting $voting): MeetingVoting
     {
-        $voting->update(['status' => 'closed']);
+        $voting->update([
+            'status' => 'closed',
+            'closed_at' => now(),
+        ]);
+
+        event(new MeetingRealtimeUpdated(
+            meetingId: $voting->meeting_id,
+            eventType: 'voting.closed',
+            payload: [
+                'voting_id' => $voting->id,
+                'status' => $voting->status,
+            ],
+        ));
 
         return $voting->load(['agenda', 'results']);
     }
@@ -53,15 +87,51 @@ class MeetingVotingService
     /** Bỏ phiếu (mỗi user chỉ được bỏ 1 phiếu). */
     public function vote(MeetingVoting $voting, string $choice): MeetingVoteResult
     {
-        return MeetingVoteResult::updateOrCreate(
+        if ($voting->status !== 'open') {
+            throw new HttpException(422, 'Phiên biểu quyết hiện chưa mở.');
+        }
+
+        $result = MeetingVoteResult::updateOrCreate(
             [
                 'meeting_voting_id' => $voting->id,
                 'user_id' => auth()->id(),
             ],
             [
+                'organization_id' => $voting->organization_id ?: $voting->meeting?->organization_id,
                 'choice' => $choice,
             ]
         );
+
+        event(new MeetingRealtimeUpdated(
+            meetingId: $voting->meeting_id,
+            eventType: 'voting.result-updated',
+            payload: [
+                'voting_id' => $voting->id,
+                'user_id' => auth()->id(),
+                'choice' => $choice,
+            ],
+        ));
+
+        return $result;
+    }
+
+    public function currentVoting(Meeting $meeting): ?MeetingVoting
+    {
+        return $meeting->votings()
+            ->where('status', 'open')
+            ->latest('opened_at')
+            ->first();
+    }
+
+    public function allVotings(array $filters, int $limit = 10)
+    {
+        return MeetingVoting::query()
+            ->when($this->organizationId(), fn ($q, $orgId) => $q->where('organization_id', $orgId))
+            ->with(['meeting', 'agenda', 'results'])
+            ->when($filters['search'] ?? null, fn ($q, $value) => $q->where('title', 'like', '%'.$value.'%'))
+            ->when($filters['meeting_id'] ?? null, fn ($q, $value) => $q->where('meeting_id', $value))
+            ->orderBy($filters['sort_by'] ?? 'created_at', $filters['sort_order'] ?? 'desc')
+            ->paginate($limit);
     }
 
     /** Lấy kết quả biểu quyết (ẩn user_id nếu anonymous). */

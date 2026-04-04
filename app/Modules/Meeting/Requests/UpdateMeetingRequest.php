@@ -15,6 +15,8 @@ class UpdateMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'meeting_type_id' => 'sometimes|nullable|integer|exists:m_meeting_types,id',
+            'code' => 'sometimes|nullable|string|max:100',
             'title' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',

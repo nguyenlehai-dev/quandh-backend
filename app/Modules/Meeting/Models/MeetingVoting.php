@@ -12,12 +12,22 @@ class MeetingVoting extends Model
     protected $table = 'm_votings';
 
     protected $fillable = [
+        'organization_id',
         'meeting_id',
         'meeting_agenda_id',
         'title',
         'description',
         'type',
         'status',
+        'opened_at',
+        'closed_at',
+        'created_by',
+        'updated_by',
+    ];
+
+    protected $casts = [
+        'opened_at' => 'datetime',
+        'closed_at' => 'datetime',
     ];
 
     /** Cuộc họp. */
