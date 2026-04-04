@@ -11,40 +11,15 @@ class MeetingDocumentService
 {
     public function __construct(private MediaService $mediaService) {}
 
+    private function organizationId(): ?int
+    {
+        return request()->header('X-Organization-Id') ? (int) request()->header('X-Organization-Id') : null;
+    }
+
+    /** Danh sách tài liệu của cuộc họp. */
     public function index(Meeting $meeting)
     {
-        return $meeting->documents()->with(['media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner'])->get();
-    }
-
-    /** Danh sách tất cả tài liệu trên toàn hệ thống. */
-    public function globalIndex(array $filters)
-    {
-        $limit = $filters['limit'] ?? 15;
-        $query = MeetingDocument::query()
-            ->with(['meeting:id,title', 'media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner'])
-            ->whereHas('meeting', fn($q) => $q->userRelated())
-            ->orderBy('id', 'desc');
-
-        if (!empty($filters['search'])) {
-            $query->where('title', 'like', "%{$filters['search']}%");
-        }
-        if (!empty($filters['document_type_id'])) {
-            $query->where('document_type_id', $filters['document_type_id']);
-        }
-        if (!empty($filters['meeting_type_id'])) {
-            $query->whereHas('meeting', fn ($q) => $q->where('meeting_type_id', $filters['meeting_type_id']));
-        }
-
-        return $query->paginate($limit);
-    }
-
-    /** Xuất dữ liệu tài liệu trên toàn hệ thống. */
-    public function export(array $filters)
-    {
-        return \Maatwebsite\Excel\Facades\Excel::download(
-            new \App\Modules\Meeting\Exports\MeetingDocumentsExport($filters),
-            'tai-lieu-cuoc-hop.xlsx'
-        );
+        return $meeting->documents()->with(['media', 'agenda'])->get();
     }
 
     /** Tạo tài liệu mới kèm upload file. */
@@ -55,11 +30,12 @@ class MeetingDocumentService
         try {
             return DB::transaction(function () use ($meeting, $validated, $files, &$storedFiles) {
                 $data = collect($validated)->except(['files'])->all();
+                $data['organization_id'] = $meeting->organization_id;
                 $document = $meeting->documents()->create($data);
 
                 $this->saveDocumentFiles($document, $files, $storedFiles);
 
-                return $document->load(['media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner']);
+                return $document->load(['media', 'agenda']);
             });
         } catch (\Throwable $exception) {
             $this->mediaService->cleanupStoredFiles($storedFiles);
@@ -83,7 +59,7 @@ class MeetingDocumentService
 
                 $this->saveDocumentFiles($document, $files, $storedFiles);
 
-                return $document->load(['media', 'documentType', 'documentField', 'issuingAgency', 'documentSigner']);
+                return $document->load(['media', 'agenda']);
             });
         } catch (\Throwable $exception) {
             $this->mediaService->cleanupStoredFiles($storedFiles);
@@ -95,6 +71,22 @@ class MeetingDocumentService
     public function destroy(MeetingDocument $document): void
     {
         $document->delete();
+    }
+
+    public function allDocuments(array $filters, int $limit = 10)
+    {
+        return MeetingDocument::query()
+            ->when($this->organizationId(), fn ($q, $orgId) => $q->where('organization_id', $orgId))
+            ->with(['meeting', 'agenda', 'media', 'creator', 'editor'])
+            ->when($filters['search'] ?? null, fn ($q, $value) => $q->where('title', 'like', '%'.$value.'%'))
+            ->when($filters['meeting_id'] ?? null, fn ($q, $value) => $q->where('meeting_id', $value))
+            ->when($filters['meeting_type_id'] ?? null, function ($q, $value) {
+                $q->whereHas('meeting', fn ($meetingQuery) => $meetingQuery->where('meeting_type_id', $value));
+            })
+            ->when($filters['document_type_id'] ?? null, fn ($q, $value) => $q->where('document_type_id', $value))
+            ->when($filters['document_field_id'] ?? null, fn ($q, $value) => $q->where('document_field_id', $value))
+            ->orderBy($filters['sort_by'] ?? 'created_at', $filters['sort_order'] ?? 'desc')
+            ->paginate($limit);
     }
 
     /** Upload files cho tài liệu. */

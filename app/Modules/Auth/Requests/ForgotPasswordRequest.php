@@ -33,7 +33,7 @@ class ForgotPasswordRequest extends FormRequest
     {
         return [
             'email' => [
-                'description' => 'Email tài khoản cần gửi link đặt lại mật khẩu.',
+                'description' => 'Email tài khoản',
                 'example' => 'user@example.com',
             ],
         ];

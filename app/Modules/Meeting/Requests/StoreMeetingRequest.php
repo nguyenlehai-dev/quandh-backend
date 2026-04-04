@@ -15,6 +15,8 @@ class StoreMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'meeting_type_id' => 'nullable|integer|exists:m_meeting_types,id',
+            'code' => 'nullable|string|max:100',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
@@ -35,6 +37,7 @@ class StoreMeetingRequest extends FormRequest
         return [
             'title.required' => 'Tiêu đề cuộc họp không được để trống.',
             'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+            'meeting_type_id.exists' => 'Loại cuộc họp không tồn tại.',
             'end_at.after_or_equal' => 'Thời gian kết thúc phải sau thời gian bắt đầu.',
             'status.in' => 'Trạng thái không hợp lệ.',
         ];

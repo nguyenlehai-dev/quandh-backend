@@ -18,7 +18,7 @@ use Illuminate\Database\Seeder;
 class PermissionSeeder extends Seeder
 {
     /** Guard thống nhất cho Spatie (web + API Sanctum), tránh nhân đôi permission trong DB. */
-    protected const GUARD = 'api';
+    protected const GUARD = 'web';
 
     /**
      * Danh sách đầy đủ permission theo module và resource.
@@ -26,14 +26,6 @@ class PermissionSeeder extends Seeder
      * Khi thêm module/chức năng: bổ sung vào đúng nhóm và chạy sail artisan db:seed --class=PermissionSeeder.
      */
     protected static array $PERMISSIONS = [
-        // Dashboard - Tổng quan hệ thống
-        'dashboard' => [
-            'index',
-        ],
-        // Dashboard - Tổng quan nghiệp vụ
-        'business-overview' => [
-            'index',
-        ],
         // Core - Users
         'users' => [
             'stats', 'index', 'show', 'store', 'update', 'destroy',
@@ -108,48 +100,55 @@ class PermissionSeeder extends Seeder
         'meetings' => [
             'stats', 'index', 'show', 'store', 'update', 'destroy',
             'bulkDestroy', 'bulkUpdateStatus', 'changeStatus', 'export', 'import',
+            'dashboard', 'live-control',
         ],
-        // Meeting - Nhóm người dự họp
-        'attendee-groups' => [
-            'index', 'store', 'update', 'destroy', 'changeStatus', 'export',
-        ],
-        // Meeting - Loại cuộc họp
-        'meeting-types' => [
-            'index', 'store', 'update', 'destroy', 'changeStatus', 'bulkUpdateStatus', 'export',
-        ],
-        // Meeting - Thành viên cuộc họp
         'meeting-participants' => [
             'index', 'store', 'update', 'destroy', 'checkin',
         ],
-        // Meeting - Chương trình nghị sự
         'meeting-agendas' => [
-            'index', 'store', 'update', 'destroy', 'reorder',
+            'index', 'store', 'update', 'destroy', 'reorder', 'set-active',
         ],
-        // Meeting - Tài liệu cuộc họp
         'meeting-documents' => [
             'index', 'store', 'update', 'destroy',
         ],
-        // Meeting - Kết luận cuộc họp
         'meeting-conclusions' => [
             'index', 'store', 'update', 'destroy',
         ],
-        // Meeting - Ghi chú cá nhân
-        'meeting-personal-notes' => [
-            'index', 'store', 'update', 'destroy',
-        ],
-        // Meeting - Đăng ký phát biểu
         'meeting-speech-requests' => [
             'index', 'store', 'approve', 'reject', 'destroy',
         ],
-        // Meeting - Biểu quyết
         'meeting-votings' => [
             'index', 'store', 'update', 'destroy', 'open', 'close', 'vote', 'results',
+        ],
+        'meeting-personal-notes' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-reminders' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-types' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'attendee-groups' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'attendee-group-members' => [
+            'index', 'store', 'update', 'destroy',
+        ],
+        'meeting-document-types' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'meeting-document-fields' => [
+            'index', 'show', 'store', 'update', 'destroy',
+        ],
+        'my-meetings' => [
+            'index', 'show', 'checkin', 'vote', 'speech-request', 'note',
         ],
     ];
 
     public function run(): void
     {
-        $this->migrateGuardWebToApi();
+        $this->migrateGuardApiToWeb();
         $this->seedOrganizations();
         $this->seedPermissions();
         $this->seedRoles();
@@ -157,11 +156,11 @@ class PermissionSeeder extends Seeder
         $this->seedFixedUsersAndAssignRoles();
     }
 
-    /** Chuyển permission/role từ guard web sang api (một lần khi đổi chiến lược guard). */
-    protected function migrateGuardWebToApi(): void
+    /** Chuyển permission/role từ guard api sang web (một lần khi đổi chiến lược guard). */
+    protected function migrateGuardApiToWeb(): void
     {
-        Permission::where('guard_name', 'web')->update(['guard_name' => 'api']);
-        Role::where('guard_name', 'web')->update(['guard_name' => 'api']);
+        Permission::where('guard_name', 'api')->update(['guard_name' => 'web']);
+        Role::where('guard_name', 'api')->update(['guard_name' => 'web']);
         app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
     }
 
@@ -180,8 +179,6 @@ class PermissionSeeder extends Seeder
 
     /** Nhãn nhóm permission theo resource (để description). */
     protected static array $RESOURCE_LABELS = [
-        'dashboard' => 'Tổng quan hệ thống',
-        'business-overview' => 'Tổng quan nghiệp vụ',
         'users' => 'Người dùng',
         'permissions' => 'Quyền',
         'roles' => 'Vai trò',
@@ -196,16 +193,21 @@ class PermissionSeeder extends Seeder
         'document-signers' => 'Người ký',
         'document-fields' => 'Lĩnh vực',
         'settings' => 'Cấu hình hệ thống',
-        'meetings' => 'Cuộc họp',
-        'attendee-groups' => 'Nhóm người dự họp',
-        'meeting-types' => 'Loại cuộc họp',
-        'meeting-participants' => 'Thành viên cuộc họp',
-        'meeting-agendas' => 'Chương trình nghị sự',
-        'meeting-documents' => 'Tài liệu cuộc họp',
-        'meeting-conclusions' => 'Kết luận cuộc họp',
-        'meeting-personal-notes' => 'Ghi chú cá nhân',
+        'meetings' => 'Cuộc họp không giấy',
+        'meeting-participants' => 'Thành phần họp',
+        'meeting-agendas' => 'Chương trình họp',
+        'meeting-documents' => 'Tài liệu họp',
+        'meeting-conclusions' => 'Kết luận họp',
         'meeting-speech-requests' => 'Đăng ký phát biểu',
-        'meeting-votings' => 'Biểu quyết',
+        'meeting-votings' => 'Biểu quyết họp',
+        'meeting-personal-notes' => 'Ghi chú cá nhân họp',
+        'meeting-reminders' => 'Nhắc họp',
+        'meeting-types' => 'Loại cuộc họp',
+        'attendee-groups' => 'Nhóm thành phần họp',
+        'attendee-group-members' => 'Thành viên nhóm thành phần họp',
+        'meeting-document-types' => 'Loại tài liệu họp',
+        'meeting-document-fields' => 'Lĩnh vực tài liệu họp',
+        'my-meetings' => 'Lịch họp của tôi',
     ];
 
     /** Nhãn action (để description). */
@@ -225,14 +227,19 @@ class PermissionSeeder extends Seeder
         'incrementView' => 'Tăng lượt xem',
         'destroyByDate' => 'Xóa theo khoảng thời gian',
         'destroyAll' => 'Xóa toàn bộ',
+        'dashboard' => 'Dashboard',
+        'live-control' => 'Điều hành họp trực tiếp',
         'checkin' => 'Điểm danh',
         'reorder' => 'Sắp xếp lại',
+        'set-active' => 'Đặt agenda hiện tại',
         'approve' => 'Duyệt',
         'reject' => 'Từ chối',
         'open' => 'Mở biểu quyết',
         'close' => 'Đóng biểu quyết',
         'vote' => 'Bỏ phiếu',
         'results' => 'Xem kết quả',
+        'speech-request' => 'Đăng ký phát biểu',
+        'note' => 'Ghi chú cá nhân',
     ];
 
     /** Tạo đầy đủ permission từ danh sách PERMISSIONS (kèm description, sort_order, parent_id). */
@@ -298,10 +305,9 @@ class PermissionSeeder extends Seeder
             $superAdmin->syncPermissions($allPermissionNames);
         }
 
-        $adminPermissionNames = $this->getAdminPermissionNames();
         $admin = Role::where('name', 'Admin')->where('guard_name', self::GUARD)->first();
         if ($admin) {
-            $admin->syncPermissions($adminPermissionNames);
+            $admin->syncPermissions($allPermissionNames);
         }
 
         $editorPermissionNames = $this->getEditorPermissionNames();
@@ -318,7 +324,9 @@ class PermissionSeeder extends Seeder
     }
 
     /**
-     * Tạo user cố định để đăng nhập kiểm tra và gán role mỗi role 1 user.
+     * Tạo user cố định để đăng nhập kiểm tra và gán role:
+     * - admin@example.com => Super Admin
+     * - basic@example.com => Vai trò mẫu (quyền cơ bản)
      */
     protected function seedFixedUsersAndAssignRoles(): void
     {
@@ -329,42 +337,42 @@ class PermissionSeeder extends Seeder
         setPermissionsTeamId($defaultOrganization->id);
 
         $superAdmin = Role::where('name', 'Super Admin')->where('guard_name', self::GUARD)->first();
-        $admin = Role::where('name', 'Admin')->where('guard_name', self::GUARD)->first();
-        $editor = Role::where('name', 'Editor')->where('guard_name', self::GUARD)->first();
         $sampleRole = Role::where('name', 'Vai trò mẫu')->where('guard_name', self::GUARD)->first();
 
         $superAdminUser = User::updateOrCreate(
-            ['user_name' => 'admin'],
-            ['name' => 'Super Admin', 'email' => 'admin@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'admin',
+                'user_name' => 'admin',
+                'password' => 'quandcore**11',
+                'status' => StatusEnum::Active->value,
+                'email_verified_at' => now(),
+            ]
         );
-        $superAdminUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
+        $superAdminUser->forceFill([
+            'created_by' => $superAdminUser->id,
+            'updated_by' => $superAdminUser->id,
+        ])->save();
+
         if ($superAdmin) {
             $superAdminUser->syncRoles([$superAdmin]);
         }
 
-        $adminUser = User::updateOrCreate(
-            ['user_name' => 'admin2'],
-            ['name' => 'Admin Role', 'email' => 'admin2@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
-        );
-        $adminUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
-        if ($admin) {
-            $adminUser->syncRoles([$admin]);
-        }
-
-        $editorUser = User::updateOrCreate(
-            ['user_name' => 'editor'],
-            ['name' => 'Editor Role', 'email' => 'editor@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
-        );
-        $editorUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
-        if ($editor) {
-            $editorUser->syncRoles([$editor]);
-        }
-
         $basicUser = User::updateOrCreate(
-            ['user_name' => 'basic'],
-            ['name' => 'Basic Role', 'email' => 'basic@example.com', 'password' => 'quandcore**11', 'status' => StatusEnum::Active->value, 'email_verified_at' => now()]
+            ['email' => 'basic@example.com'],
+            [
+                'name' => 'basic',
+                'user_name' => 'basic',
+                'password' => 'quandcore**11',
+                'status' => StatusEnum::Active->value,
+                'email_verified_at' => now(),
+            ]
         );
-        $basicUser->forceFill(['created_by' => null, 'updated_by' => null])->save();
+        $basicUser->forceFill([
+            'created_by' => $superAdminUser->id,
+            'updated_by' => $superAdminUser->id,
+        ])->save();
+
         if ($sampleRole) {
             $basicUser->syncRoles([$sampleRole]);
         }
@@ -387,32 +395,7 @@ class PermissionSeeder extends Seeder
     protected function getEditorPermissionNames(): array
     {
         $names = [];
-        foreach ([
-            'dashboard' => self::$PERMISSIONS['dashboard'],
-            'business-overview' => self::$PERMISSIONS['business-overview'],
-            'posts' => self::$PERMISSIONS['posts'],
-            'post-categories' => self::$PERMISSIONS['post-categories'],
-        ] as $resource => $actions) {
-            foreach ($actions as $action) {
-                $names[] = "{$resource}.{$action}";
-            }
-        }
-
-        return $names;
-    }
-
-    /**
-     * Permission cho role Admin: tất cả trừ permissions.*, roles.*, settings.*, log-activities.*
-     * Các quyền hệ thống này chỉ dành cho Super Admin.
-     */
-    protected function getAdminPermissionNames(): array
-    {
-        $excludedResources = ['permissions', 'roles', 'settings', 'log-activities'];
-        $names = [];
-        foreach (self::$PERMISSIONS as $resource => $actions) {
-            if (in_array($resource, $excludedResources, true)) {
-                continue;
-            }
+        foreach (['posts' => self::$PERMISSIONS['posts'], 'post-categories' => self::$PERMISSIONS['post-categories']] as $resource => $actions) {
             foreach ($actions as $action) {
                 $names[] = "{$resource}.{$action}";
             }
@@ -425,8 +408,6 @@ class PermissionSeeder extends Seeder
     protected function getSamplePermissionNames(): array
     {
         return [
-            'dashboard.index',
-            'business-overview.index',
             'posts.stats',
             'posts.index',
             'posts.show',

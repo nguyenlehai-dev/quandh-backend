@@ -1,115 +1,257 @@
-# Phân tích Module Cuộc họp không giấy (Paperless Meeting)
+# Phân tích module Meeting hiện tại
 
-**Ngày tạo:** 2026-03-23
-**Mục đích:** Phân tích nghiệp vụ, kiến trúc dữ liệu, và giải pháp kỹ thuật cho Module Meeting.
+Tài liệu này phản ánh trạng thái backend `Meeting` sau khi đã mở rộng theo hướng `paperless meeting`, tách rõ `Admin` và `Participant`, nhưng vẫn dùng chung nền `Core` cho `users`, `organizations`, `permissions`, `roles`, `media`, `log activity`.
 
----
+## 1. Boundary hiện tại
 
-## 1. Tổng quan kiến trúc
+Module `Meeting` là module nghiệp vụ độc lập. Dữ liệu chính của module có prefix `m_`.
 
-Module Meeting được xây dựng trên kiến trúc **Decoupled (API-first)** với 9 bảng dữ liệu:
-- `m_meetings` — Bảng chính
-- `m_participants` — Pivot mở rộng (users ↔ meetings)
-- `m_agendas` — Chương trình nghị sự
-- `m_documents` — Tài liệu (file via Spatie MediaLibrary)
-- `m_personal_notes` — Ghi chú cá nhân (cô lập dữ liệu)
-- `m_speech_requests` — Đăng ký phát biểu
-- `m_votings` — Phiên biểu quyết
-- `m_vote_results` — Kết quả bỏ phiếu
-- `m_conclusions` — Kết luận (1:N với meeting)
+Các bảng chính đang dùng:
 
----
+- `m_meetings`
+- `m_meeting_types`
+- `m_attendee_groups`
+- `m_attendee_group_members`
+- `m_participants`
+- `m_agendas`
+- `m_documents`
+- `m_document_types`
+- `m_document_fields`
+- `m_personal_notes`
+- `m_speech_requests`
+- `m_votings`
+- `m_vote_results`
+- `m_conclusions`
+- `m_checkins`
+- `m_reminders`
 
-## 2. Luồng nghiệp vụ
+Module không dùng lại danh mục nghiệp vụ của module khác. Chỉ liên kết nền tảng với:
 
-### Bước 1: Thiết lập & Kích hoạt
-1. Quản lý tạo cuộc họp (`POST /api/meetings`, status=draft)
-2. Gán đại biểu (`POST /api/meetings/{id}/participants`)
-3. Soạn chương trình (`POST /api/meetings/{id}/agendas`)
-4. Đính kèm tài liệu (`POST /api/meetings/{id}/documents`)
-5. Kích hoạt cuộc họp (`PATCH /api/meetings/{id}/status`, status=active)
-   → **Trigger:** Gửi thông báo (Firebase, Email, SMS) — giai đoạn sau
+- `users`
+- `organizations`
+- `media`
+- `permissions`
+- `roles`
 
-### Bước 2: Trước cuộc họp
-- Đại biểu xem tài liệu (`GET /api/meetings/{id}/documents`)
-- Ghi chú cá nhân trên tài liệu (`POST /api/meetings/{id}/personal-notes`)
-- Đăng ký phát biểu (`POST /api/meetings/{id}/speech-requests`)
-- Quản lý duyệt/từ chối (`PATCH .../speech-requests/{id}/approve`)
+## 2. Kiến trúc API hiện tại
 
-### Bước 3: Trong cuộc họp
-- Đổi trạng thái → "Đang họp" (`PATCH /api/meetings/{id}/status`, status=in_progress)
-- Điểm danh (`PATCH .../participants/{id}/checkin`, attendance_status=present)
-- Quản lý mở phiên bỏ phiếu (`PATCH .../votings/{id}/open`)
-- Đại biểu bỏ phiếu (`POST .../votings/{id}/vote`, choice=agree/disagree/abstain)
-- Quản lý đóng phiên (`PATCH .../votings/{id}/close`)
-- Xem kết quả (`GET .../votings/{id}/results`)
+### Nhóm quản trị cuộc họp
 
-### Bước 4: Kết luận & Lưu trữ
-- Thư ký tạo kết luận (`POST /api/meetings/{id}/conclusions`)
-- Đổi trạng thái → "Kết thúc" (`PATCH /api/meetings/{id}/status`, status=completed)
-- Đại biểu truy cập lại ghi chú cá nhân + tài liệu
+- `/api/meetings`
+- `/api/admin/meetings`
+- `/api/meeting-types`
+- `/api/attendee-groups`
+- `/api/meeting-document-types`
+- `/api/meeting-document-fields`
 
----
+### Nhóm đại biểu
 
-## 3. Giải pháp biểu quyết ẩn danh
+- `/api/participant/my-meetings`
+- `/api/participant/meetings/{meeting}/...`
 
-**Vấn đề:** Đảm bảo tính minh bạch (mỗi người chỉ bỏ 1 phiếu) nhưng không lộ danh tính.
+Thiết kế này bám đúng hướng:
 
-**Giải pháp:**
-- Bảng `m_vote_results` vẫn lưu `user_id` để **chống bỏ phiếu trùng** (UNIQUE constraint trên `meeting_voting_id` + `user_id`)
-- Khi `m_votings.type = 'anonymous'`, API response **không trả về** `user_id` và `user_name` trong `details[]`
-- Chỉ trả về `summary` (tổng hợp: agree, disagree, abstain)
+- admin có dashboard, reports, live controller data
+- participant có lịch họp của tôi và trung tâm tương tác riêng
 
-Cách triển khai trong `MeetingVotingService::results()`:
-```php
-if (! $voting->isAnonymous()) {
-    $details = $results->load('user')->map(fn ($r) => [...]);
-} else {
-    $details = []; // Ẩn thông tin chi tiết
-}
-```
+## 3. Luồng nghiệp vụ đang được backend hỗ trợ
 
----
+### Giai đoạn chuẩn bị
 
-## 4. Cơ chế cô lập ghi chú cá nhân
+1. Tạo meeting
+2. Gán participant
+3. Soạn agenda
+4. Upload documents
+5. Soạn voting, conclusions, reminders
+6. Chuyển trạng thái meeting sang `active`
 
-**Vấn đề:** Đại biểu A không được xem ghi chú của đại biểu B.
+### Giai đoạn check-in và vận hành
 
-**Giải pháp 3 lớp:**
+1. Backend có `qr_token`
+2. Participant có thể:
+   - `self-checkin`
+   - `qr-checkin`
+3. Admin có thể:
+   - lấy `live` payload
+   - set `active agenda`
+   - xem `pending speech requests`
+   - mở/đóng voting
 
-1. **Model scope:** `scopeOwnedByAuth()` — tự động filter `where('user_id', auth()->id())`
-2. **Service:** `MeetingPersonalNoteService::index()` luôn gọi `->ownedByAuth()`
-3. **Controller:** `update()` và `destroy()` kiểm tra `$note->user_id !== auth()->id()` → trả 403
+### Giai đoạn tương tác đại biểu
 
----
+Participant có thể:
 
-## 5. Pivot Table mở rộng (m_participants)
+- xem `my-meetings`
+- xem chi tiết meeting được mời
+- xem documents
+- CRUD personal notes
+- gửi speech request
+- xem voting đang mở
+- bỏ phiếu
+- xem conclusions
 
-Bảng `m_participants` không chỉ là bảng trung gian đơn thuần mà là **Pivot mở rộng** chứa dữ liệu nghiệp vụ:
+## 4. Các điểm backend đã xử lý đúng nghiệp vụ
 
-| Cột | Ý nghĩa |
-|-----|---------|
-| `position` | Chức vụ riêng cho cuộc họp này (vd: Giám đốc, Trưởng phòng) |
-| `meeting_role` | Vai trò chức năng (chair/secretary/delegate) |
-| `attendance_status` | Trạng thái điểm danh (pending/present/absent) |
-| `checkin_at` | Thời điểm điểm danh chính xác |
-| `absence_reason` | Lý do vắng mặt |
+### 4.1 Cô lập participant access
 
-Sử dụng **Pivot Model** (`MeetingParticipant`) thay vì pivot thông thường để có thể:
-- Thêm relationships (speechRequests)
-- Áp dụng Eloquent scopes
-- Validate dữ liệu
+Participant chỉ xem được meeting nếu có trong `m_participants`.
 
----
+Backend đang enforce tại `MeetingService::ensureParticipantAccess()`.
 
-## 6. Phân quyền
+### 4.2 Cô lập ghi chú cá nhân
 
-Module Meeting bổ sung **8 nhóm resource** vào PermissionSeeder với tổng cộng ~50 permissions:
-- `meetings.*` (11 actions)
-- `meeting-participants.*` (5 actions)
-- `meeting-agendas.*` (5 actions)
-- `meeting-documents.*` (4 actions)
-- `meeting-conclusions.*` (4 actions)
-- `meeting-personal-notes.*` (4 actions)
-- `meeting-speech-requests.*` (5 actions)
-- `meeting-votings.*` (8 actions)
+`MeetingPersonalNoteService` luôn giới hạn theo `auth()->id()`.
+
+Ngoài ra controller participant đã được siết thêm để note phải thuộc đúng `meeting` đang gọi.
+
+### 4.3 Chống gọi chéo resource giữa các meeting
+
+Backend hiện đã kiểm tra quan hệ cha-con cho các resource nhạy cảm:
+
+- `agenda`
+- `speechRequest`
+- `voting`
+- `reminder`
+- `participant personal note`
+
+Điều này ngăn việc dùng `id` của resource thuộc meeting A nhưng gọi qua URL của meeting B.
+
+### 4.4 Voting public và anonymous
+
+`m_vote_results` vẫn lưu `user_id` để chống vote trùng.
+
+Khi `MeetingVoting.type = anonymous`:
+
+- backend chỉ trả `summary`
+- `details` bị ẩn
+
+Khi `type = public`:
+
+- backend trả thêm từng phiếu trong `details`
+
+### 4.5 Reminder mặc định
+
+Khi tạo reminder mà client không truyền `status`, backend tự đặt:
+
+- `pending`
+
+Điểm này đã được khóa bằng test.
+
+### 4.6 Dashboard và reports
+
+Backend đã có:
+
+- `dashboard()`
+- `reports()`
+- `monthlyFrequency()`
+
+`monthlyFrequency()` hiện đã được làm tương thích đa DB, không khóa cứng theo MySQL.
+
+## 5. Realtime hiện tại
+
+Backend đã phát event:
+
+- channel: `private-meeting.{meetingId}`
+- event: `meeting.realtime.updated`
+
+Các `event_type` đang phát:
+
+- `meeting.status-changed`
+- `agenda.set-active`
+- `participant.self-checkin`
+- `speech-request.created`
+- `speech-request.status-changed`
+- `voting.opened`
+- `voting.closed`
+- `voting.result-updated`
+
+Điều này đủ để FE `Admin controller` và `Participant view` sync state qua Echo/Reverb.
+
+## 6. Catalog riêng của module
+
+Module `Meeting` hiện đã có catalog riêng, không dùng chung module khác:
+
+- `meeting-types`
+- `attendee-groups`
+- `attendee-group-members`
+- `meeting-document-types`
+- `meeting-document-fields`
+
+Mỗi catalog đang hỗ trợ:
+
+- CRUD
+- `stats`
+- `bulk-delete`
+- `bulk-status`
+- `export`
+- `import`
+
+Riêng `attendee-groups` có nested members riêng.
+
+## 7. Admin APIs nổi bật
+
+Các API quan trọng đã có:
+
+- `GET /api/admin/meetings/dashboard`
+- `GET /api/admin/meetings/reports`
+- `GET /api/admin/meetings/{meeting}/live`
+- `GET /api/admin/meetings/{meeting}/participant-candidates`
+- `GET /api/admin/meetings/{meeting}/qr-token`
+- `POST /api/admin/meetings/{meeting}/qr-checkin`
+- `GET /api/admin/meetings/all-documents`
+- `GET /api/admin/meetings/all-conclusions`
+- `GET /api/admin/meetings/all-votings`
+
+## 8. Participant APIs nổi bật
+
+- `GET /api/participant/my-meetings`
+- `GET /api/participant/meetings/{meeting}`
+- `GET /api/participant/meetings/{meeting}/documents`
+- `GET/POST/PUT/DELETE /api/participant/meetings/{meeting}/personal-notes`
+- `GET /api/participant/meetings/{meeting}/conclusions`
+- `GET /api/participant/meetings/{meeting}/speech-requests/mine`
+- `POST /api/participant/meetings/{meeting}/speech-requests`
+- `GET /api/participant/meetings/{meeting}/votings/current`
+- `POST /api/participant/meetings/{meeting}/votings/{voting}/vote`
+- `GET /api/participant/meetings/{meeting}/votings/{voting}/result`
+- `POST /api/participant/meetings/{meeting}/self-checkin`
+- `POST /api/participant/meetings/{meeting}/qr-checkin`
+
+## 9. Mức độ ổn định hiện tại
+
+Module đã có feature tests cho các luồng chính:
+
+- tạo và xem `meeting types`
+- participant access control
+- self check-in
+- set active agenda + live endpoint
+- participant personal notes
+- participant speech requests
+- participant voting
+- admin reminders
+- admin approve/reject speech requests
+- admin open/close voting
+- admin attendee groups + members
+- admin dashboard/reports/candidates/qr token
+
+Hiện tại suite đang pass:
+
+- `12 tests`
+- `130 assertions`
+
+## 10. Kết luận
+
+Backend `Meeting` hiện không còn là CRUD meeting đơn giản nữa mà đã có:
+
+- meeting core
+- participant center
+- admin live controller payload
+- catalog riêng của module
+- realtime event nền
+- test cho các flow chính
+
+Điểm còn có thể làm thêm sau này là:
+
+- test sâu hơn cho `all-documents`, `all-conclusions`, `all-votings`
+- test `import/export`
+- FE consume realtime đầy đủ hơn ở mọi màn

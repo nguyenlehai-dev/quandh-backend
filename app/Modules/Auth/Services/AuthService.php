@@ -5,10 +5,10 @@ namespace App\Modules\Auth\Services;
 use App\Modules\Core\Enums\UserStatusEnum;
 use App\Modules\Core\Models\Organization;
 use App\Modules\Core\Models\User;
-use App\Modules\Core\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Schema;
 
 class AuthService
 {
@@ -36,7 +36,7 @@ class AuthService
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $organizations = $this->getAccessibleOrganizations($user);
-        $currentOrganizationId = $this->resolveCurrentOrganization($user, $organizations);
+        $currentOrganizationId = $this->resolveCurrentOrganizationId($user, $organizations);
         $rolesAndPermissions = $this->getRolesAndPermissionsForOrganization($user, $currentOrganizationId);
 
         return [
@@ -44,7 +44,7 @@ class AuthService
             'data' => [
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'user' => (new UserResource($user))->resolve(),
+                'user' => $this->buildAuthUserPayload($user),
                 'available_organizations' => $organizations,
                 'current_organization_id' => $currentOrganizationId,
                 'roles' => $rolesAndPermissions['roles'],
@@ -54,14 +54,13 @@ class AuthService
         ];
     }
 
-    public function logout($user): void
+    public function logout(User $user): void
     {
-        $user->userPreference()->updateOrCreate(
-            ['user_id' => $user->id],
-            ['current_organization_id' => null]
-        );
+        $token = $user->currentAccessToken();
 
-        $user->currentAccessToken()->delete();
+        if ($token) {
+            $token->delete();
+        }
     }
 
     public function forgotPassword(string $email): bool
@@ -105,7 +104,7 @@ class AuthService
         }
 
         $rolesAndPermissions = $this->getRolesAndPermissionsForOrganization($user, (int) $organization->id);
-        $this->saveOrganizationPreference($user, (int) $organization->id);
+        $this->storeCurrentOrganizationPreference((int) $user->id, (int) $organization->id);
 
         return [
             'ok' => true,
@@ -114,7 +113,6 @@ class AuthService
                 'current_organization' => [
                     'id' => (int) $organization->id,
                     'name' => $organization->name,
-                    'description' => $organization->description,
                 ],
                 'roles' => $rolesAndPermissions['roles'],
                 'permissions' => $rolesAndPermissions['permissions'],
@@ -134,14 +132,92 @@ class AuthService
             ->whereIn('id', $organizationIds)
             ->where('status', 'active')
             ->orderBy('name')
-            ->get(['id', 'name', 'description'])
+            ->get(['id', 'name'])
             ->map(fn (Organization $organization) => [
                 'id' => (int) $organization->id,
                 'name' => $organization->name,
-                'description' => $organization->description,
             ])
             ->values()
             ->all();
+    }
+
+    protected function buildAuthUserPayload(User $user): array
+    {
+        return [
+            'id' => (int) $user->id,
+            'name' => $user->name,
+        ];
+    }
+
+    protected function resolveCurrentOrganizationId(User $user, array $organizations): ?int
+    {
+        if (empty($organizations)) {
+            return null;
+        }
+
+        $organizationIds = collect($organizations)
+            ->pluck('id')
+            ->map(fn ($id) => (int) $id)
+            ->values()
+            ->all();
+
+        // flow_direct: chỉ có một tổ chức thì backend tự xác định current_organization_id
+        // và cố gắng lưu lại preference nếu hạ tầng hiện có hỗ trợ.
+        if (count($organizations) === 1) {
+            $organizationId = (int) $organizations[0]['id'];
+            $this->storeCurrentOrganizationPreference((int) $user->id, $organizationId);
+
+            return $organizationId;
+        }
+
+        // flow_switch: có nhiều tổ chức và đã có preference hợp lệ.
+        $preferredOrganizationId = $this->getStoredCurrentOrganizationPreference((int) $user->id, $organizationIds);
+        if ($preferredOrganizationId !== null) {
+            return $preferredOrganizationId;
+        }
+
+        // flow_select: có nhiều tổ chức nhưng chưa có preference hợp lệ.
+        return null;
+    }
+
+    protected function getStoredCurrentOrganizationPreference(int $userId, array $organizationIds): ?int
+    {
+        if (! $this->canUseUserPreferencesTable()) {
+            return null;
+        }
+
+        $organizationId = DB::table('user_preferences')
+            ->where('user_id', $userId)
+            ->value('current_organization_id');
+
+        if ($organizationId === null) {
+            return null;
+        }
+
+        $organizationId = (int) $organizationId;
+
+        return in_array($organizationId, $organizationIds, true) ? $organizationId : null;
+    }
+
+    protected function storeCurrentOrganizationPreference(int $userId, int $organizationId): void
+    {
+        if (! $this->canUseUserPreferencesTable()) {
+            return;
+        }
+
+        DB::table('user_preferences')->updateOrInsert(
+            ['user_id' => $userId],
+            ['current_organization_id' => $organizationId]
+        );
+    }
+
+    protected function canUseUserPreferencesTable(): bool
+    {
+        if (! Schema::hasTable('user_preferences')) {
+            return false;
+        }
+
+        return Schema::hasColumns('user_preferences', ['user_id', 'current_organization_id']);
     }
 
     protected function getAccessibleOrganizationIds(int $userId): array
@@ -151,17 +227,6 @@ class AuthService
         $modelMorphKey = $columnNames['model_morph_key'] ?? 'model_id';
         $teamForeignKey = $columnNames['team_foreign_key'] ?? 'organization_id';
         $modelType = \App\Modules\Core\Models\User::class;
-
-        // Nếu user có role global (không gán team) -> xem được tất cả tổ chức
-        $hasGlobalRole = DB::table($tableNames['model_has_roles'] ?? 'model_has_roles')
-            ->where($modelMorphKey, $userId)
-            ->where('model_type', $modelType)
-            ->whereNull($teamForeignKey)
-            ->exists();
-
-        if ($hasGlobalRole) {
-            return \App\Modules\Core\Models\Organization::where('status', 'active')->pluck('id')->map(fn($id) => (int)$id)->all();
-        }
 
         $roleOrgIds = DB::table($tableNames['model_has_roles'] ?? 'model_has_roles')
             ->where($modelMorphKey, $userId)
@@ -192,97 +257,21 @@ class AuthService
      */
     protected function getRolesAndPermissionsForOrganization(User $user, ?int $organizationId): array
     {
-        $tableNames = config('permission.table_names');
-        $columnNames = config('permission.column_names');
-        $modelMorphKey = $columnNames['model_morph_key'] ?? 'model_id';
-        $modelType = \App\Modules\Core\Models\User::class;
-
-        // Kiểm tra xem có phải là SuperAdmin không
-        $isSuperAdmin = \Illuminate\Support\Facades\DB::table($tableNames['model_has_roles'] ?? 'model_has_roles')
-            ->where($modelMorphKey, $user->id)
-            ->where('model_type', $modelType)
-            ->whereIn('role_id', function ($query) {
-                $query->select('id')->from(config('permission.table_names.roles'))
-                    ->whereIn('name', ['Quản trị hệ thống', 'Super Admin']);
-            })
-            ->exists();
-
-        if ($isSuperAdmin) {
-            $permissions = \Spatie\Permission\Models\Permission::pluck('name')->values()->unique()->all();
-            return [
-                'roles' => ['Quản trị hệ thống'],
-                'permissions' => $permissions,
-                'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
-            ];
-        }
-
         if ($organizationId === null) {
             return ['roles' => [], 'permissions' => [], 'abilities' => []];
         }
 
-        // 1. Lấy quyền Global (của Role có organization_id = null)
-        setPermissionsTeamId(null);
-        $user->unsetRelation('roles');
-        $user->unsetRelation('permissions');
-        $globalPermissions = $user->getAllPermissions()->pluck('name');
-        $globalRoles = $user->getRoleNames();
-
-        // 2. Lấy quyền Local (của Role có organization_id = $organizationId)
         setPermissionsTeamId($organizationId);
         $user->unsetRelation('roles');
         $user->unsetRelation('permissions');
-        $teamPermissions = $user->getAllPermissions()->pluck('name');
-        $teamRoles = $user->getRoleNames();
 
-        $permissions = $globalPermissions->merge($teamPermissions)->unique()->values()->all();
-        $roles = $globalRoles->merge($teamRoles)->unique()->values()->all();
+        // getAllPermissions() = direct + từ vai trò; getPermissionNames() chỉ direct
+        $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
 
         return [
-            'roles' => $roles,
+            'roles' => $user->getRoleNames()->values()->all(),
             'permissions' => $permissions,
             'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
         ];
-    }
-
-    /**
-     * Xác định organization hiện tại cho user khi đăng nhập:
-     * 1) Nếu chỉ có 1 org → tự gán + lưu preference.
-     * 2) Tra cứu preference đã lưu trong DB.
-     * 3) Nhiều org, chưa có preference hợp lệ → trả null (frontend hiện dialog chọn).
-     */
-    protected function resolveCurrentOrganization(User $user, array $organizations): ?int
-    {
-        $orgIds = array_column($organizations, 'id');
-
-        if (empty($orgIds)) {
-            return null;
-        }
-
-        // 1 org duy nhất → tự gán
-        if (count($orgIds) === 1) {
-            $this->saveOrganizationPreference($user, $orgIds[0]);
-
-            return $orgIds[0];
-        }
-
-        // Tra cứu preference đã lưu
-        $pref = $user->userPreference;
-        if ($pref && in_array($pref->current_organization_id, $orgIds, true)) {
-            return $pref->current_organization_id;
-        }
-
-        // Nhiều org, chưa có preference → null
-        return null;
-    }
-
-    /**
-     * Lưu tổ chức đang chọn vào bảng user_preferences.
-     */
-    protected function saveOrganizationPreference(User $user, int $organizationId): void
-    {
-        $user->userPreference()->updateOrCreate(
-            ['user_id' => $user->id],
-            ['current_organization_id' => $organizationId]
-        );
     }
 }

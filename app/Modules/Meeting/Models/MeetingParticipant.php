@@ -13,6 +13,7 @@ class MeetingParticipant extends Model
     protected $table = 'm_participants';
 
     protected $fillable = [
+        'organization_id',
         'meeting_id',
         'user_id',
         'position',
@@ -21,10 +22,16 @@ class MeetingParticipant extends Model
         'checkin_at',
         'absence_reason',
         'delegated_to_id',
+        'is_guest',
+        'created_by',
+        'updated_by',
     ];
 
     protected $casts = [
+        'organization_id' => 'integer',
         'checkin_at' => 'datetime',
+        'delegated_to_id' => 'integer',
+        'is_guest' => 'boolean',
     ];
 
     /** Cuộc họp. */
@@ -39,15 +46,14 @@ class MeetingParticipant extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function delegatedTo()
+    {
+        return $this->belongsTo(User::class, 'delegated_to_id');
+    }
+
     /** Đăng ký phát biểu của thành viên. */
     public function speechRequests()
     {
         return $this->hasMany(MeetingSpeechRequest::class, 'meeting_participant_id');
-    }
-
-    /** Người được ủy quyền. */
-    public function delegatedUser()
-    {
-        return $this->belongsTo(User::class, 'delegated_to_id');
     }
 }

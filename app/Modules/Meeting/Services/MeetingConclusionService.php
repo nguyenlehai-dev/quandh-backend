@@ -7,42 +7,22 @@ use App\Modules\Meeting\Models\MeetingConclusion;
 
 class MeetingConclusionService
 {
+    private function organizationId(): ?int
+    {
+        return request()->header('X-Organization-Id') ? (int) request()->header('X-Organization-Id') : null;
+    }
+
+    /** Danh sách kết luận của cuộc họp. */
     public function index(Meeting $meeting)
     {
         return $meeting->conclusions()->with('agenda')->get();
     }
 
-    /** Danh sách tất cả kết luận trên toàn hệ thống (thuộc các cuộc họp có quyền truy cập). */
-    public function globalIndex(array $filters)
-    {
-        $limit = $filters['limit'] ?? 15;
-        $query = MeetingConclusion::query()
-            ->with(['meeting:id,title', 'agenda:id,title'])
-            ->whereHas('meeting', fn ($q) => $q->userRelated())
-            ->orderBy('id', 'desc');
-
-        if (!empty($filters['search'])) {
-            $query->where('title', 'like', "%{$filters['search']}%");
-        }
-        if (!empty($filters['meeting_type_id'])) {
-            $query->whereHas('meeting', fn ($q) => $q->where('meeting_type_id', $filters['meeting_type_id']));
-        }
-
-        return $query->paginate($limit);
-    }
-
-    /** Xuất dữ liệu kết luận trên toàn hệ thống. */
-    public function export(array $filters)
-    {
-        return \Maatwebsite\Excel\Facades\Excel::download(
-            new \App\Modules\Meeting\Exports\MeetingConclusionsExport($filters),
-            'ket-luan-cuoc-hop.xlsx'
-        );
-    }
-
     /** Tạo kết luận mới. */
     public function store(Meeting $meeting, array $validated): MeetingConclusion
     {
+        $validated['organization_id'] = $meeting->organization_id;
+
         return $meeting->conclusions()->create($validated)->load('agenda');
     }
 
@@ -58,5 +38,16 @@ class MeetingConclusionService
     public function destroy(MeetingConclusion $conclusion): void
     {
         $conclusion->delete();
+    }
+
+    public function allConclusions(array $filters, int $limit = 10)
+    {
+        return MeetingConclusion::query()
+            ->when($this->organizationId(), fn ($q, $orgId) => $q->where('organization_id', $orgId))
+            ->with(['meeting', 'agenda', 'creator', 'editor'])
+            ->when($filters['search'] ?? null, fn ($q, $value) => $q->where('title', 'like', '%'.$value.'%'))
+            ->when($filters['meeting_id'] ?? null, fn ($q, $value) => $q->where('meeting_id', $value))
+            ->orderBy($filters['sort_by'] ?? 'created_at', $filters['sort_order'] ?? 'desc')
+            ->paginate($limit);
     }
 }

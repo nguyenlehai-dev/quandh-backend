@@ -17,6 +17,8 @@ class MeetingVotingResource extends JsonResource
             'description' => $this->description,
             'type' => $this->type,
             'status' => $this->status,
+            'opened_at' => $this->opened_at?->format('H:i:s d/m/Y'),
+            'closed_at' => $this->closed_at?->format('H:i:s d/m/Y'),
             'agenda_title' => $this->whenLoaded('agenda', fn () => $this->agenda->title),
             'meeting_title' => $this->whenLoaded('meeting', fn () => $this->meeting->title),
             'results_summary' => $this->whenLoaded('results', function () {

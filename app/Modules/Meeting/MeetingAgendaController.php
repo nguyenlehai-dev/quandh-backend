@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Meeting - Chương trình nghị sự
- * @header X-Organization-Id 1
+ * @header X-Organization-Id ID tổ chức. Example: 1
  *
  * Quản lý chương trình cuộc họp: tạo, cập nhật, xóa, sắp xếp lại thứ tự.
  */
@@ -116,19 +116,12 @@ class MeetingAgendaController extends Controller
         return $this->success(null, 'Đã sắp xếp lại thứ tự!');
     }
 
-    /**
-     * Chuyển mục Agenda hiện tại (Real-time)
-     *
-     * Broadcast sự kiện đến tất cả đại biểu để tự động chuyển trang/mục.
-     *
-     * @urlParam meeting integer required ID cuộc họp. Example: 1
-     * @urlParam agenda integer required ID mục nghị sự cần chuyển. Example: 1
-     */
     public function setActive(Meeting $meeting, MeetingAgenda $agenda)
     {
+        abort_unless((int) $agenda->meeting_id === (int) $meeting->id, 422, 'Agenda không thuộc cuộc họp này.');
+
         $agenda = $this->service->setActive($meeting, $agenda);
 
-        return $this->successResource(new MeetingAgendaResource($agenda), 'Đã chuyển mục nghị sự!');
+        return $this->successResource(new MeetingAgendaResource($agenda), 'Đã cập nhật agenda đang hoạt động!');
     }
 }
-

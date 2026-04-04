@@ -8,30 +8,53 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttendeeGroup extends Model
 {
-    use \App\Modules\Core\Traits\OrganizationScoped;
-
     use HasFactory;
 
     protected $table = 'm_attendee_groups';
 
     protected $fillable = [
+        'organization_id',
+        'meeting_type_id',
         'name',
         'description',
         'status',
-        'meeting_type_id',
+        'created_by',
+        'updated_by',
     ];
 
-    /** Loại cuộc họp mà nhóm này thuộc về. */
+    protected static function booted()
+    {
+        static::creating(fn ($model) => $model->created_by = $model->updated_by = auth()->id());
+        static::updating(fn ($model) => $model->updated_by = auth()->id());
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
     public function meetingType()
     {
         return $this->belongsTo(MeetingType::class, 'meeting_type_id');
     }
 
-    /** Danh sách User trong nhóm (qua bảng pivot). */
     public function members()
     {
-        return $this->belongsToMany(User::class, 'm_attendee_group_members', 'attendee_group_id', 'user_id')
-            ->withPivot('position')
-            ->withTimestamps();
+        return $this->hasMany(AttendeeGroupMember::class, 'attendee_group_id');
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, fn ($q, $value) => $q->where('name', 'like', '%'.$value.'%'))
+            ->when($filters['status'] ?? null, fn ($q, $value) => $q->where('status', $value))
+            ->when($filters['meeting_type_id'] ?? null, fn ($q, $value) => $q->where('meeting_type_id', $value))
+            ->when($filters['from_date'] ?? null, fn ($q, $value) => $q->where('created_at', '>=', $value))
+            ->when($filters['to_date'] ?? null, fn ($q, $value) => $q->where('created_at', '<=', $value.' 23:59:59'))
+            ->orderBy($filters['sort_by'] ?? 'created_at', $filters['sort_order'] ?? 'desc');
     }
 }

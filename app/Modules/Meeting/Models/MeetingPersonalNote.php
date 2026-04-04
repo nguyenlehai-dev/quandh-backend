@@ -15,10 +15,16 @@ class MeetingPersonalNote extends Model
     protected $table = 'm_personal_notes';
 
     protected $fillable = [
+        'organization_id',
         'user_id',
         'meeting_id',
         'meeting_document_id',
         'content',
+        'last_synced_at',
+    ];
+
+    protected $casts = [
+        'last_synced_at' => 'datetime',
     ];
 
     /** Chủ sở hữu ghi chú. */

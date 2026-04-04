@@ -2,7 +2,7 @@
 
 namespace App\Modules\Meeting\Services;
 
-use App\Modules\Meeting\Events\MeetingAgendaChanged;
+use App\Modules\Meeting\Events\MeetingRealtimeUpdated;
 use App\Modules\Meeting\Models\Meeting;
 use App\Modules\Meeting\Models\MeetingAgenda;
 
@@ -47,12 +47,21 @@ class MeetingAgendaService
         }
     }
 
-    /** Chuyển mục Agenda hiện tại (broadcast real-time). */
     public function setActive(Meeting $meeting, MeetingAgenda $agenda): MeetingAgenda
     {
-        event(new MeetingAgendaChanged($meeting, $agenda));
+        $meeting->agendas()->update(['is_active' => false]);
+        $agenda->update(['is_active' => true]);
+        $meeting->update(['active_agenda_id' => $agenda->id]);
 
-        return $agenda;
+        event(new MeetingRealtimeUpdated(
+            meetingId: $meeting->id,
+            eventType: 'agenda.set-active',
+            payload: [
+                'agenda_id' => $agenda->id,
+                'title' => $agenda->title,
+            ],
+        ));
+
+        return $agenda->fresh();
     }
 }
-

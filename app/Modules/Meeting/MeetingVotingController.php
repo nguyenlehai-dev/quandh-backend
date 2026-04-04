@@ -89,6 +89,10 @@ class MeetingVotingController extends Controller
      */
     public function update(Request $request, Meeting $meeting, MeetingVoting $voting)
     {
+        if ((int) $voting->meeting_id !== (int) $meeting->id) {
+            return $this->error('Phiên biểu quyết không thuộc cuộc họp này.', 422);
+        }
+
         if ($voting->status !== 'pending') {
             return $this->error('Chỉ có thể cập nhật khi biểu quyết chưa mở.', 422);
         }
@@ -115,6 +119,10 @@ class MeetingVotingController extends Controller
      */
     public function destroy(Meeting $meeting, MeetingVoting $voting)
     {
+        if ((int) $voting->meeting_id !== (int) $meeting->id) {
+            return $this->error('Phiên biểu quyết không thuộc cuộc họp này.', 422);
+        }
+
         if ($voting->status !== 'pending') {
             return $this->error('Chỉ có thể xóa khi biểu quyết chưa mở.', 422);
         }
@@ -134,6 +142,10 @@ class MeetingVotingController extends Controller
      */
     public function open(Meeting $meeting, MeetingVoting $voting)
     {
+        if ((int) $voting->meeting_id !== (int) $meeting->id) {
+            return $this->error('Phiên biểu quyết không thuộc cuộc họp này.', 422);
+        }
+
         if ($voting->status !== 'pending') {
             return $this->error('Phiên biểu quyết đã được mở hoặc đã đóng.', 422);
         }
@@ -153,6 +165,10 @@ class MeetingVotingController extends Controller
      */
     public function close(Meeting $meeting, MeetingVoting $voting)
     {
+        if ((int) $voting->meeting_id !== (int) $meeting->id) {
+            return $this->error('Phiên biểu quyết không thuộc cuộc họp này.', 422);
+        }
+
         if ($voting->status !== 'open') {
             return $this->error('Phiên biểu quyết chưa được mở hoặc đã đóng.', 422);
         }
@@ -174,6 +190,10 @@ class MeetingVotingController extends Controller
      */
     public function vote(Request $request, Meeting $meeting, MeetingVoting $voting)
     {
+        if ((int) $voting->meeting_id !== (int) $meeting->id) {
+            return $this->error('Phiên biểu quyết không thuộc cuộc họp này.', 422);
+        }
+
         if ($voting->status !== 'open') {
             return $this->error('Phiên biểu quyết chưa mở hoặc đã đóng.', 422);
         }
@@ -202,6 +222,10 @@ class MeetingVotingController extends Controller
      */
     public function results(Meeting $meeting, MeetingVoting $voting)
     {
+        if ((int) $voting->meeting_id !== (int) $meeting->id) {
+            return $this->error('Phiên biểu quyết không thuộc cuộc họp này.', 422);
+        }
+
         $results = $this->service->results($voting);
 
         return $this->success($results);

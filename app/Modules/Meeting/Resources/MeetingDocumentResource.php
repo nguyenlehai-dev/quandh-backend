@@ -13,25 +13,12 @@ class MeetingDocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'meeting_id' => $this->meeting_id,
-            'meeting_title' => $this->whenLoaded('meeting', fn () => $this->meeting->title),
-            'title' => $this->title,
-            'description' => $this->description,
+            'meeting_agenda_id' => $this->meeting_agenda_id,
             'document_type_id' => $this->document_type_id,
             'document_field_id' => $this->document_field_id,
-            'issuing_agency_id' => $this->issuing_agency_id,
-            'document_signer_id' => $this->document_signer_id,
-            'document_type' => $this->whenLoaded('documentType', function () {
-                return $this->documentType ? ['id' => $this->documentType->id, 'name' => $this->documentType->name] : null;
-            }),
-            'document_field' => $this->whenLoaded('documentField', function () {
-                return $this->documentField ? ['id' => $this->documentField->id, 'name' => $this->documentField->name] : null;
-            }),
-            'issuing_agency' => $this->whenLoaded('issuingAgency', function () {
-                return $this->issuingAgency ? ['id' => $this->issuingAgency->id, 'name' => $this->issuingAgency->name] : null;
-            }),
-            'document_signer' => $this->whenLoaded('documentSigner', function () {
-                return $this->documentSigner ? ['id' => $this->documentSigner->id, 'name' => $this->documentSigner->name] : null;
-            }),
+            'title' => $this->title,
+            'description' => $this->description,
+            'status' => $this->status,
             'files' => $this->whenLoaded('media', function () {
                 return $this->media
                     ->where('collection_name', 'meeting-document-files')
@@ -45,6 +32,7 @@ class MeetingDocumentResource extends JsonResource
                         'size' => $media->size,
                     ]);
             }),
+            'agenda_title' => $this->whenLoaded('agenda', fn () => $this->agenda?->title),
             'created_by' => $this->creator->name ?? 'N/A',
             'updated_by' => $this->editor->name ?? 'N/A',
             'created_at' => $this->created_at?->format('H:i:s d/m/Y'),

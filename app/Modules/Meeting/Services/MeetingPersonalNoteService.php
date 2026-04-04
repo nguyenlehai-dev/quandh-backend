@@ -20,6 +20,8 @@ class MeetingPersonalNoteService
     public function store(Meeting $meeting, array $validated): MeetingPersonalNote
     {
         $validated['user_id'] = auth()->id();
+        $validated['organization_id'] = $meeting->organization_id;
+        $validated['last_synced_at'] = now();
 
         return $meeting->personalNotes()->create($validated)->load('document');
     }
@@ -27,6 +29,8 @@ class MeetingPersonalNoteService
     /** Cập nhật ghi chú cá nhân (kiểm tra ownership). */
     public function update(MeetingPersonalNote $note, array $validated): MeetingPersonalNote
     {
+        abort_unless((int) $note->user_id === (int) auth()->id(), 403, 'Bạn không có quyền sửa ghi chú này.');
+        $validated['last_synced_at'] = now();
         $note->update($validated);
 
         return $note->load('document');
@@ -35,6 +39,7 @@ class MeetingPersonalNoteService
     /** Xóa ghi chú cá nhân. */
     public function destroy(MeetingPersonalNote $note): void
     {
+        abort_unless((int) $note->user_id === (int) auth()->id(), 403, 'Bạn không có quyền xóa ghi chú này.');
         $note->delete();
     }
 }

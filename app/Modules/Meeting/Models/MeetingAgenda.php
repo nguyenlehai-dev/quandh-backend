@@ -2,6 +2,7 @@
 
 namespace App\Modules\Meeting\Models;
 
+use App\Modules\Core\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,16 +15,24 @@ class MeetingAgenda extends Model
     protected $table = 'm_agendas';
 
     protected $fillable = [
+        'organization_id',
         'meeting_id',
         'title',
         'description',
         'order_index',
         'duration',
+        'presenter_id',
+        'is_active',
+        'created_by',
+        'updated_by',
     ];
 
     protected $casts = [
         'order_index' => 'integer',
         'duration' => 'integer',
+        'organization_id' => 'integer',
+        'presenter_id' => 'integer',
+        'is_active' => 'boolean',
     ];
 
     /** Cuộc họp. */
@@ -36,6 +45,11 @@ class MeetingAgenda extends Model
     public function speechRequests()
     {
         return $this->hasMany(MeetingSpeechRequest::class, 'meeting_agenda_id');
+    }
+
+    public function presenter()
+    {
+        return $this->belongsTo(User::class, 'presenter_id');
     }
 
     /** Phiên biểu quyết liên quan. */
