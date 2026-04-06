@@ -35,6 +35,14 @@ Route::get('/meeting-document-fields/public-options', [\App\Modules\Meeting\Meet
 Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
 
+    // User notifications (stub)
+    Route::prefix('user/notifications')->group(function () {
+        Route::get('/', [\App\Modules\Auth\UserNotificationController::class, 'index']);
+        Route::post('/mark-read', [\App\Modules\Auth\UserNotificationController::class, 'markRead']);
+        Route::post('/mark-unread', [\App\Modules\Auth\UserNotificationController::class, 'markUnread']);
+        Route::delete('/{id}', [\App\Modules\Auth\UserNotificationController::class, 'destroy']);
+    });
+
     Route::prefix('users')->group(function () {
         require base_path('app/Modules/Core/Routes/user.php');
     });

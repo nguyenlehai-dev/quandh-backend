@@ -268,10 +268,17 @@ class AuthService
         // getAllPermissions() = direct + từ vai trò; getPermissionNames() chỉ direct
         $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
 
+        $roles = $user->getRoleNames()->values()->all();
+        $abilities = CaslAbilityConverter::toCaslAbilities($permissions);
+
+        if (in_array('Super Admin', $roles, true)) {
+            $abilities[] = ['action' => 'manage', 'subject' => 'all'];
+        }
+
         return [
-            'roles' => $user->getRoleNames()->values()->all(),
+            'roles' => $roles,
             'permissions' => $permissions,
-            'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
+            'abilities' => $abilities,
         ];
     }
 }

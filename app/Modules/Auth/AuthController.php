@@ -63,14 +63,21 @@ class AuthController extends Controller
         // getAllPermissions() = direct + từ vai trò
         $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
 
+        $roles = $user->getRoleNames()->values()->all();
+        $abilities = CaslAbilityConverter::toCaslAbilities($permissions);
+
+        if (in_array('Super Admin', $roles, true)) {
+            $abilities[] = ['action' => 'manage', 'subject' => 'all'];
+        }
+
         return $this->success([
             'user' => [
                 'id' => (int) $user->id,
                 'name' => $user->name,
             ],
-            'roles' => $user->getRoleNames()->values()->all(),
+            'roles' => $roles,
             'permissions' => $permissions,
-            'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
+            'abilities' => $abilities,
         ]);
     }
 
