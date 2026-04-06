@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+
+Authenticate::redirectUsing(static fn () => null);
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
