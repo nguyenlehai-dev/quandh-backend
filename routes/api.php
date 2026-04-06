@@ -37,10 +37,10 @@ Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->gro
 
     // User notifications (stub)
     Route::prefix('user/notifications')->group(function () {
-        Route::get('/', [\App\Modules\Auth\UserNotificationController::class, 'index']);
-        Route::post('/mark-read', [\App\Modules\Auth\UserNotificationController::class, 'markRead']);
-        Route::post('/mark-unread', [\App\Modules\Auth\UserNotificationController::class, 'markUnread']);
-        Route::delete('/{id}', [\App\Modules\Auth\UserNotificationController::class, 'destroy']);
+        Route::get('/', [\App\Modules\Core\UserNotificationController::class, 'index']);
+        Route::post('/mark-read', [\App\Modules\Core\UserNotificationController::class, 'markRead']);
+        Route::post('/mark-unread', [\App\Modules\Core\UserNotificationController::class, 'markUnread']);
+        Route::delete('/{id}', [\App\Modules\Core\UserNotificationController::class, 'destroy']);
     });
 
     Route::prefix('users')->group(function () {
