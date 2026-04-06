@@ -26,6 +26,10 @@ class PermissionSeeder extends Seeder
      * Khi thêm module/chức năng: bổ sung vào đúng nhóm và chạy sail artisan db:seed --class=PermissionSeeder.
      */
     protected static array $PERMISSIONS = [
+        // Dashboards
+        'dashboards' => [
+            'system', 'business',
+        ],
         // Core - Users
         'users' => [
             'stats', 'index', 'show', 'store', 'update', 'destroy',
