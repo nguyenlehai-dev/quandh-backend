@@ -105,3 +105,4 @@ Sinh lại tài liệu Scribe:
 - Phân quyền dùng Spatie Permission với guard `web`.
  
  
+ 
