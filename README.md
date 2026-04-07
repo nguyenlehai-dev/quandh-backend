@@ -103,3 +103,4 @@ Sinh lại tài liệu Scribe:
 - Tất cả endpoint API nằm dưới `routes/api.php` và route module tại `app/Modules/*/Routes`.
 - Chuẩn response JSON dùng trait `App\Modules\Core\Traits\RespondsWithJson`.
 - Phân quyền dùng Spatie Permission với guard `web`.
+ 
