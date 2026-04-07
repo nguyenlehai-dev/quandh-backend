@@ -104,3 +104,4 @@ Sinh lại tài liệu Scribe:
 - Chuẩn response JSON dùng trait `App\Modules\Core\Traits\RespondsWithJson`.
 - Phân quyền dùng Spatie Permission với guard `web`.
  
+ 
