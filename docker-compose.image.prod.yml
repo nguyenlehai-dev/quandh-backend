@@ -9,7 +9,7 @@ services:
       MYSQL_USER: ${DB_USERNAME:-sail}
       MYSQL_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
-      - quandh-mysql:/var/lib/mysql
+      - /home/vpsroot/services/quandh/mysql:/var/lib/mysql
     networks:
       app-net:
         aliases:
@@ -33,7 +33,7 @@ services:
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-false}
       RUN_OPTIMIZE: ${RUN_OPTIMIZE:-true}
     volumes:
-      - quandh-storage-app:/var/www/html/storage/app
+      - /home/vpsroot/services/quandh/storage:/var/www/html/storage
     networks:
       app-net:
         aliases:
@@ -48,6 +48,27 @@ services:
       retries: 3
       start_period: 20s
 
+  queue:
+    image: ghcr.io/nguyenlehai-dev/quandh-backend:${BACKEND_IMAGE_TAG:-prod}
+    container_name: quandh-queue
+    restart: unless-stopped
+    command: ["php", "artisan", "queue:work", "--verbose", "--tries=3", "--timeout=90"]
+    env_file:
+      - ${APP_ENV_FILE:-/home/vpsroot/projects/backend/quandh-backend/deploy/prod/.env}
+    environment:
+      APP_ENV: production
+      RUN_MIGRATIONS: "false"
+      RUN_OPTIMIZE: ${RUN_OPTIMIZE:-true}
+    volumes:
+      - /home/vpsroot/services/quandh/storage:/var/www/html/storage
+    networks:
+      app-net:
+        aliases:
+          - quandh-queue
+    depends_on:
+      mysql:
+        condition: service_healthy
+
   frontend:
     image: ghcr.io/nguyenlehai-dev/quandh-frontend:${FRONTEND_IMAGE_TAG:-prod}
     container_name: quandh-frontend
@@ -61,10 +82,6 @@ services:
     depends_on:
       api:
         condition: service_healthy
-
-volumes:
-  quandh-mysql:
-  quandh-storage-app:
 
 networks:
   app-net:
