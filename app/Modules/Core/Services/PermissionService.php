@@ -15,15 +15,12 @@ class PermissionService
     {
         $base = Permission::filter($filters);
 
-        return [
-            'total' => (clone $base)->count(),
-            'groups' => Permission::whereNull('parent_id')->count(),
-        ];
+        return ['total' => (clone $base)->count()];
     }
 
     public function index(array $filters, int $limit)
     {
-        return Permission::with(['parent', 'roles:id,name'])
+        return Permission::with('parent')
             ->filter($filters)
             ->treeOrder()
             ->paginate($limit);
@@ -46,7 +43,7 @@ class PermissionService
 
     public function store(array $data): Permission
     {
-        $data['guard_name'] = $data['guard_name'] ?? 'api';
+        $data['guard_name'] = $data['guard_name'] ?? config('auth.defaults.guard', 'web');
 
         return Permission::create($data);
     }

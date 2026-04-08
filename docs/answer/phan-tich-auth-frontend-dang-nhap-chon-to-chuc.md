@@ -1,40 +1,24 @@
 # Phân tích Auth từ Frontend: Đăng nhập và Chọn Tổ chức
 
-Tài liệu này được cập nhật theo contract hiện tại của backend `Auth`.
+## Tổng quan
 
-## 1. Bản chất flow hiện tại
+Sau khi đăng nhập username/password, người dùng sẽ tiến hành **chọn tổ chức làm việc** trước khi sử dụng các chức năng yêu cầu xác thực. Hệ thống hỗ trợ đa tổ chức (multi-tenant) với phân quyền theo `organization_id` (Spatie Permission Teams).
 
-Backend không giữ “tổ chức hiện tại” trong session theo kiểu stateful. FE phải tự giữ:
+---
 
-- `access_token`
-- `available_organizations`
-- `current_organization_id`
-- `roles`
-- `permissions`
-- `abilities`
+## Luồng xác thực từ Frontend
 
-Backend chỉ hỗ trợ thêm một lớp tiện ích:
+### Bước 1: Đăng nhập (Username/Password)
 
-- nếu bảng `user_preferences` tồn tại và có cột phù hợp, backend sẽ nhớ `current_organization_id`
-- nếu user chỉ có đúng 1 tổ chức, backend tự chọn luôn tổ chức đó sau login
+**Endpoint:** `POST /api/auth/login`  
+**Không cần token, không cần X-Organization-Id**
 
-## 2. Login
+| Tham số Body | Kiểu | Bắt buộc | Mô tả |
+|--------------|------|----------|-------|
+| `email` | string | Có | Email **hoặc** `user_name` (tên đăng nhập) |
+| `password` | string | Có | Mật khẩu |
 
-**Endpoint:** `POST /api/auth/login`
-
-**Body**
-
-```json
-{
-  "email": "admin@example.com",
-  "password": "password"
-}
-```
-
-`email` hiện nhận cả email thật hoặc `user_name`.
-
-**Response thành công**
-
+**Response 200 thành công:**
 ```json
 {
   "success": true,
@@ -44,68 +28,72 @@ Backend chỉ hỗ trợ thêm một lớp tiện ích:
     "token_type": "Bearer",
     "user": {
       "id": 1,
-      "name": "Admin"
+      "name": "Admin",
+      "email": "admin@example.com",
+      "status": "active",
+      "created_at": "...",
+      "updated_at": "..."
     },
     "available_organizations": [
-      {
-        "id": 2,
-        "name": "Sở Nội vụ"
-      },
-      {
-        "id": 3,
-        "name": "UBND Quận 1"
-      }
+      { "id": 2, "name": "Sở Nội vụ", "description": "..." },
+      { "id": 3, "name": "UBND Quận 1", "description": "..." }
     ],
-    "current_organization_id": null,
-    "roles": [],
-    "permissions": [],
-    "abilities": []
+    "current_organization_id": 2,
+    "roles": ["admin"],
+    "permissions": ["users.index", "users.store", "posts.index", ...],
+    "abilities": [
+      { "action": "index", "subject": "User" },
+      { "action": "store", "subject": "User" },
+      { "action": "index", "subject": "Post" }
+    ]
   }
 }
 ```
 
-## 3. Giải thích `current_organization_id`
+**Lưu ý quan trọng:**
+- `available_organizations`: danh sách tổ chức mà user có quyền truy cập (đã lọc theo role/permission gắn với organization)
+- `current_organization_id`: mặc định là **tổ chức đầu tiên** trong `available_organizations` (sắp xếp theo `name`)
+- `roles` và `permissions`: vai trò và quyền hạn của user trong tổ chức hiện tại
+- `abilities`: mỗi permission Laravel = 1 object CASL riêng `{ "action", "subject" }` (action giữ nguyên: index, show, store, ...), dùng cho **Vue Casl** (`ability.can('index', 'User')`, ...)
+- Nếu user không có organization nào → `available_organizations: []`, `current_organization_id: null`, `roles: []`, `permissions: []`, `abilities: []`
 
-Có 3 nhánh thực tế:
+**Response lỗi:**
+- **401**: `"Thông tin đăng nhập không chính xác"`
+- **403**: `"Tài khoản của bạn đã bị khóa"`
 
-### Trường hợp A: không có organization
+---
 
-- `available_organizations = []`
-- `current_organization_id = null`
-- FE nên chặn vào app nghiệp vụ
+### Bước 2: Chọn Tổ chức Làm việc
 
-### Trường hợp B: có đúng 1 organization
+#### Trường hợp 1: User có **1 tổ chức**
 
-- backend tự set `current_organization_id`
-- đồng thời trả luôn `roles`, `permissions`, `abilities` theo org đó
-- FE có thể vào app ngay
+- Frontend có thể **bỏ qua màn chọn tổ chức** và dùng ngay `current_organization_id` từ response đăng nhập.
+- Lưu `current_organization_id` vào state (Redux, Zustand, Context, localStorage...) và chuyển vào trang chính.
 
-### Trường hợp C: có nhiều organization
+#### Trường hợp 2: User có **nhiều tổ chức**
 
-- nếu backend tìm thấy preference hợp lệ trong `user_preferences`, nó trả luôn org đó
-- nếu không có preference hợp lệ, `current_organization_id = null`
-- FE phải mở màn chọn tổ chức
+- Hiển thị **màn hình chọn tổ chức** với danh sách `available_organizations`.
+- User chọn một tổ chức → gọi `POST /api/auth/switch-organization` (tùy chọn) hoặc chỉ cập nhật state phía frontend.
+- Lưu `organization_id` đã chọn vào state.
 
-## 4. Switch organization
+#### Trường hợp 3: User **không có tổ chức**
 
-**Endpoint:** `POST /api/auth/switch-organization`
+- Hiển thị thông báo: tài khoản chưa được gán vào tổ chức nào.
+- Không cho phép vào màn hình chính (các API yêu cầu auth + org sẽ từ chối).
 
-**Header**
+---
 
-```http
-Authorization: Bearer {token}
-```
+### Bước 3: Chuyển tổ chức (Switch Organization) – Tùy chọn
 
-**Body**
+**Endpoint:** `POST /api/auth/switch-organization`  
+**Cần:** `Authorization: Bearer {access_token}`  
+**Không cần:** `X-Organization-Id`
 
-```json
-{
-  "organization_id": 3
-}
-```
+| Tham số Body | Kiểu | Bắt buộc | Mô tả |
+|--------------|------|----------|-------|
+| `organization_id` | integer | Có | ID tổ chức muốn chuyển |
 
-**Response**
-
+**Response 200:**
 ```json
 {
   "success": true,
@@ -114,91 +102,169 @@ Authorization: Bearer {token}
     "current_organization_id": 3,
     "current_organization": {
       "id": 3,
-      "name": "UBND Quận 1"
+      "name": "UBND Quận 1",
+      "description": "..."
     },
     "roles": ["editor"],
-    "permissions": ["posts.index", "meetings.index"],
+    "permissions": ["posts.index", "posts.store", ...],
     "abilities": [
       { "action": "index", "subject": "Post" },
-      { "action": "index", "subject": "Meeting" }
+      { "action": "store", "subject": "Post" }
     ]
   }
 }
 ```
 
-Ý nghĩa:
+**Mục đích:**
+- Xác thực rằng user có quyền truy cập tổ chức đã chọn.
+- Lấy thông tin chi tiết `current_organization` nếu cần cập nhật header/sidebar.
+- Lấy `roles` và `permissions` mới theo tổ chức đã chọn → cập nhật Vue Casl ability.
+- Backend **không lưu** tổ chức hiện tại trên server; mọi thứ điều khiển bằng header `X-Organization-Id` mỗi request.
 
-- validate user có quyền vào org đó hay không
-- trả bộ quyền mới đúng theo org mới
-- nếu hệ thống có `user_preferences`, backend sẽ lưu org này để login lần sau nhớ lại
+---
 
-## 5. `GET /api/user`
+### Bước 4: Gọi các API yêu cầu Auth
 
-Đây là endpoint FE nên dùng khi refresh trang để rebuild CASL ability.
+Tất cả API trong nhóm `auth:sanctum` + `set.permissions.team` **bắt buộc** 2 header:
 
-**Header bắt buộc**
+| Header | Mô tả |
+|--------|-------|
+| `Authorization` | `Bearer {access_token}` |
+| `X-Organization-Id` | ID tổ chức đang làm việc |
 
+**Ví dụ request:**
 ```http
-Authorization: Bearer {token}
-X-Organization-Id: {organization_id}
+GET /api/users?limit=10
+Authorization: Bearer 1|xxx...
+X-Organization-Id: 2
+Content-Type: application/json
+Accept: application/json
 ```
 
-**Response**
-
-```json
-{
-  "success": true,
-  "data": {
-    "user": {
-      "id": 1,
-      "name": "Admin"
-    },
-    "roles": ["admin"],
-    "permissions": ["users.index", "meetings.index"],
-    "abilities": [
-      { "action": "index", "subject": "User" },
-      { "action": "index", "subject": "Meeting" }
-    ]
-  }
-}
-```
-
-## 6. Quy tắc header cho FE
-
-### Không cần `X-Organization-Id`
-
+**Các route KHÔNG cần `X-Organization-Id`:**
 - `POST /api/auth/login`
 - `POST /api/auth/forgot-password`
 - `POST /api/auth/reset-password`
-- `POST /api/auth/logout`
-- `POST /api/auth/switch-organization`
-- tất cả route public
+- `POST /api/auth/logout` (chỉ cần Bearer token)
+- `POST /api/auth/switch-organization` (chỉ cần Bearer token)
+- Tất cả route public (`/api/*/public`, `/api/*/public-options`)
 
-### Bắt buộc có `X-Organization-Id`
-
+**Các route CẦN `X-Organization-Id`:**
 - `GET /api/user`
-- toàn bộ API nghiệp vụ private như `users`, `roles`, `settings`, `meetings`, `documents`, `posts`
+- `/api/users/*`
+- `/api/organizations/*` (trừ public)
+- `/api/roles/*`
+- `/api/permissions/*`
+- `/api/log-activities/*`
+- `/api/posts/*`, `/api/post-categories/*`
+- `/api/documents/*`, `/api/document-types/*`, ...
+- `/api/settings/*`
 
-## 7. Gợi ý flow FE chuẩn
+---
 
-1. Gọi `POST /api/auth/login`
-2. Lưu `access_token`
-3. Nếu `current_organization_id` có giá trị:
-   FE lưu luôn org hiện tại và dùng `abilities` backend trả về
-4. Nếu `current_organization_id = null` nhưng có nhiều organization:
-   FE mở màn chọn tổ chức
-5. Khi user chọn org:
-   gọi `POST /api/auth/switch-organization`
-6. Từ đây, mọi request nghiệp vụ phải gắn:
-   `Authorization` + `X-Organization-Id`
-7. Khi refresh trình duyệt:
-   gọi `GET /api/user` để lấy lại `roles`, `permissions`, `abilities`
+## Sơ đồ luồng Frontend
 
-## 8. Kết luận
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 1. Màn hình Đăng nhập                                                    │
+│    - Input: email/user_name, password                                    │
+│    - POST /api/auth/login                                                │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 2. Response: access_token, user, available_organizations,                │
+│    current_organization_id                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    ▼               ▼               ▼
+           available_orgs=[]   available_orgs=1   available_orgs>1
+                    │               │               │
+                    ▼               ▼               ▼
+           Hiển thị lỗi:    Dùng ngay           Hiển thị màn
+           "Chưa gán tổ     current_org_id      chọn tổ chức
+           chức"            → Vào app            → User chọn
+                                                      │
+                                                      ▼
+                                            Có thể gọi switch-organization
+                                            (hoặc chỉ cập nhật state)
+                                                      │
+                                                      ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 3. Lưu state: token, user, current_organization_id                       │
+│    Mọi request tiếp theo: Authorization + X-Organization-Id              │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
-Backend auth hiện tại đã phù hợp với FE đa tổ chức:
+---
 
-- login trả sẵn danh sách org và quyền
-- switch-organization trả lại bộ quyền mới
-- `/api/user` dùng để rebuild state
-- FE là nơi giữ state tổ chức hiện tại và gắn `X-Organization-Id` cho request nghiệp vụ
+## Gợi ý triển khai Frontend
+
+### 1. Lưu trữ state
+
+- **Token:** `localStorage` hoặc cookie (httpOnly nếu dùng cookie).
+- **User:** `{ id, name, email, status }`.
+- **Current Organization:** `{ id, name, description }` hoặc ít nhất `id` để gửi `X-Organization-Id`.
+- **Available Organizations:** `[{ id, name, description }]` để hiển thị dropdown chọn/chuyển tổ chức.
+- **Roles, Permissions, Abilities:** `{ roles, permissions, abilities }` — `abilities` theo chuẩn CASL `[{ action, subject }]` dùng trực tiếp cho `defineAbility()`.
+
+### 2. Axios / Fetch Interceptor
+
+```javascript
+// Thêm header cho mọi request API (trừ login, forgot-password, reset-password)
+axios.interceptors.request.use((config) => {
+  const token = getStoredToken();
+  const orgId = getStoredOrganizationId();
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  // Chỉ thêm X-Organization-Id cho route cần (không thêm cho /auth/login, /auth/switch-organization, v.v.)
+  if (orgId && !config.url.includes('/auth/login') && !config.url.includes('/auth/forgot-password') && !config.url.includes('/auth/reset-password')) {
+    config.headers['X-Organization-Id'] = orgId;
+  }
+  return config;
+});
+```
+
+### 3. Xử lý lỗi 422 (thiếu X-Organization-Id)
+
+Middleware `SetPermissionsTeamId` ném `ValidationException` khi thiếu header:
+
+```json
+{
+  "success": false,
+  "message": "Vui lòng gửi header X-Organization-Id để xác định tổ chức làm việc.",
+  "errors": { "organization_id": ["..."] },
+  "code": "VALIDATION_ERROR"
+}
+```
+
+Frontend có thể bắt lỗi này và redirect về màn chọn tổ chức.
+
+### 4. Xử lý lỗi 403 (không có quyền tổ chức)
+
+```json
+{
+  "success": false,
+  "message": "Bạn không có quyền truy cập tổ chức đã chọn.",
+  "code": "FORBIDDEN"
+}
+```
+
+→ Có thể do user đã đổi `X-Organization-Id` thủ công hoặc session cũ. Redirect về màn chọn tổ chức / đăng nhập lại.
+
+---
+
+## Tóm tắt
+
+| Hành động | Endpoint | Cần Token | Cần X-Organization-Id |
+|-----------|----------|-----------|------------------------|
+| Đăng nhập | POST /api/auth/login | Không | Không |
+| Đăng xuất | POST /api/auth/logout | Có | Không |
+| Chuyển tổ chức | POST /api/auth/switch-organization | Có | Không |
+| Gọi API nghiệp vụ (users, roles, posts...) | GET/POST/PUT/... /api/... | Có | **Có** |
+
+**Luồng frontend chuẩn:**
+1. Đăng nhập → nhận `access_token`, `user`, `available_organizations`, `current_organization_id`.
+2. Nếu nhiều tổ chức → hiển thị màn chọn, user chọn → cập nhật `current_organization_id` (có thể gọi `switch-organization` để validate).
+3. Lưu token + organization id → gửi `Authorization` và `X-Organization-Id` cho mọi request API nghiệp vụ.
+4. Khi user chuyển tổ chức trong app → gọi `switch-organization`, cập nhật state, refresh data theo org mới.

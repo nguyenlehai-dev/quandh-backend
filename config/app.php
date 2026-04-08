@@ -69,17 +69,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Display Timezone
-    |--------------------------------------------------------------------------
-    |
-    | Keep storage in UTC, but convert timestamps to this timezone when the
-    | application needs to render date/time values for users.
-    |
-    */
-    'display_timezone' => env('APP_DISPLAY_TIMEZONE', 'Asia/Ho_Chi_Minh'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

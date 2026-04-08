@@ -86,7 +86,10 @@ endpoints:
         name: sort_order
         description: 'asc, desc.'
         required: false
-        example: desc
+        example: |-
+          desc
+
+          Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at.
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -131,7 +134,10 @@ endpoints:
       from_date: '2026-01-01'
       to_date: '2026-12-31'
       sort_by: architecto
-      sort_order: desc
+      sort_order: |-
+        desc
+
+        Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at.
       limit: 10
       method_type: GET
       status_code: 200
@@ -613,7 +619,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":38,"description":"Et animi quos velit et fugiat.","user_type":"User","user_id":null,"user_name":"Guest","organization_id":null,"route":"http:\/\/www.dach.com\/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html","method_type":"PATCH","status_code":404,"ip_address":"125.161.29.220","country":"Pakistan","user_agent":"Mozilla\/5.0 (Windows NT 5.0; en-US; rv:1.9.2.20) Gecko\/20260217 Firefox\/35.0","request_data":{"sample":"et"},"created_at":"09:32:25 05\/03\/2026","updated_at":"09:32:25 05\/03\/2026"},{"id":39,"description":"Aut dolores enim non facere tempora ex voluptatem.","user_type":"User","user_id":null,"user_name":"Guest","organization_id":null,"route":"http:\/\/raynor.org\/molestias-fugit-deleniti-distinctio-eum-doloremque-id","method_type":"PATCH","status_code":201,"ip_address":"239.169.15.174","country":"Turkmenistan","user_agent":"Mozilla\/5.0 (Windows 98; Win 9x 4.90) AppleWebKit\/533.2 (KHTML, like Gecko) Chrome\/86.0.4047.69 Safari\/533.2 Edg\/86.01025.45","request_data":{"sample":"accusamus"},"created_at":"09:32:25 05\/03\/2026","updated_at":"09:32:25 05\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        content: '{"data":[{"id":44,"description":"Et animi quos velit et fugiat.","user_type":"User","user_id":null,"user_name":"Guest","organization_id":null,"route":"http:\/\/www.dach.com\/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html","method_type":"PATCH","status_code":404,"ip_address":"125.161.29.220","country":"Pakistan","user_agent":"Mozilla\/5.0 (Windows NT 5.0; en-US; rv:1.9.2.20) Gecko\/20251030 Firefox\/35.0","request_data":{"sample":"et"},"created_at":"08:01:28 27\/03\/2026","updated_at":"08:01:28 27\/03\/2026"},{"id":45,"description":"Aut dolores enim non facere tempora ex voluptatem.","user_type":"User","user_id":null,"user_name":"Guest","organization_id":null,"route":"http:\/\/raynor.org\/molestias-fugit-deleniti-distinctio-eum-doloremque-id","method_type":"PATCH","status_code":201,"ip_address":"239.169.15.174","country":"Turkmenistan","user_agent":"Mozilla\/5.0 (Windows 98; Win 9x 4.90) AppleWebKit\/533.2 (KHTML, like Gecko) Chrome\/86.0.4047.69 Safari\/533.2 Edg\/86.01025.45","request_data":{"sample":"accusamus"},"created_at":"08:01:28 27\/03\/2026","updated_at":"08:01:28 27\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -679,7 +685,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":40,"description":"Adipisci quidem nostrum qui commodi incidunt iure.","user_type":"User","user_id":84,"user_name":"Bridget Schaden","organization_id":191,"route":"https:\/\/mclaughlin.com\/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html","method_type":"POST","status_code":401,"ip_address":"222.107.64.3","country":"Montserrat","user_agent":"Opera\/8.56 (Windows NT 6.0; nl-NL) Presto\/2.10.287 Version\/10.00","request_data":{"sample":"veniam"},"created_at":"09:32:25 05\/03\/2026","updated_at":"09:32:25 05\/03\/2026"},"success":"true"}'
+        content: '{"data":{"id":46,"description":"Adipisci quidem nostrum qui commodi incidunt iure.","user_type":"User","user_id":100,"user_name":"Bridget Schaden","organization_id":233,"route":"https:\/\/mclaughlin.com\/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html","method_type":"POST","status_code":401,"ip_address":"222.107.64.3","country":"Montserrat","user_agent":"Opera\/8.56 (Windows NT 6.0; nl-NL) Presto\/2.10.287 Version\/10.00","request_data":{"sample":"veniam"},"created_at":"08:01:28 27\/03\/2026","updated_at":"08:01:28 27\/03\/2026"},"success":"true"}'
         headers: []
         description: ''
     responseFields: []

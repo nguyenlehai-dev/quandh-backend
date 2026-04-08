@@ -16,7 +16,6 @@ class UpdateRoleRequest extends FormRequest
         return [
             'name' => 'sometimes|string|max:255',
             'guard_name' => 'nullable|string|max:255',
-            'scope' => 'nullable|string|in:admin,user',
             'permission_ids' => 'nullable|array',
             'permission_ids.*' => 'exists:permissions,id',
         ];

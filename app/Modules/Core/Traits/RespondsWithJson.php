@@ -22,66 +22,47 @@ trait RespondsWithJson
         mixed $data = null,
         ?string $message = null,
         int $statusCode = 200
-        ): JsonResponse
-    {
+    ): JsonResponse {
         $payload = array_filter([
             'success' => true,
             'message' => $message,
             'data' => $data,
-        ], fn($v) => $v !== null);
+        ], fn ($v) => $v !== null);
 
         return response()->json($payload, $statusCode);
     }
 
     /**
      * Trả về response thành công với JsonResource (show, store, update, changeStatus).
-     *
-     * Dùng ->response()->getData(true) rồi merge lại để đảm bảo
-     * `success` luôn là boolean, tránh bị additional() serialize thành "true" string.
      */
     protected function successResource(
         JsonResource $resource,
         ?string $message = null,
         int $statusCode = 200
-        ): JsonResponse
-    {
-        $responseData = $resource->response()->getData(true);
+    ): JsonResponse {
+        $additional = array_filter([
+            'success' => true,
+            'message' => $message,
+        ], fn ($v) => $v !== null);
 
-        $payload = array_merge(
-            $responseData,
-            array_filter([
-                'success' => true,
-                'message' => $message,
-            ], fn($v) => $v !== null)
-        );
-
-        return response()->json($payload, $statusCode);
+        return $resource->additional($additional)->response()->setStatusCode($statusCode);
     }
 
     /**
      * Trả về response thành công với ResourceCollection (index, tree).
      * Thêm success, message vào envelope của collection.
-     *
-     * Lưu ý: dùng ->response()->getData(true) rồi merge lại để đảm bảo
-     * `success` luôn là boolean, tránh bị Scribe/additional() serialize thành "true" string.
      */
     protected function successCollection(
         ResourceCollection $collection,
         ?string $message = null,
         int $statusCode = 200
-        ): JsonResponse
-    {
-        $responseData = $collection->response()->getData(true);
+    ): JsonResponse {
+        $additional = array_filter([
+            'success' => true,
+            'message' => $message,
+        ], fn ($v) => $v !== null);
 
-        $payload = array_merge(
-            $responseData,
-            array_filter([
-                'success' => true,
-                'message' => $message,
-            ], fn($v) => $v !== null)
-        );
-
-        return response()->json($payload, $statusCode);
+        return $collection->additional($additional)->response()->setStatusCode($statusCode);
     }
 
     /**
@@ -92,14 +73,13 @@ trait RespondsWithJson
         int $statusCode = 400,
         ?array $errors = null,
         ?string $code = null
-        ): JsonResponse
-    {
+    ): JsonResponse {
         $payload = array_filter([
             'success' => false,
             'message' => $message,
             'errors' => $errors,
             'code' => $code,
-        ], fn($v) => $v !== null);
+        ], fn ($v) => $v !== null);
 
         return response()->json($payload, $statusCode);
     }

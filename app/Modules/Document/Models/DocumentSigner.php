@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocumentSigner extends Model
 {
-    use \App\Modules\Core\Traits\OrganizationScoped;
-
     use HasFactory;
 
     protected $fillable = [

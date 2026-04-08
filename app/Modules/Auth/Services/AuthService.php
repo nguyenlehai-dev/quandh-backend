@@ -5,13 +5,16 @@ namespace App\Modules\Auth\Services;
 use App\Modules\Core\Enums\UserStatusEnum;
 use App\Modules\Core\Models\Organization;
 use App\Modules\Core\Models\User;
+use App\Modules\Core\Resources\UserResource;
+use App\Modules\Core\Services\UserPreferenceService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Schema;
 
 class AuthService
 {
+    public function __construct(private UserPreferenceService $userPreferenceService) {}
+
     public function login(string $login, string $password): array
     {
         $user = User::where('email', $login)
@@ -36,7 +39,19 @@ class AuthService
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $organizations = $this->getAccessibleOrganizations($user);
-        $currentOrganizationId = $this->resolveCurrentOrganizationId($user, $organizations);
+        $accessibleIds = array_column($organizations, 'id');
+
+        if ($organizations === []) {
+            $this->userPreferenceService->clearCurrentOrganizationId($user);
+            $currentOrganizationId = null;
+        } else {
+            $currentOrganizationId = $this->resolveCurrentOrganizationIdForLogin(
+                $user,
+                $organizations,
+                $accessibleIds
+            );
+        }
+
         $rolesAndPermissions = $this->getRolesAndPermissionsForOrganization($user, $currentOrganizationId);
 
         return [
@@ -44,7 +59,7 @@ class AuthService
             'data' => [
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'user' => $this->buildAuthUserPayload($user),
+                'user' => (new UserResource($user))->resolve(),
                 'available_organizations' => $organizations,
                 'current_organization_id' => $currentOrganizationId,
                 'roles' => $rolesAndPermissions['roles'],
@@ -54,13 +69,9 @@ class AuthService
         ];
     }
 
-    public function logout(User $user): void
+    public function logout($user): void
     {
-        $token = $user->currentAccessToken();
-
-        if ($token) {
-            $token->delete();
-        }
+        $user->currentAccessToken()->delete();
     }
 
     public function forgotPassword(string $email): bool
@@ -104,7 +115,8 @@ class AuthService
         }
 
         $rolesAndPermissions = $this->getRolesAndPermissionsForOrganization($user, (int) $organization->id);
-        $this->storeCurrentOrganizationPreference((int) $user->id, (int) $organization->id);
+
+        $this->userPreferenceService->setCurrentOrganizationId($user, (int) $organization->id);
 
         return [
             'ok' => true,
@@ -113,6 +125,7 @@ class AuthService
                 'current_organization' => [
                     'id' => (int) $organization->id,
                     'name' => $organization->name,
+                    'description' => $organization->description,
                 ],
                 'roles' => $rolesAndPermissions['roles'],
                 'permissions' => $rolesAndPermissions['permissions'],
@@ -132,92 +145,14 @@ class AuthService
             ->whereIn('id', $organizationIds)
             ->where('status', 'active')
             ->orderBy('name')
-            ->get(['id', 'name'])
+            ->get(['id', 'name', 'description'])
             ->map(fn (Organization $organization) => [
                 'id' => (int) $organization->id,
                 'name' => $organization->name,
+                'description' => $organization->description,
             ])
             ->values()
             ->all();
-    }
-
-    protected function buildAuthUserPayload(User $user): array
-    {
-        return [
-            'id' => (int) $user->id,
-            'name' => $user->name,
-        ];
-    }
-
-    protected function resolveCurrentOrganizationId(User $user, array $organizations): ?int
-    {
-        if (empty($organizations)) {
-            return null;
-        }
-
-        $organizationIds = collect($organizations)
-            ->pluck('id')
-            ->map(fn ($id) => (int) $id)
-            ->values()
-            ->all();
-
-        // flow_direct: chỉ có một tổ chức thì backend tự xác định current_organization_id
-        // và cố gắng lưu lại preference nếu hạ tầng hiện có hỗ trợ.
-        if (count($organizations) === 1) {
-            $organizationId = (int) $organizations[0]['id'];
-            $this->storeCurrentOrganizationPreference((int) $user->id, $organizationId);
-
-            return $organizationId;
-        }
-
-        // flow_switch: có nhiều tổ chức và đã có preference hợp lệ.
-        $preferredOrganizationId = $this->getStoredCurrentOrganizationPreference((int) $user->id, $organizationIds);
-        if ($preferredOrganizationId !== null) {
-            return $preferredOrganizationId;
-        }
-
-        // flow_select: có nhiều tổ chức nhưng chưa có preference hợp lệ.
-        return null;
-    }
-
-    protected function getStoredCurrentOrganizationPreference(int $userId, array $organizationIds): ?int
-    {
-        if (! $this->canUseUserPreferencesTable()) {
-            return null;
-        }
-
-        $organizationId = DB::table('user_preferences')
-            ->where('user_id', $userId)
-            ->value('current_organization_id');
-
-        if ($organizationId === null) {
-            return null;
-        }
-
-        $organizationId = (int) $organizationId;
-
-        return in_array($organizationId, $organizationIds, true) ? $organizationId : null;
-    }
-
-    protected function storeCurrentOrganizationPreference(int $userId, int $organizationId): void
-    {
-        if (! $this->canUseUserPreferencesTable()) {
-            return;
-        }
-
-        DB::table('user_preferences')->updateOrInsert(
-            ['user_id' => $userId],
-            ['current_organization_id' => $organizationId]
-        );
-    }
-
-    protected function canUseUserPreferencesTable(): bool
-    {
-        if (! Schema::hasTable('user_preferences')) {
-            return false;
-        }
-
-        return Schema::hasColumns('user_preferences', ['user_id', 'current_organization_id']);
     }
 
     protected function getAccessibleOrganizationIds(int $userId): array
@@ -253,6 +188,31 @@ class AuthService
     }
 
     /**
+     * Xác định tổ chức hiện tại khi đăng nhập: ưu tiên bản ghi user_preferences;
+     * nếu không hợp lệ thì xóa preference; nếu chỉ có một tổ chức thì tự gán và lưu.
+     */
+    protected function resolveCurrentOrganizationIdForLogin(User $user, array $organizations, array $accessibleIds): ?int
+    {
+        $preferredId = $this->userPreferenceService->getCurrentOrganizationId($user);
+
+        if ($preferredId !== null) {
+            if (in_array($preferredId, $accessibleIds, true)) {
+                return $preferredId;
+            }
+            $this->userPreferenceService->clearCurrentOrganizationId($user);
+        }
+
+        if (count($organizations) === 1) {
+            $onlyId = (int) $organizations[0]['id'];
+            $this->userPreferenceService->setCurrentOrganizationId($user, $onlyId);
+
+            return $onlyId;
+        }
+
+        return null;
+    }
+
+    /**
      * Lấy danh sách vai trò và quyền hạn của user trong tổ chức, dùng cho Vue Casl.
      */
     protected function getRolesAndPermissionsForOrganization(User $user, ?int $organizationId): array
@@ -268,17 +228,10 @@ class AuthService
         // getAllPermissions() = direct + từ vai trò; getPermissionNames() chỉ direct
         $permissions = $user->getAllPermissions()->pluck('name')->values()->unique()->all();
 
-        $roles = $user->getRoleNames()->values()->all();
-        $abilities = CaslAbilityConverter::toCaslAbilities($permissions);
-
-        if (in_array('Super Admin', $roles, true)) {
-            $abilities[] = ['action' => 'manage', 'subject' => 'all'];
-        }
-
         return [
-            'roles' => $roles,
+            'roles' => $user->getRoleNames()->values()->all(),
             'permissions' => $permissions,
-            'abilities' => $abilities,
+            'abilities' => CaslAbilityConverter::toCaslAbilities($permissions),
         ];
     }
 }

@@ -4,55 +4,22 @@ namespace App\Modules\Core\Imports;
 
 use App\Modules\Core\Enums\UserStatusEnum;
 use App\Modules\Core\Models\User;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class UsersImport implements ToCollection, WithHeadingRow
+class UsersImport implements ToModel, WithHeadingRow
 {
-    public function collection(Collection $rows)
+    public function model(array $row)
     {
-        foreach ($rows as $row) {
-            $email = $row['email'] ?? null;
-            $userName = $row['user_name'] ?? $row['user_name_'] ?? null;
-            
-            if (!$email && !$userName) {
-                continue; 
-            }
+        $password = $row['password'] ?? 'password';
 
-            $user = null;
-            if (!empty($row['id'])) {
-                $user = User::find($row['id']);
-            }
-            if (!$user && $email) {
-                $user = User::where('email', $email)->first();
-            }
-            if (!$user && $userName) {
-                $user = User::where('user_name', $userName)->first();
-            }
-
-            $data = [
-                'name' => $row['name'] ?? $row['name_'] ?? '',
-                'status' => $row['status'] ?? UserStatusEnum::Active->value,
-            ];
-
-            if ($email) {
-                $data['email'] = $email;
-            }
-            if ($userName) {
-                $data['user_name'] = $userName;
-            }
-
-            if (!$user) {
-                $data['password'] = Hash::make($row['password'] ?? 'password');
-                User::create($data);
-            } else {
-                if (!empty($row['password'])) {
-                    $data['password'] = Hash::make($row['password']);
-                }
-                $user->update($data);
-            }
-        }
+        return new User([
+            'name' => $row['name'] ?? $row['name_'] ?? '',
+            'email' => $row['email'] ?? '',
+            'user_name' => $row['user_name'] ?? $row['user_name_'] ?? null,
+            'password' => Hash::make($password),
+            'status' => $row['status'] ?? UserStatusEnum::Active->value,
+        ]);
     }
 }

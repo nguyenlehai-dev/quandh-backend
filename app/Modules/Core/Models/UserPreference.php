@@ -3,33 +3,33 @@
 namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Tuỳ chọn người dùng (1–1 với users): lưu tổ chức làm việc gần nhất để đăng nhập sau nhớ ngữ cảnh.
+ */
 class UserPreference extends Model
 {
+    protected $table = 'user_preferences';
+
     protected $fillable = [
         'user_id',
         'current_organization_id',
-        'notify_email',
-        'notify_system',
-        'notify_meeting_reminder',
-        'notify_vote',
-        'notify_document',
     ];
 
-    protected $casts = [
-        'notify_email' => 'boolean',
-        'notify_system' => 'boolean',
-        'notify_meeting_reminder' => 'boolean',
-        'notify_vote' => 'boolean',
-        'notify_document' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'current_organization_id' => 'integer',
+        ];
+    }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function currentOrganization()
+    public function currentOrganization(): BelongsTo
     {
         return $this->belongsTo(Organization::class, 'current_organization_id');
     }

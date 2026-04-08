@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
+    /** Spatie luôn dùng guard 'web' cho quyền (dùng chung cho cả web và API Sanctum). */
     protected $guard_name = 'web';
 
     protected static function newFactory()
@@ -58,16 +59,10 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /** Preference cá nhân (tổ chức đang chọn, …). */
-    public function userPreference()
+    /** Tuỳ chọn 1–1: tổ chức làm việc gần nhất (lưu trong user_preferences). */
+    public function preference()
     {
         return $this->hasOne(UserPreference::class);
-    }
-
-    /** FCM Tokens cho push notification (1 user → nhiều thiết bị). */
-    public function fcmTokens()
-    {
-        return $this->hasMany(UserFcmToken::class);
     }
 
     public function scopeFilter($query, array $filters)
@@ -80,15 +75,6 @@ class User extends Authenticatable
             });
         })->when($filters['status'] ?? null, function ($query, $status) {
             $query->where('status', $status);
-        })->when($filters['role_id'] ?? null, function ($query, $roleId) {
-            $query->whereHas('roles', function ($q) use ($roleId) {
-                $q->where('roles.id', $roleId);
-            });
-        })->when($filters['organization_id'] ?? null, function ($query, $orgId) {
-            $teamKey = config('permission.column_names.team_foreign_key', 'organization_id');
-            $query->whereHas('roles', function ($q) use ($orgId, $teamKey) {
-                $q->where('model_has_roles.'.$teamKey, $orgId);
-            });
         })->when($filters['sort_by'] ?? 'created_at', function ($query, $sortBy) use ($filters) {
             $allowed = ['id', 'name', 'email', 'user_name', 'created_at'];
             $column = in_array($sortBy, $allowed) ? $sortBy : 'created_at';

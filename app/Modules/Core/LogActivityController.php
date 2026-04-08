@@ -13,7 +13,7 @@ use App\Modules\Core\Services\LogActivityService;
 
 /**
  * @group Core - LogActivity
- * @header X-Organization-Id 1
+ * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
  *
  * Quản lý nhật ký truy cập: thống kê, danh sách, chi tiết, xuất Excel, xóa, xóa hàng loạt, xóa theo thời gian, xóa toàn bộ.
  */
@@ -160,4 +160,3 @@ class LogActivityController extends Controller
         return $this->success(null, "Đã xóa toàn bộ {$count} nhật ký!");
     }
 }
-

@@ -19,22 +19,16 @@ class UserService
     {
         $base = User::filter($filters);
 
-        $total = (clone $base)->count();
-        $active = (clone $base)->where('status', UserStatusEnum::Active->value)->count();
-
         return [
-            'total' => $total,
-            'active' => $active,
-            'inactive' => $total - $active,
+            'total' => (clone $base)->count(),
+            'active' => (clone $base)->where('status', UserStatusEnum::Active->value)->count(),
+            'inactive' => (clone $base)->where('status', '!=', UserStatusEnum::Active->value)->count(),
         ];
     }
 
     public function index(array $filters, int $limit)
     {
-        return User::query()
-            ->with(['creator:id,name', 'editor:id,name'])
-            ->filter($filters)
-            ->paginate($limit);
+        return User::filter($filters)->paginate($limit);
     }
 
     public function store(array $data): User

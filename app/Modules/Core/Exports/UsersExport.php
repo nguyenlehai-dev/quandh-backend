@@ -14,19 +14,9 @@ class UsersExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        $query = User::with(['creator', 'editor'])
-            ->filter($this->filters);
-
-        if (!empty($this->filters['limit'])) {
-            $limit = (int) $this->filters['limit'];
-            if (!empty($this->filters['page'])) {
-                $page = (int) $this->filters['page'];
-                $query->skip(($page - 1) * $limit);
-            }
-            $query->take($limit);
-        }
-
-        $users = $query->get();
+        $users = User::with(['creator', 'editor'])
+            ->filter($this->filters)
+            ->get();
 
         return $users->map(fn ($user) => [
             'id' => $user->id,
