@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Auth\AuthController;
+use App\Modules\Meeting\Controllers\CatalogController as MeetingCatalogController;
 use Illuminate\Support\Facades\Route;
 
 // Auth module - public routes (đăng nhập, quên mật khẩu, đặt lại mật khẩu)
@@ -24,6 +25,15 @@ Route::get('/post-categories/public', [\App\Modules\Post\PostCategoryController:
 Route::get('/post-categories/public-options', [\App\Modules\Post\PostCategoryController::class, 'publicOptions'])->middleware('log.activity');
 Route::get('/organizations/public', [\App\Modules\Core\OrganizationController::class, 'public'])->middleware('log.activity');
 Route::get('/organizations/public-options', [\App\Modules\Core\OrganizationController::class, 'publicOptions'])->middleware('log.activity');
+
+foreach (['meeting-types', 'meeting-document-types', 'meeting-document-fields', 'meeting-document-signers', 'meeting-issuing-agencies'] as $resource) {
+    Route::get("/{$resource}/public", [MeetingCatalogController::class, 'publicList'])
+        ->middleware('log.activity')
+        ->defaults('resource', $resource);
+    Route::get("/{$resource}/public-options", [MeetingCatalogController::class, 'publicOptions'])
+        ->middleware('log.activity')
+        ->defaults('resource', $resource);
+}
 
 // Route yêu cầu đăng nhập (Bearer token) và đặt ngữ cảnh team cho Spatie Permission
 Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->group(function () {
@@ -70,5 +80,14 @@ Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->gro
     });
     Route::prefix('settings')->group(function () {
         require base_path('app/Modules/Core/Routes/setting.php');
+    });
+
+    foreach (['meeting-types', 'attendee-groups', 'meeting-document-types', 'meeting-document-fields', 'meeting-document-signers', 'meeting-issuing-agencies'] as $resource) {
+        Route::prefix($resource)->group(function () use ($resource) {
+            require base_path('app/Modules/Meeting/Routes/catalog.php');
+        });
+    }
+    Route::prefix('meetings')->group(function () {
+        require base_path('app/Modules/Meeting/Routes/meeting.php');
     });
 });
