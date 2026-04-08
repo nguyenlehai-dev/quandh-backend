@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class IssuingAgency extends Model
 {
-    use \App\Modules\Core\Traits\MasterDataScoped;
-
     use HasFactory;
 
     protected $table = 'document_issuing_agencies';

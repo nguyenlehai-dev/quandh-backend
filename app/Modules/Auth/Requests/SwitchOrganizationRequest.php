@@ -31,7 +31,7 @@ class SwitchOrganizationRequest extends FormRequest
     {
         return [
             'organization_id' => [
-                'description' => 'ID tổ chức muốn chuyển',
+                'description' => 'ID tổ chức muốn chuyển ngữ cảnh làm việc',
                 'example' => 2,
             ],
         ];

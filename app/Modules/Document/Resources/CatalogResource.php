@@ -14,8 +14,6 @@ class CatalogResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'status' => $this->status,
-            'meeting_type_id' => $this->meeting_type_id ?? null,
-            'meeting_type_name' => $this->whenLoaded('meetingType', fn () => $this->meetingType->name),
             'created_by' => $this->creator?->name ?? 'N/A',
             'updated_by' => $this->editor?->name ?? 'N/A',
             'created_at' => $this->created_at?->format('H:i:s d/m/Y'),

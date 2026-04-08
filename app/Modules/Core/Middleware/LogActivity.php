@@ -6,8 +6,6 @@ use App\Modules\Core\Models\LogActivity as LogActivityModel;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,100 +26,31 @@ class LogActivity
         'api_firebase_token', 'api_google_maps_token',
     ];
 
-    /** GET actions không cần ghi log (giảm ~80% DB writes). */
-    protected static array $skipGetActions = [
-        'index', 'show', 'stats', 'tree', 'public', 'publicOptions',
-    ];
-
-    /** Paths không tạo notification. */
-    protected static array $skipNotificationPaths = [
-        'user/notifications', 'user/notification-preferences', 'user/change-password',
-        'auth/login', 'auth/logout',
-    ];
+    /** Đường dẫn không ghi log (vd: health check). */
+    protected static array $excludedPaths = ['/up'];
 
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
-    }
+        $response = $next($request);
 
-    /**
-     * Terminable middleware — chạy SAU khi response đã gửi cho client.
-     * Client nhận response ngay, log ghi bất đồng bộ.
-     */
-    public function terminate(Request $request, Response $response): void
-    {
         if (! $this->shouldLog($request)) {
-            return;
+            return $response;
         }
 
         $this->log($request, $response->getStatusCode());
+
+        return $response;
     }
 
     protected function shouldLog(Request $request): bool
     {
-        // Skip excluded paths
-        $excludedPaths = ['/up'];
-        foreach ($excludedPaths as $path) {
+        foreach (self::$excludedPaths as $path) {
             if (str_starts_with($request->path(), ltrim($path, '/'))) {
                 return false;
             }
         }
 
-        // Skip GET read-only requests (index, show, stats, tree, public)
-        if ($request->isMethod('GET')) {
-            $action = $this->resolveGetAction($request);
-            if ($action && in_array($action, self::$skipGetActions, true)) {
-                return false;
-            }
-        }
-
         return true;
-    }
-
-    /**
-     * Xác định action GET kể cả khi route chưa được đặt name.
-     */
-    protected function resolveGetAction(Request $request): ?string
-    {
-        $routeName = $request->route()?->getName();
-        if ($routeName) {
-            return last(explode('.', $routeName));
-        }
-
-        $path = trim($request->path(), '/');
-        $segments = array_values(array_filter(explode('/', $path)));
-
-        if (($segments[0] ?? null) === 'api') {
-            array_shift($segments);
-        }
-
-        $resource = $segments[0] ?? null;
-        $subAction = $segments[1] ?? null;
-
-        if (! $resource) {
-            return null;
-        }
-
-        if (! $subAction) {
-            return 'index';
-        }
-
-        $pathActions = [
-            'stats' => 'stats',
-            'tree' => 'tree',
-            'public' => 'public',
-            'public-options' => 'publicOptions',
-        ];
-
-        if (isset($pathActions[$subAction])) {
-            return $pathActions[$subAction];
-        }
-
-        if (count($segments) === 2 && ! in_array($subAction, ['export', 'template', 'results'], true)) {
-            return 'show';
-        }
-
-        return null;
     }
 
     protected function log(Request $request, int $statusCode): void
@@ -131,10 +60,9 @@ class LogActivity
             $userType = $user ? class_basename($user) : 'Guest';
             $userId = $user?->id;
             $organizationId = function_exists('getPermissionsTeamId') ? getPermissionsTeamId() : null;
-            $description = $this->buildDescription($request);
 
             LogActivityModel::create([
-                'description' => $description,
+                'description' => $this->buildDescription($request),
                 'user_type' => $userType,
                 'user_id' => $userId,
                 'organization_id' => $organizationId,
@@ -145,59 +73,6 @@ class LogActivity
                 'country' => $this->resolveCountry($request),
                 'user_agent' => $request->userAgent(),
                 'request_data' => $this->sanitizeRequestData($request),
-            ]);
-
-            // Tạo notification cho write operations thành công
-            if ($user && in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE']) && $statusCode >= 200 && $statusCode < 300) {
-                $this->createNotification($user, $request->method(), $description);
-            }
-        } catch (\Throwable $e) {
-            report($e);
-        }
-    }
-
-    /**
-     * Tạo database notification cho user khi thực hiện thao tác ghi.
-     */
-    protected function createNotification($user, string $method, string $description): void
-    {
-        // Skip notification cho một số paths
-        $path = trim(request()->path(), '/');
-        $apiPath = str_starts_with($path, 'api/') ? substr($path, 4) : $path;
-        foreach (self::$skipNotificationPaths as $skip) {
-            if (str_starts_with($apiPath, $skip)) {
-                return;
-            }
-        }
-
-        $iconMap = [
-            'POST' => 'tabler-circle-plus',
-            'PUT' => 'tabler-edit',
-            'PATCH' => 'tabler-edit',
-            'DELETE' => 'tabler-trash',
-        ];
-
-        $colorMap = [
-            'POST' => 'success',
-            'PUT' => 'warning',
-            'PATCH' => 'warning',
-            'DELETE' => 'error',
-        ];
-
-        try {
-            DB::table('notifications')->insert([
-                'id' => Str::uuid()->toString(),
-                'type' => 'App\\Notifications\\ActivityNotification',
-                'notifiable_type' => get_class($user),
-                'notifiable_id' => $user->id,
-                'data' => json_encode([
-                    'title' => $description,
-                    'subtitle' => 'Thao tác thành công',
-                    'icon' => $iconMap[$method] ?? 'tabler-bell',
-                    'color' => $colorMap[$method] ?? 'primary',
-                ]),
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         } catch (\Throwable $e) {
             report($e);
@@ -252,14 +127,6 @@ class LogActivity
             'tree' => 'Xem cây',
             'delete-by-date' => 'Xóa theo khoảng thời gian',
             'clear' => 'Xóa toàn bộ',
-            'checkin' => 'Điểm danh',
-            'reorder' => 'Sắp xếp lại',
-            'approve' => 'Duyệt',
-            'reject' => 'Từ chối',
-            'open' => 'Mở biểu quyết',
-            'close' => 'Đóng biểu quyết',
-            'vote' => 'Bỏ phiếu',
-            'results' => 'Xem kết quả biểu quyết',
         ];
         if ($sub && isset($pathActions[$sub])) {
             return $pathActions[$sub].' '.$this->resourceLabel(str_replace('-', '_', $resource));
@@ -304,14 +171,6 @@ class LogActivity
             'destroyByDate' => 'Xóa theo khoảng thời gian',
             'destroyAll' => 'Xóa toàn bộ',
             'public' => 'Xem dữ liệu công khai',
-            'checkin' => 'Điểm danh',
-            'reorder' => 'Sắp xếp lại',
-            'approve' => 'Duyệt',
-            'reject' => 'Từ chối',
-            'open' => 'Mở biểu quyết',
-            'close' => 'Đóng biểu quyết',
-            'vote' => 'Bỏ phiếu',
-            'results' => 'Xem kết quả biểu quyết',
         ];
 
         $actionLabel = $actionLabels[$action] ?? $action;
@@ -330,13 +189,6 @@ class LogActivity
             ?? $params['issuingLevel']
             ?? $params['documentSigner']
             ?? $params['documentField']
-            ?? $params['meeting']
-            ?? $params['participant']
-            ?? $params['agenda']
-            ?? $params['conclusion']
-            ?? $params['note']
-            ?? $params['speechRequest']
-            ?? $params['voting']
             ?? $params['id']
             ?? null;
         $suffix = $id ? ' #'.(is_object($id) ? $id->getKey() : $id) : '';
@@ -363,14 +215,6 @@ class LogActivity
             'document-signers' => 'người ký',
             'document-fields' => 'lĩnh vực',
             'settings' => 'cấu hình hệ thống',
-            'meetings' => 'cuộc họp',
-            'meeting-participants' => 'thành viên cuộc họp',
-            'meeting-agendas' => 'chương trình nghị sự',
-            'meeting-documents' => 'tài liệu cuộc họp',
-            'meeting-conclusions' => 'kết luận cuộc họp',
-            'meeting-personal-notes' => 'ghi chú cá nhân',
-            'meeting-speech-requests' => 'đăng ký phát biểu',
-            'meeting-votings' => 'biểu quyết',
         ];
 
         return $labels[$resource] ?? str_replace('-', ' ', $resource);
@@ -386,7 +230,7 @@ class LogActivity
         try {
             $position = Location::get($ip);
 
-            return $position ? $position->countryName : null;
+            return $position?->countryName;
         } catch (\Throwable $e) {
             report($e);
 

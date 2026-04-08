@@ -35,7 +35,7 @@ class UpdateSettingRequest extends FormRequest
             'integer' => ['nullable', 'integer', 'min:0'],
             'boolean' => ['nullable', 'boolean'],
             'json' => ['nullable'], // Chấp nhận array hoặc JSON string
-            default => ['nullable', 'string', 'max:16777215'],
+            default => ['nullable', 'string', 'max:65535'],
         };
     }
 

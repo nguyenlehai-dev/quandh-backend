@@ -18,9 +18,20 @@ Bảng người dùng (Laravel Auth).
 | email_verified_at | timestamp | Yes | null | |
 | password | varchar(255) | No | — | |
 | remember_token | varchar(100) | Yes | null | |
-| status | varchar(255) | No | 'active' | active, inactive |
+| status | varchar(255) | No | 'active' | active, inactive, banned |
 | created_by | bigint unsigned | Yes | null | FK → users.id |
 | updated_by | bigint unsigned | Yes | null | FK → users.id |
+| created_at | timestamp | Yes | null | |
+| updated_at | timestamp | Yes | null | |
+
+### `user_preferences`
+Tuỳ chọn người dùng (quan hệ **1–1** với `users`): lưu tổ chức làm việc gần nhất để lần đăng nhập sau backend trả `current_organization_id` đúng theo DB (nếu còn hợp lệ).
+
+| Cột | Kiểu | Nullable | Mặc định | Ràng buộc / Ghi chú |
+|-----|------|----------|----------|---------------------|
+| id | bigint unsigned | No | — | PK, auto increment |
+| user_id | bigint unsigned | No | — | UNIQUE, FK → users.id (cascade delete) |
+| current_organization_id | bigint unsigned | Yes | null | FK → organizations.id (null on delete org) |
 | created_at | timestamp | Yes | null | |
 | updated_at | timestamp | Yes | null | |
 
@@ -259,12 +270,14 @@ Bài viết tin tức.
 | content | text | No | — | |
 | status | varchar(255) | No | 'draft' | draft, published, archived |
 | view_count | int unsigned | No | 0 | Lượt xem |
+| organization_id | bigint unsigned | Yes | null | FK → organizations.id, INDEX (lọc theo tổ chức làm việc) |
 | created_by | bigint unsigned | Yes | null | FK → users.id |
 | updated_by | bigint unsigned | Yes | null | FK → users.id |
 | created_at | timestamp | Yes | null | |
 | updated_at | timestamp | Yes | null | |
 
 **Quan hệ:**  
+- N-1 với `organizations` qua `organization_id` (ngữ cảnh tenant theo `X-Organization-Id`).  
 - N-n với `post_categories` qua bảng `post_post_category`.  
 - 1-n (polymorphic) với `media` qua Spatie Media Library (`model_type = App\Modules\Post\Models\Post`, `collection_name = post-attachments`).
 
@@ -347,6 +360,7 @@ Bảng văn bản chính.
 | so_ky_hieu | varchar(255) | No | — | UNIQUE |
 | ten_van_ban | varchar(255) | No | — | |
 | noi_dung | longtext | Yes | null | |
+| organization_id | bigint unsigned | Yes | null | FK → organizations.id, INDEX (lọc theo tổ chức làm việc) |
 | issuing_agency_id | bigint unsigned | Yes | null | FK → document_issuing_agencies.id |
 | issuing_level_id | bigint unsigned | Yes | null | FK → document_issuing_levels.id |
 | signer_id | bigint unsigned | Yes | null | FK → document_signers.id |
@@ -399,6 +413,7 @@ Các bảng: `document_types`, `document_issuing_agencies`, `document_issuing_le
 
 **Quan hệ:**  
 - `documents` n-1 với `document_issuing_agencies`, `document_issuing_levels`, `document_signers`.  
+- `documents` n-1 với `organizations` qua `organization_id` (ngữ cảnh tenant theo `X-Organization-Id`).  
 - `documents` n-n với `document_types` và `document_fields`.  
 - `documents` 1-n (polymorphic) với `media` qua `collection_name = document-attachments`.
 

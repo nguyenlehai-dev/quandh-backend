@@ -2,6 +2,10 @@
 
 Quản lý bài viết tin tức: thống kê, danh sách, chi tiết, CRUD, xóa/bulk status, đổi trạng thái, tăng lượt xem, xuất/nhập Excel. Một bài viết thuộc nhiều danh mục; hỗ trợ đính kèm ảnh và `view_count`.
 
+**Header bắt buộc:** `Authorization: Bearer {token}` và `X-Organization-Id: {organization_id}`.
+
+**Phạm vi dữ liệu:** tất cả endpoint trong file này chỉ thao tác dữ liệu thuộc tổ chức hiện tại (`organization_id` theo `X-Organization-Id`).
+
 **Base path:** `/api/posts`
 
 ---
@@ -132,7 +136,7 @@ Quản lý bài viết tin tức: thống kê, danh sách, chi tiết, CRUD, xó
 | **Method** | POST |
 | **Path** | `/api/posts/import` |
 | **Body** | `file` (required) — xlsx, xls, csv. Cột theo chuẩn export. |
-| **Response** | `{ "message": "Posts imported successfully." }`. |
+| **Response** | `{ "message": "Import bài viết thành công." }`. |
 
 ---
 

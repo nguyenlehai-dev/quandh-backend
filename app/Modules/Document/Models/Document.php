@@ -10,8 +10,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Document extends Model implements HasMedia
 {
-    use \App\Modules\Core\Traits\OrganizationScoped;
-
     use HasFactory;
     use InteractsWithMedia;
 
@@ -19,6 +17,7 @@ class Document extends Model implements HasMedia
         'so_ky_hieu',
         'ten_van_ban',
         'noi_dung',
+        'organization_id',
         'issuing_agency_id',
         'issuing_level_id',
         'signer_id',
@@ -32,6 +31,7 @@ class Document extends Model implements HasMedia
     ];
 
     protected $casts = [
+        'organization_id' => 'integer',
         'ngay_ban_hanh' => 'date',
         'ngay_xuat_ban' => 'date',
         'ngay_hieu_luc' => 'date',
@@ -99,7 +99,11 @@ class Document extends Model implements HasMedia
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['search'] ?? null, function ($q, $search) {
+        $organizationId = function_exists('getPermissionsTeamId') ? getPermissionsTeamId() : null;
+
+        $query->when($organizationId, function ($q, $organizationId) {
+            $q->where('organization_id', (int) $organizationId);
+        })->when($filters['search'] ?? null, function ($q, $search) {
             $q->where(function ($sub) use ($search) {
                 $sub->where('ten_van_ban', 'like', '%'.$search.'%')
                     ->orWhere('so_ky_hieu', 'like', '%'.$search.'%');

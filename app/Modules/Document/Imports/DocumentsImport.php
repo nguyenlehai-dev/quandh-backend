@@ -9,6 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class DocumentsImport implements ToModel, WithHeadingRow
 {
+    public function __construct(
+        private readonly int $organizationId
+    ) {}
+
     public function model(array $row)
     {
         return new Document([
@@ -16,6 +20,7 @@ class DocumentsImport implements ToModel, WithHeadingRow
             'ten_van_ban' => $row['ten_van_ban'] ?? null,
             'noi_dung' => $row['noi_dung'] ?? null,
             'status' => $row['status'] ?? DocumentStatusEnum::Active->value,
+            'organization_id' => $this->organizationId,
         ]);
     }
 }

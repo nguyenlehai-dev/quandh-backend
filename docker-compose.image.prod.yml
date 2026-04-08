@@ -1,0 +1,71 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: quandh-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+      MYSQL_USER: ${DB_USERNAME:-sail}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
+    volumes:
+      - quandh-mysql:/var/lib/mysql
+    networks:
+      app-net:
+        aliases:
+          - mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD:-password}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    image: ghcr.io/nguyenlehai-dev/quandh-backend:${BACKEND_IMAGE_TAG:-prod}
+    container_name: quandh-api
+    restart: unless-stopped
+    ports:
+      - "8021:80"
+    env_file:
+      - ${APP_ENV_FILE:-/home/vpsroot/projects/backend/quandh-backend/deploy/prod/.env}
+    environment:
+      APP_ENV: production
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-false}
+      RUN_OPTIMIZE: ${RUN_OPTIMIZE:-true}
+    volumes:
+      - quandh-storage-app:/var/www/html/storage/app
+    networks:
+      app-net:
+        aliases:
+          - quandh-api
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/up"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  frontend:
+    image: ghcr.io/nguyenlehai-dev/quandh-frontend:${FRONTEND_IMAGE_TAG:-prod}
+    container_name: quandh-frontend
+    restart: unless-stopped
+    ports:
+      - "3030:80"
+    networks:
+      app-net:
+        aliases:
+          - quandh-frontend
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  quandh-mysql:
+  quandh-storage-app:
+
+networks:
+  app-net:
+    driver: bridge

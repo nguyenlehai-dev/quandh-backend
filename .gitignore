@@ -19,6 +19,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+/deploy/db-backups/
 
 # MaxMind GeoLite2 database (tải bằng sail artisan location:update)
 /database/maxmind/*.mmdb

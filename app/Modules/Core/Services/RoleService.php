@@ -15,17 +15,12 @@ class RoleService
     {
         $base = Role::with('organization')->filter($filters);
 
-        return [
-            'total' => (clone $base)->count(),
-            'admin' => (clone $base)->where('scope', 'admin')->count(),
-            'user' => (clone $base)->where('scope', 'user')->count(),
-        ];
+        return ['total' => (clone $base)->count()];
     }
 
     public function index(array $filters, int $limit)
     {
         return Role::with(['organization', 'permissions'])
-            ->withCount('users')
             ->filter($filters)
             ->paginate($limit);
     }
@@ -40,8 +35,7 @@ class RoleService
         return DB::transaction(function () use ($data) {
             $permissionIds = $data['permission_ids'] ?? null;
             unset($data['permission_ids']);
-            $data['guard_name'] = $data['guard_name'] ?? 'api';
-            $data['scope'] = $data['scope'] ?? 'admin';
+            $data['guard_name'] = $data['guard_name'] ?? config('auth.defaults.guard', 'web');
             $data['organization_id'] = null;
 
             $role = Role::create($data);

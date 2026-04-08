@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocumentField extends Model
 {
-    use \App\Modules\Core\Traits\MasterDataScoped;
-
     use HasFactory;
 
     protected $fillable = [

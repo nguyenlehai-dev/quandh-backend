@@ -45,6 +45,9 @@
     - **Bắt buộc**: Nếu trong transaction có thao tác file (upload/delete file trong storage), phải có cơ chế bù trừ khi lỗi (cleanup file) bằng `try/catch` hoặc cơ chế tương đương để tránh lệch giữa DB và file system.
     - **Bắt buộc**: Tất cả luồng upload/xóa media phải đi qua `App\Modules\Core\Services\MediaService` (upload 1 file, upload nhiều file, xóa theo id). Không gọi trực tiếp `addMedia()`, `Storage::put/delete` trong service của từng module nếu đã có `MediaService`.
     - **Khuyến nghị**: Validate định dạng/kích thước file ở `FormRequest`; `MediaService` giữ vai trò chuẩn hóa thao tác media dùng chung đa module.
+    - **Bắt buộc (đa tổ chức / tenant)**: Với resource nghiệp vụ thuộc ngữ cảnh tổ chức (ví dụ: `posts`, `documents`), bảng dữ liệu phải có `organization_id` và mọi truy vấn đọc/ghi phải scope theo tổ chức hiện tại từ middleware `set.permissions.team` (`X-Organization-Id`).
+    - **Bắt buộc (đa tổ chức / tenant)**: Các thao tác theo ID (`show`, `update`, `destroy`, `changeStatus`, `incrementView`) và thao tác bulk phải chặn vượt tenant (không được tác động bản ghi khác `organization_id` hiện tại).
+    - **Bắt buộc (đa tổ chức / tenant)**: Luồng `store`/`import` phải gán `organization_id` theo ngữ cảnh hiện tại, không nhận `organization_id` trực tiếp từ client cho endpoint tenant thông thường.
     - **Checklist review PR (Service & Transaction)**:
         - [ ] Controller không chứa nghiệp vụ phức tạp; chỉ validate -> gọi service -> trả response.
         - [ ] Mỗi endpoint nghiệp vụ có method tương ứng trong Service của module.
@@ -53,6 +56,7 @@
         - [ ] Luồng có thao tác file trong transaction có cơ chế cleanup khi lỗi.
         - [ ] Luồng upload media sử dụng `Core\\Services\\MediaService`, không xử lý lưu file trực tiếp ở service module.
         - [ ] Sau refactor, response format và HTTP status code vẫn giữ đúng chuẩn hiện tại.
+        - [ ] Resource thuộc tenant đã scope theo `organization_id` ở tất cả luồng read/write và không cho truy cập chéo tổ chức.
 
 - **API Resource & Localization**:
     - **Bắt buộc**: Luôn sử dụng Resource để trả về dữ liệu API.
@@ -65,7 +69,7 @@
     - **Bắt buộc**: Lưu các phân tích, đánh giá tổng quan hệ thống, giải thích kiến trúc hoặc giải pháp phức tạp vào `/docs/answer`.
     - **Bắt buộc**: Khi tạo/cập nhật Controller, cập nhật file Markdown tương ứng trong `/docs/api` (gồm: Method, Path, Request Body, Response mẫu).
     - **Bắt buộc**: Cập nhật sơ đồ bảng vào `DATABASE_DESIGN.md` khi có Migration mới.
-    - **Bắt buộc**: Cập nhật thông tin chi tiết tập tin/thư mục vào `STRUCTURE_DESIGN.md` khi có thay đổi.
+    - **Bắt buộc**: Cập nhật thông tin chi tiết tập tin/thư mục vào `docs/STRUCTURE_DESIGN.md` khi có thay đổi.
 
 - **Scribe (API documentation)**:
     - **Bắt buộc**: Khi tạo hoặc thay đổi Controller API, bổ sung PHPDoc cho Scribe để sinh tài liệu API (`sail artisan scribe:generate`).

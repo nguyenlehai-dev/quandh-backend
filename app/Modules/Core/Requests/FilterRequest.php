@@ -23,7 +23,7 @@ class FilterRequest extends FormRequest
             'to_date' => 'nullable|date|after_or_equal:from_date',
             'sort_by' => 'nullable|string|max:50',
             'sort_order' => 'nullable|in:asc,desc',
-            'limit' => 'nullable|integer|min:1|max:1000',
+            'limit' => 'nullable|integer|min:1|max:100',
         ];
     }
 
@@ -37,7 +37,7 @@ class FilterRequest extends FormRequest
             'sort_order.in' => 'Thứ tự sắp xếp không hợp lệ.',
             'limit.integer' => 'Số lượng phải là một số nguyên.',
             'limit.min' => 'Số lượng phải lớn hơn 0.',
-            'limit.max' => 'Số lượng phải nhỏ hơn 1000.',
+            'limit.max' => 'Số lượng phải nhỏ hơn 100.',
         ];
     }
 

@@ -3,6 +3,11 @@
 ## Base path
 - `/api/documents`
 
+## Header & phạm vi dữ liệu
+
+- Bắt buộc: `Authorization: Bearer {token}` và `X-Organization-Id: {organization_id}`.
+- Tất cả endpoint trong nhóm này chỉ thao tác dữ liệu văn bản thuộc tổ chức hiện tại (`organization_id` theo `X-Organization-Id`).
+
 ## Endpoints
 
 | Method | Path | Mô tả |

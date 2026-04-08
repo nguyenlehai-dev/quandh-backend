@@ -9,6 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class PostsImport implements ToModel, WithHeadingRow
 {
+    public function __construct(
+        private readonly int $organizationId
+    ) {}
+
     /**
      * @return \Illuminate\Database\Eloquent\Model|null
      */
@@ -18,6 +22,7 @@ class PostsImport implements ToModel, WithHeadingRow
             'title' => $row['title'],
             'content' => $row['content'],
             'status' => $row['status'] ?? PostStatusEnum::Published->value,
+            'organization_id' => $this->organizationId,
         ]);
     }
 }

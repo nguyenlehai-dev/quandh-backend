@@ -13,18 +13,7 @@ class LogActivityService
     {
         $base = LogActivity::filter($filters);
 
-        $view = (clone $base)->where('method_type', 'GET')->count();
-        $create = (clone $base)->where('method_type', 'POST')->count();
-        $update = (clone $base)->whereIn('method_type', ['PUT', 'PATCH'])->count();
-        $delete = (clone $base)->where('method_type', 'DELETE')->count();
-
-        return [
-            'total' => (clone $base)->count(),
-            'view' => $view,
-            'create' => $create,
-            'update' => $update,
-            'delete' => $delete,
-        ];
+        return ['total' => (clone $base)->count()];
     }
 
     public function index(array $filters, int $limit)

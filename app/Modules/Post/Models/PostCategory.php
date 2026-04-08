@@ -13,8 +13,6 @@ use Illuminate\Support\Str;
  */
 class PostCategory extends Model
 {
-    use \App\Modules\Core\Traits\MasterDataScoped;
-
     use HasFactory;
 
     protected static function newFactory()
