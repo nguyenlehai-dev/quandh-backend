@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->seedPosts();
         $this->call(PermissionSeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(MeetingPermissionSeeder::class);
+        $this->call(MeetingCatalogSeeder::class);
     }
 
     /**
@@ -90,10 +92,12 @@ class DatabaseSeeder extends Seeder
         Post::withoutEvents(function () use ($users, $categories) {
             Post::factory(20)
                 ->sequence(
-                    fn ($sequence) => [
+                    function ($sequence) use ($users) {
+                        return [
                         'created_by' => $users->random()->id,
                         'updated_by' => $users->random()->id,
-                    ]
+                        ];
+                    }
                 )
                 ->create()
                 ->each(function (Post $post) use ($categories) {
