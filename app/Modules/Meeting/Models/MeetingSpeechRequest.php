@@ -9,7 +9,7 @@ class MeetingSpeechRequest extends Model
 {
     protected $table = 'm_speech_requests';
 
-    protected $fillable = ['meeting_id', 'agenda_id', 'user_id', 'content', 'status', 'review_note', 'reviewed_by', 'reviewed_at'];
+    protected $fillable = ['meeting_id', 'agenda_id', 'user_id', 'content', 'status', 'review_note', 'reviewed_by', 'reviewed_at', 'created_by', 'updated_by'];
 
     protected $casts = ['reviewed_at' => 'datetime'];
 
@@ -26,5 +26,15 @@ class MeetingSpeechRequest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

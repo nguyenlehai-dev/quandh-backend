@@ -70,6 +70,10 @@ class MeetingResource extends JsonResource
             'sort_order' => $item->sort_order,
             'user' => $item->relationLoaded('user') ? $this->user($item->user) : null,
             'delegated_to' => $item->relationLoaded('delegatedTo') ? $this->user($item->delegatedTo) : null,
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -84,6 +88,10 @@ class MeetingResource extends JsonResource
             'presenter_id' => $item->presenter_id,
             'status' => $item->status,
             'presenter' => $item->relationLoaded('presenter') ? $this->user($item->presenter) : null,
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -114,6 +122,10 @@ class MeetingResource extends JsonResource
                 'mime_type' => $media->mime_type,
                 'url' => $media->getUrl(),
             ])->values() : [],
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -125,6 +137,10 @@ class MeetingResource extends JsonResource
             'title' => $item->title,
             'content' => $item->content,
             'agenda' => $item->relationLoaded('agenda') && $item->agenda ? ['id' => $item->agenda->id, 'title' => $item->agenda->title] : null,
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -141,6 +157,10 @@ class MeetingResource extends JsonResource
             'reviewed_at' => $item->reviewed_at?->toISOString(),
             'user' => $item->relationLoaded('user') ? $this->user($item->user) : null,
             'agenda' => $item->relationLoaded('agenda') && $item->agenda ? ['id' => $item->agenda->id, 'title' => $item->agenda->title] : null,
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -163,7 +183,15 @@ class MeetingResource extends JsonResource
                 'option' => $result->option,
                 'note' => $result->note,
                 'user' => $result->relationLoaded('user') ? $this->user($result->user) : null,
+                'created_by' => $result->creator?->name ?? 'N/A',
+                'updated_by' => $result->editor?->name ?? 'N/A',
+                'created_at' => $result->created_at?->format('H:i:s d/m/Y'),
+                'updated_at' => $result->updated_at?->format('H:i:s d/m/Y'),
             ])->values() : [],
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -176,6 +204,10 @@ class MeetingResource extends JsonResource
             'content' => $item->content,
             'user' => $item->relationLoaded('user') ? $this->user($item->user) : null,
             'document' => $item->relationLoaded('document') && $item->document ? ['id' => $item->document->id, 'title' => $item->document->title] : null,
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 
@@ -189,6 +221,10 @@ class MeetingResource extends JsonResource
             'remind_at' => $item->remind_at?->toISOString(),
             'status' => $item->status,
             'user' => $item->relationLoaded('user') ? $this->user($item->user) : null,
+            'created_by' => $item->creator?->name ?? 'N/A',
+            'updated_by' => $item->editor?->name ?? 'N/A',
+            'created_at' => $item->created_at?->format('H:i:s d/m/Y'),
+            'updated_at' => $item->updated_at?->format('H:i:s d/m/Y'),
         ];
     }
 }

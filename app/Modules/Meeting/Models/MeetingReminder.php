@@ -9,7 +9,7 @@ class MeetingReminder extends Model
 {
     protected $table = 'm_reminders';
 
-    protected $fillable = ['meeting_id', 'user_id', 'title', 'content', 'remind_at', 'status'];
+    protected $fillable = ['meeting_id', 'user_id', 'title', 'content', 'remind_at', 'status', 'created_by', 'updated_by'];
 
     protected $casts = ['remind_at' => 'datetime'];
 
@@ -21,5 +21,15 @@ class MeetingReminder extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

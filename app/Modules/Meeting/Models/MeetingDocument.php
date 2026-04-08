@@ -2,6 +2,7 @@
 
 namespace App\Modules\Meeting\Models;
 
+use App\Modules\Core\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -63,5 +64,15 @@ class MeetingDocument extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('meeting-document-attachments');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

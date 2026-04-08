@@ -9,7 +9,7 @@ class MeetingPersonalNote extends Model
 {
     protected $table = 'm_personal_notes';
 
-    protected $fillable = ['meeting_id', 'document_id', 'user_id', 'content'];
+    protected $fillable = ['meeting_id', 'document_id', 'user_id', 'content', 'created_by', 'updated_by'];
 
     public function meeting()
     {
@@ -24,5 +24,15 @@ class MeetingPersonalNote extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

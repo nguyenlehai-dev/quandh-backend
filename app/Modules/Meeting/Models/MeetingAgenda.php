@@ -9,7 +9,7 @@ class MeetingAgenda extends Model
 {
     protected $table = 'm_agendas';
 
-    protected $fillable = ['meeting_id', 'title', 'description', 'sort_order', 'duration_minutes', 'presenter_id', 'status'];
+    protected $fillable = ['meeting_id', 'title', 'description', 'sort_order', 'duration_minutes', 'presenter_id', 'status', 'created_by', 'updated_by'];
 
     public function meeting()
     {
@@ -19,5 +19,15 @@ class MeetingAgenda extends Model
     public function presenter()
     {
         return $this->belongsTo(User::class, 'presenter_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

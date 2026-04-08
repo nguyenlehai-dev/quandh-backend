@@ -9,7 +9,7 @@ class MeetingParticipant extends Model
 {
     protected $table = 'm_participants';
 
-    protected $fillable = ['meeting_id', 'user_id', 'role', 'position', 'status', 'checkin_at', 'absence_reason', 'delegated_to_id', 'sort_order'];
+    protected $fillable = ['meeting_id', 'user_id', 'role', 'position', 'status', 'checkin_at', 'absence_reason', 'delegated_to_id', 'sort_order', 'created_by', 'updated_by'];
 
     protected $casts = ['checkin_at' => 'datetime'];
 
@@ -26,5 +26,15 @@ class MeetingParticipant extends Model
     public function delegatedTo()
     {
         return $this->belongsTo(User::class, 'delegated_to_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

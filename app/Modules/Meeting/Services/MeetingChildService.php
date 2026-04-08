@@ -119,14 +119,14 @@ class MeetingChildService
     public function relations(string $child): array
     {
         return match ($child) {
-            'participants' => ['user', 'delegatedTo'],
-            'agendas' => ['presenter'],
-            'documents' => ['media', 'agenda', 'documentType', 'documentField', 'issuingAgency', 'documentSigner'],
-            'conclusions' => ['agenda'],
-            'speech-requests' => ['user', 'agenda'],
-            'votings' => ['agenda', 'results.user'],
-            'personal-notes' => ['user', 'document'],
-            'reminders' => ['user'],
+            'participants' => ['user', 'delegatedTo', 'creator', 'editor'],
+            'agendas' => ['presenter', 'creator', 'editor'],
+            'documents' => ['media', 'agenda', 'documentType', 'documentField', 'issuingAgency', 'documentSigner', 'creator', 'editor'],
+            'conclusions' => ['agenda', 'creator', 'editor'],
+            'speech-requests' => ['user', 'agenda', 'creator', 'editor'],
+            'votings' => ['agenda', 'results.user', 'results.creator', 'results.editor', 'creator', 'editor'],
+            'personal-notes' => ['user', 'document', 'creator', 'editor'],
+            'reminders' => ['user', 'creator', 'editor'],
             default => [],
         };
     }

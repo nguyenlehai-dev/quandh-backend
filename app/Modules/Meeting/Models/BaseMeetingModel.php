@@ -15,17 +15,17 @@ abstract class BaseMeetingModel extends Model
                 $model->organization_id = function_exists('getPermissionsTeamId') ? getPermissionsTeamId() : null;
             }
 
-            if ($model->isFillable('created_by')) {
+            if ($model->isFillable('created_by') && ! $model->created_by && auth()->id()) {
                 $model->created_by = auth()->id();
             }
 
-            if ($model->isFillable('updated_by')) {
+            if ($model->isFillable('updated_by') && ! $model->updated_by && auth()->id()) {
                 $model->updated_by = auth()->id();
             }
         });
 
         static::updating(function (Model $model) {
-            if ($model->isFillable('updated_by')) {
+            if ($model->isFillable('updated_by') && auth()->id()) {
                 $model->updated_by = auth()->id();
             }
         });

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Meeting\Models;
 
+use App\Modules\Core\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class MeetingConclusion extends Model
@@ -18,5 +19,15 @@ class MeetingConclusion extends Model
     public function agenda()
     {
         return $this->belongsTo(MeetingAgenda::class, 'agenda_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }
