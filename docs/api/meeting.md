@@ -133,7 +133,13 @@ Import:
 
 ## Màn hình FE cần bám
 
-- Menu cha: `Quản lý cuộc họp`.
+- Menu cha: `Họp không giấy`.
 - Màn danh sách: gọi `GET /api/meetings`.
 - Màn chi tiết: click từ danh sách và gọi `GET /api/meetings/{meeting}` để lấy tổng quan cuộc họp.
 - Các tab chi tiết dùng nested endpoints: participants, agendas, documents, conclusions, speech requests, votings, personal notes, reminders.
+
+## Seeders
+
+- `MeetingPermissionSeeder`: seed quyền riêng cho module Meeting.
+- `MeetingCatalogSeeder`: seed dữ liệu nền như loại cuộc họp, nhóm người dự họp, loại tài liệu, lĩnh vực tài liệu, người ký và cơ quan ban hành.
+- `MeetingDemoSeeder`: seed một cuộc họp mẫu đầy đủ dữ liệu chi tiết gồm người dự họp, chương trình, tài liệu, kết luận, phát biểu, biểu quyết, ghi chú cá nhân và nhắc việc.

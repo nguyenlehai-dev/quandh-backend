@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(MeetingPermissionSeeder::class);
         $this->call(MeetingCatalogSeeder::class);
+        $this->call(MeetingDemoSeeder::class);
     }
 
     /**
